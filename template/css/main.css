@@ -1,0 +1,134 @@
+
+@font-face {
+    font-family: "Gilroy";
+    src: url("./font/gilroy/Gilroy-Medium.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Gilroy";
+    src: url("./font/gilroy/Gilroy-SemiBold.otf");
+    font-style: normal;
+    font-weight: 600;
+}
+
+body {
+    background-color: #edebf2;
+    font-family: 'Gilroy';
+    min-height: 100vh;
+}
+
+/* Header */
+
+.nav-item {
+    font-family: 'Gilroy';
+    font-size: 1.2em;
+}
+
+.navbar-brand, .active{
+    font-family: 'Gilroy';
+    font-weight: 600;
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+}
+
+.navbar.navbar-dark .navbar-nav .nav-item.active>.nav-link, .selected {
+    background-color: transparent;
+    padding: 0px 8px 0px 8px !important;
+    margin: 8px 0px 8px 0px;
+    border-bottom: 3px solid white;
+}
+
+.user-dropdown, .btn-login {
+    order: 10;
+    word-wrap: normal;
+}
+
+.user-dropdown {
+    width: 250px;
+}
+
+.btn-login {
+    width: 200px;
+}
+
+.dropdown-item {
+    font-size: 1em !important;
+}
+
+.row {
+    justify-content: center;
+}
+
+/* Main */
+
+main {
+    padding: 30px 0px 10px 0px;
+}
+
+.card .view {
+    height: 300px;
+}
+
+.card .view.overlay {
+    height: 100%; 
+    width: auto; 
+    max-height: 300px;
+}
+
+.card .view img {
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.card-body a h4 {
+    margin: 0;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #4285f49c;
+}
+
+/* Footer */
+
+footer {
+    background-color: #303030;
+    text-align: center;
+    color: white;
+}
+
+
+@media screen and (min-width: 992px) and (max-width: 1200px) {
+    .mega-dropdown {
+        width: 120px;
+    }
+}
+
+@media screen and (max-width: 525px) {
+    .navbar-brand, .nav-item {
+        font-size: 1em;
+    }
+    .user-dropdown {
+        width: 220px;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .navbar.navbar-dark .navbar-nav .nav-item.active>.nav-link {
+        margin: 0px;
+        padding: 8px;
+        padding-bottom: 0px;
+    }
+
+    .user-dropdown {
+        order: 0;
+    }
+}

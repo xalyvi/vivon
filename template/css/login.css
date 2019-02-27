@@ -1,0 +1,106 @@
+
+@font-face {
+    font-family: "Gilroy";
+    src: url("./font/gilroy/Gilroy-Medium.otf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Gilroy";
+    src: url("./font/gilroy/Gilroy-SemiBold.otf");
+    font-style: normal;
+    font-weight: 600;
+}
+
+body {
+    background-color: #edebf2;
+    font-family: 'Gilroy';
+    min-height: 100vh;
+}
+
+.intro-2 {
+    background: url("../img/login_bg.jpg") no-repeat center center;
+    background-size: cover;
+}
+
+.card {
+    background-color: rgba(229, 228, 255, 0.2);
+}
+
+.md-form label {
+    color: #ffffff;
+}
+
+h6 {
+    line-height: 1.7;
+}
+
+.card {
+    margin-top: 30px;
+}
+
+.md-form input[type=text]:focus:not([readonly]),
+.md-form input[type=password]:focus:not([readonly]) {
+    border-bottom: 1px solid #8EDEF8;
+    box-shadow: 0 1px 0 0 #8EDEF8;
+}
+
+.md-form input[type=text]:focus:not([readonly])+label,
+.md-form input[type=password]:focus:not([readonly])+label {
+    color: #8EDEF8;
+}
+
+.md-form .form-control {
+    color: #fff;
+}
+
+/* Header */
+
+.nav-item {
+    font-family: 'Gilroy';
+    font-size: 1.2em;
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.navbar.navbar-dark .navbar-nav .nav-item.active>.nav-link, .selected {
+    background-color: transparent;
+    padding: 0px 8px 0px 8px !important;
+    margin: 8px 0px 8px 0px;
+    border-bottom: 3px solid white;
+}
+
+.btn-login {
+    order: 10;
+    word-wrap: normal;
+}
+
+.btn-login {
+    width: 200px;
+}
+
+.dropdown-item {
+    font-size: 1em !important;
+}
+
+.row {
+    justify-content: center;
+}
+
+@media screen and (max-width: 525px) {
+    .navbar-brand, .nav-item {
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .navbar.navbar-dark .navbar-nav .nav-item.active>.nav-link {
+        margin: 0px;
+        padding: 8px;
+        padding-bottom: 0px;
+    }
+}
