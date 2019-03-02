@@ -4,8 +4,6 @@ class HomeController
 {
     public function actionIndex($page = 1)
     {
-        
-
         $projects = Project::getProjects($page);
 
         $total = Project::getTotalProjects();
@@ -19,8 +17,6 @@ class HomeController
 
     public function actionCategory($category, $page = 1)
     {
-        User::checkLogged();
-
         $projects = Project::getProjects($page, $category);
 
         $total = Project::getTotalProjects($category);

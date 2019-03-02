@@ -12,7 +12,7 @@
           aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-           <!-- <?php if (User::checkLogged()): ?> -->
+           <!-- <?php if (isset($_SESSION['user'])): ?> -->
                 <div class="dropdown user-dropdown" style="align-self: flex-end;">
                     <button class="btn btn-primary dropdown-toggle btn-blue btn-rounded" type="button" id="dropdownMenu1" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['user']['name'].' '.$_SESSION['user']['surname']; ?></button>
@@ -33,7 +33,7 @@
             <li class="nav-item dropdown mr-4 mega-dropdown
             <?php
 
-                if(preg_match("~/projects",$_SERVER['REQUEST_URI']) || preg_match("~/projects/page-~",$_SERVER['REQUEST_URI']))
+                if(preg_match("/projects/i",$_SERVER['REQUEST_URI']) || preg_match("/projects\/page-/i",$_SERVER['REQUEST_URI']))
                     echo ' active';
             ?>
                 ">
@@ -45,48 +45,48 @@
                         <a class="nav-link mx-3
             <?php
 
-                if(preg_match("~/projects",$_SERVER['REQUEST_URI']) || preg_match("~/projects/page-~",$_SERVER['REQUEST_URI']))
+                if(preg_match("/projects/",$_SERVER['REQUEST_URI']) || preg_match("/projects\/page-/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects">Все</a>
                 <a class="nav-link mx-3';
-                if(preg_match("~/projects/transport~",$_SERVER['REQUEST_URI']))
+                if(preg_match("/projects\/transport/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/transport">Транспорт</a>
                 <a class="nav-link mx-3';
-                if(preg_match("~/projects/tech~",$_SERVER['REQUEST_URI']))
+                if(preg_match("/projects\/tech/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/tech">Технология</a>
                 <a class="nav-link mx-3';
-                if(preg_match("~/projects/him~",$_SERVER['REQUEST_URI']))
+                if(preg_match("/projects\/him/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/him">Химбиотех</a>
                 <a class="nav-link mx-3';
-                if(preg_match("~/projects/energ~",$_SERVER['REQUEST_URI']))
+                if(preg_match("/projects\/energ/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/energ">Энергетика</a>
                 <a class="nav-link mx-3';
-                if(preg_match("~/projects/design~",$_SERVER['REQUEST_URI']))
+                if(preg_match("/projects\/design/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/design">Дизайн</a>
                 <a class="nav-link mx-3';
-                if(preg_match("~/projects/social~",$_SERVER['REQUEST_URI']))
+                if(preg_match("/projects\/social/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/social">Социальные Технологии</a>
                 <a class="nav-link mx-3';
-                if(preg_match("~/projects/imitiativ~",$_SERVER['REQUEST_URI']))
+                if(preg_match("/projects\/imitiativ/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/initiativ">Инициативные проекты</a>
                     </div>
                     </div>
                 </li>
                 <li class="nav-item mr-4';
-                if(preg_match("~/users",$_SERVER['REQUEST_URI']))
+                if(preg_match("/users/i",$_SERVER['REQUEST_URI']))
                     echo ' active';
                 echo '">
                     <a class="nav-link" href="/users">Участники</a>
                 </li>
                 <li class="nav-item mr-4';
-                if(preg_match("~/teams",$_SERVER['REQUEST_URI']))
+                if(preg_match("/teams/i",$_SERVER['REQUEST_URI']))
                     echo ' active';
                 echo '">
                     <a class="nav-link" href="/teams">Команды</a>

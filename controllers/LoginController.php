@@ -30,6 +30,6 @@ class LoginController
     public function actionLogout()
     {
         session_unset();
-        header("Location: /login");
+        header("Location: /projects");
     }
 }

@@ -23,16 +23,15 @@
                                             <div class="form-header purple-gradient">
                                                 <h3>Авторизация</h3>
                                             </div>
+                                            <?php if ($errors): ?>
+                                                <h3 class="d-flex justify-content-center" style="color: white;">Неверный логин или пароль</h3>
+                                            <?php endif; ?>
                                             <div class="md-form">
-                                        <?php if ($errors): ?>
-                                            <h3 class="d-flex justify-content-center" style="color: white;">Неверный логин или пароль</h3>
-                                        <?php endif; ?>
                                                     <i class="fa fa-user prefix white-text"></i>
                                                     <input type="text" name="login" id="orangeForm-name" class="form-control" value="<?php if(array_key_exists('login', $_COOKIE))
                                                     echo $_COOKIE['login']; ?>" required>
                                                     <label for="orangeForm-name">Логин</label>
                                                 </div>
-                                            
                                                 <div class="md-form">
                                                     <i class="fa fa-lock prefix white-text"></i>
                                                     <input type="password" name="password" id="orangeForm-pass" class="form-control" value="<?php if(array_key_exists('password', $_COOKIE))
@@ -42,10 +41,7 @@
                                             <div class="text-center">
                                             <input type="submit" class="btn purple-gradient btn-lg" value="Войти">
                                             </div>
-
                                         </form>
-
-
                                     </div>
                                 </div>
                                 <!--/Form with header-->

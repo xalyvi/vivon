@@ -1,4 +1,9 @@
-<?php $site = 404; include(ROOT.'/views/layouts/header.php'); ?>
+<?php $site = '404'; include(ROOT.'/views/layouts/header.php'); ?>
+
+<!-- Custom styles -->
+<link href="/template/css/main.css" rel="stylesheet">
+</head>
+    <body class="d-flex flex-column h-100">
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark elegant-color-dark">
@@ -7,6 +12,7 @@
           aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+              <!-- <?php if (isset($_SESSION['user'])): ?> -->
                 <div class="dropdown user-dropdown align-self-end">
                     <button class="btn btn-primary dropdown-toggle btn-blue btn-rounded" type="button" id="dropdownMenu1" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false"><?php echo ($_SESSION['user']['name'].' '.$_SESSION['user']['surname']) ?></button>
@@ -18,7 +24,9 @@
                         <a class="dropdown-item" href="/logout"><i class="fas fa-power-off fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Выйти</a>
                     </div>
                 </div>
-
+              <!-- <?php else: ?> -->
+              <a class="btn btn-primary btn-blue btn-rounded btn-login" href="/login" style="align-self: flex-end;" type="button">Войти</a>
+            <!-- <?php endif; ?> -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
           <a class="navbar-brand mr-5" href="/projects">Проекты МосПолитеха</a>
           <ul class="navbar-nav mt-lg-0">

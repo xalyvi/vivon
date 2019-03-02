@@ -5,8 +5,9 @@ return array (
     'projects/([a-z]+)' => 'home/category/$1',
     'projects' => 'home/index',
     'project/id-([0-9]+)' => 'project/index/$1',
+    'profile/projects' => 'profile/addproject',
     'login' => 'login/index',
     'logout' => 'login/logout',
+    'notfound' => 'notfound/index',
     '' => 'home/index',
-    '404' => 'for/index'
     );

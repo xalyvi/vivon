@@ -4,7 +4,6 @@ class ProjectController
 {
     public function actionIndex($projectId)
     {
-        User::checkLogged();
         $already = false;
 
         $project = Project::getProjectById($projectId);
@@ -47,15 +46,15 @@ class ProjectController
         $approved = Project::getApproved($projectId);
         $approved_num = count($approved);
 
-        if($_SESSION['user']['type'] == 'teacher')
+        if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'teacher')
             $is_project_creator = ($project['creator_id'] == $_SESSION['user']['id']) ? TRUE : FALSE;
 
-        if($_SESSION['user']['type'] == 'student')
+        if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'student')
             $result = Project::getRequestByUserAndId($_SESSION['user']['id'], $projectId);
         else
             $result = false;
 
-        require(ROOT.'/views/project.php');
+        require(ROOT.'/views/project/index.php');
         return true;
 
     }
