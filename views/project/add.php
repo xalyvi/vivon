@@ -80,7 +80,7 @@
                                 <input type="file" name="photo" accept=".jpg, .jpeg, .png, .gif, .bmp">
                             </div>
                             <div class="file-path-wrapper">
-                                <input class="file-path validate" name="photo_name" type="text" placeholder="Имя файла">
+                                <input class="file-path validate" name="photo_name" type="text" placeholder="Я это поле уберу">
                             </div>
                         </div>
                         <p class="text-left mt-3 mb-1"><strong>2. Название проекта</strong><span class="red-text"> *</span></p>
@@ -93,18 +93,16 @@
                             <textarea type="text" name="description" id="materialContactFormMessage" class="form-control md-textarea" rows="3"></textarea>
                             <label for="materialContactFormMessage">Описание</label>
                         </div>
-                        <p class="text-left mb-1"><strong>4. Направление проекта</strong><span class="red-text"> *</span></p>
-                        <select class="browser-default custom-select mb-3" name="fac" required>
+                        <p class="text-left mb-1"><strong>4. Критерии. Soon...</strong></p>
+
+                        <p class="text-left mb-1"><strong>5. Количество команд на проекте</strong><span class="red-text"> *</span></p>
+                        <select class="browser-default custom-select" name="size" required>
                             <option value="" selected>Не выбрано</option>
-                            <option value="1">Транспорт</option>
-                            <option value="2">Технология</option>
-                            <option value="3">Химбиотех</option>
-                            <option value="4">Энергетика</option>
-                            <option value="5">Дизайн</option>
-                            <option value="6">Социальные технологии</option>
-                            <option value="7">Инициативные проекты</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
                         </select>
-                        <p class="text-left mb-1"><strong>5. Количество человек на проекте</strong><span class="red-text"> *</span></p>
+                        <p class="text-left mb-1"><strong>5. Количество членов команды</strong><span class="red-text"> *</span></p>
                         <select class="browser-default custom-select" name="size" required>
                             <option value="" selected>Не выбрано</option>
                             <option value="1">1</option>
@@ -113,20 +111,6 @@
                             <option value="4">4</option>
                             <option value="5">5</option>
                             <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
-                            <option value="20">20</option>
                         </select>
                         <button class="btn btn-info btn-block my-4" name="create" type="submit">Создать проект</button>
                     </form>

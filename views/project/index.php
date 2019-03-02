@@ -110,7 +110,7 @@
                             <td class="align-middle"><?php echo $request['surname']; ?></td>
                             <td class="align-middle"><?php echo $request['course']; ?></td>
                             <td class="align-middle"><?php echo $request['role']; ?></td>
-                    <?php if (isset($_SESSION['user']) && ($request['user_id'] == $_SESSION['user']['id'] || $_SESSION['user']['type'] == 'admin' || ($_SESSION['user']['type'] == 'teacher' && $is_project_creator))): ?>
+                    <?php if (isset($_SESSION['user']) && ($request['user_id'] == $_SESSION['user']['id'] || $_SESSION['user']['type'] == 'admin' || ($_SESSION['user']['type'] == 'leader' && $is_project_creator))): ?>
                     <?php $already = true; ?>
                         <td class="align-middle">
                             <form action="" method="post">
@@ -121,7 +121,7 @@
                     <?php else: ?>
                         <td class="align-middle"></td>
                     <?php endif; ?>
-                    <?php if (isset($_SESSION['user']) && ($_SESSION['user']['type'] == 'admin' || ($_SESSION['user']['type'] == 'teacher' && $is_project_creator))): ?>
+                    <?php if (isset($_SESSION['user']) && ($_SESSION['user']['type'] == 'admin' || ($_SESSION['user']['type'] == 'leader' && $is_project_creator))): ?>
                         <td class="align-middle">
                             <form action="" method="post">
                                 <input type="hidden" name="id" value="<?php echo $request['user_id']; ?>">
@@ -167,7 +167,7 @@
                             <td class="align-middle"><?php echo $approved_item['surname']; ?></td>
                             <td class="align-middle"><?php echo $approved_item['course']; ?></td>
                             <td class="align-middle"><?php echo $approved_item['role']; ?></td>
-                            <?php if (isset($_SESSION['user']) && ($approved_item['user_id'] == $_SESSION['user']['id'] || $_SESSION['user']['type'] == 'admin' || ($_SESSION['user']['type'] == 'teacher' && $is_project_creator))): ?>
+                            <?php if (isset($_SESSION['user']) && ($approved_item['user_id'] == $_SESSION['user']['id'] || $_SESSION['user']['type'] == 'admin' || ($_SESSION['user']['type'] == 'leader' && $is_project_creator))): ?>
                             <?php $already = true; ?>
                         <td class="align-middle">
                             <form action="" method="post">
@@ -198,6 +198,11 @@
                   </div>
                     </div>
                 </div>
+                <?php if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'leader'): ?>
+            <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+                    <a class="btn-floating btn-lg blue-gradient" href="/profile/addproject"><i class="fas fa-plus"></i></a>
+            </div>
+        <?php endif; ?>
   </main>
   <footer class="py-3">
     © 2019 Московский политехнический университет

@@ -1,33 +1,18 @@
 
-@font-face {
-    font-family: "Gilroy";
-    src: url("./font/gilroy/Gilroy-Medium.otf");
-    font-style: normal;
-    font-weight: normal;
-}
 
-@font-face {
-    font-family: "Gilroy";
-    src: url("./font/gilroy/Gilroy-SemiBold.otf");
-    font-style: normal;
-    font-weight: 600;
-}
 
 body {
     background-color: #edebf2;
-    font-family: 'Gilroy';
     min-height: 100vh;
 }
 
 /* Header */
 
 .nav-item {
-    font-family: 'Gilroy';
     font-size: 1.2em;
 }
 
 .navbar-brand, .active{
-    font-family: 'Gilroy';
     font-weight: 600;
 }
 

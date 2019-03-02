@@ -33,7 +33,7 @@
             <li class="nav-item dropdown mr-4 mega-dropdown
             <?php
 
-                if(preg_match("/projects/i",$_SERVER['REQUEST_URI']) || preg_match("/projects\/page-/i",$_SERVER['REQUEST_URI']))
+                if(preg_match("/\A\/$/i",$_SERVER['REQUEST_URI']) || preg_match("/\A\/page-[0-9]+$/i",$_SERVER['REQUEST_URI']) || preg_match("/\A\/projects$/i",$_SERVER['REQUEST_URI']) || preg_match("/\A\/projects\/page-[0-9]+$/i",$_SERVER['REQUEST_URI']))
                     echo ' active';
             ?>
                 ">
@@ -45,35 +45,35 @@
                         <a class="nav-link mx-3
             <?php
 
-                if(preg_match("/projects/",$_SERVER['REQUEST_URI']) || preg_match("/projects\/page-/i",$_SERVER['REQUEST_URI']))
+                if(preg_match("/\A\/projects$/",$_SERVER['REQUEST_URI']) || preg_match("/\A\/projects\/page-[0-9]+$/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects">Все</a>
                 <a class="nav-link mx-3';
-                if(preg_match("/projects\/transport/i",$_SERVER['REQUEST_URI']))
+                if(preg_match("/\btransport\b/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/transport">Транспорт</a>
                 <a class="nav-link mx-3';
-                if(preg_match("/projects\/tech/i",$_SERVER['REQUEST_URI']))
+                if(preg_match("/\btech\b/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/tech">Технология</a>
                 <a class="nav-link mx-3';
-                if(preg_match("/projects\/him/i",$_SERVER['REQUEST_URI']))
+                if(preg_match("/\bhim\b/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/him">Химбиотех</a>
                 <a class="nav-link mx-3';
-                if(preg_match("/projects\/energ/i",$_SERVER['REQUEST_URI']))
+                if(preg_match("/\benerg\b/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/energ">Энергетика</a>
                 <a class="nav-link mx-3';
-                if(preg_match("/projects\/design/i",$_SERVER['REQUEST_URI']))
+                if(preg_match("/\bdesign\b/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/design">Дизайн</a>
                 <a class="nav-link mx-3';
-                if(preg_match("/projects\/social/i",$_SERVER['REQUEST_URI']))
+                if(preg_match("/\bsocial\b/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/social">Социальные Технологии</a>
                 <a class="nav-link mx-3';
-                if(preg_match("/projects\/imitiativ/i",$_SERVER['REQUEST_URI']))
+                if(preg_match("/\binitiativ\b/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
                 echo '" href="/projects/initiativ">Инициативные проекты</a>
                     </div>
@@ -106,7 +106,11 @@
                 <?php $approved_num = Project::getApprovedTeams($project['id']); ?>
                     <div class="card">
                     <div class="view overlay">
+                    <?php if ($project['image'] != 'none'): ?>
                     <img class="card-img-top" src="/template/img/<?php echo $project['image'] ?>" alt="Card image cap">
+<?php else: ?>
+                    <p>Нет Картинки</p>
+<?php endif; ?>
                     <a href="/project/id-<?php echo $project['id'] ?>">
                     <div class="mask rgba-white-slight"></div>
                     </a>
@@ -137,6 +141,11 @@
                 <h1 class="d-flex justify-content-center">Для этого направления пока нет проектов</h1>
             <?php endif; ?>
         </div>
+        <?php if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'leader'): ?>
+            <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+                    <a class="btn-floating btn-lg blue-gradient" href="/profile/addproject"><i class="fas fa-plus"></i></a>
+            </div>
+        <?php endif;?>
   </main>
     <footer class="py-3">
     © 2019 Московский политехнический университет

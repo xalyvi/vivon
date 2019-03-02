@@ -29,7 +29,8 @@ class LoginController
 
     public function actionLogout()
     {
-        session_unset();
-        header("Location: /projects");
+        session_destroy();
+        header("Location: /");
+        return true;
     }
 }

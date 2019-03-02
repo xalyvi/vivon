@@ -30,7 +30,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
           <a class="navbar-brand mr-5" href="/projects">Проекты МосПолитеха</a>
           <ul class="navbar-nav mt-lg-0">
-          <li class="nav-item dropdown mr-4 mega-dropdown active">
+          <li class="nav-item dropdown mr-4 mega-dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">Проекты
                     </a>

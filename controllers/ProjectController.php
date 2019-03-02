@@ -35,7 +35,7 @@ class ProjectController
             Project::makeRequest($_SESSION['user']['id'], $_SESSION['user']['name'], $_SESSION['user']['surname'], $_SESSION['user']['course'], $_POST['role'], $projectId);
         else if (isset($_POST['cancel_req']) && isset($_POST['id']) && $_SESSION['user']['type'] == 'student')
             Project::cancelRequest($_SESSION['user']['id'], $projectId);
-        else if (isset($_POST['cancel_req']) && isset($_POST['id']) && $_SESSION['user']['type'] == 'teacher')
+        else if (isset($_POST['cancel_req']) && isset($_POST['id']) && $_SESSION['user']['type'] == 'leader')
             Project::cancelRequest($_POST['id'], $projectId);
         else if (isset($_POST['cancel_apr']) && isset($_POST['id']))
             Project::cancelApproved($_POST['id'], $projectId);   
@@ -46,7 +46,7 @@ class ProjectController
         $approved = Project::getApproved($projectId);
         $approved_num = count($approved);
 
-        if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'teacher')
+        if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'leader')
             $is_project_creator = ($project['creator_id'] == $_SESSION['user']['id']) ? TRUE : FALSE;
 
         if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'student')
