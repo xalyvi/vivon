@@ -94,9 +94,31 @@
             ?>
           </ul>
         </div>
-        
       </div>
     </nav>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark elegant-color">
+      <div class="container">
+        <div class="row w-100">
+            <div class="input-group md-form form-sm form-2 pl-0 p-1 pt-3 m-0 col-12 col-xl-9 align-middle" style="height: 50px;">
+                <input class="form-control my-0 py-1" type="text" placeholder="Название проекта" aria-label="Search">
+                <div class="input-group-append">
+                    <a class="input-group-text blue darken-2" id="basic-text1"><i class="fas fa-search text-white" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="col-12 col-xl-3">
+                <p class="text-white m-1">Сортировка проектов</p>
+                <select class="browser-default custom-select">
+                    <option value="1">По дате (сначала новые)</option>
+                    <option value="2">По дате (сначала старые)</option>
+                    <option value="3">По заполненности (сначала заполненные)</option>
+                    <option value="4">По заполненности (сначала пустые)</option>
+                </select>
+            </div>
+        </div>
+      </div>
+    </nav>
+
   </header>
 
   <main class="flex-fill">
