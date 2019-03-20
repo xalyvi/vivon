@@ -1,5 +1,7 @@
 <?php
 return array (
+    'projects/search-(.*)/page-([0-9]+)' => 'home/index/$2/$1',
+    'projects/search-(.*)' => 'home/index/1/$1',
     'projects/([a-z]+)/page-([0-9]+)' => 'home/category/$1/$2',
     'projects/page-([0-9]+)' => 'home/index/$1',
     'page-([0-9]+)' => 'home/index/$1',

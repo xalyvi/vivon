@@ -5,7 +5,7 @@ class Project
     
     const SHOW_BY_DEFAULT = 3;
 
-    public static function getProjects($page = 1, $category = false)
+    public static function getProjects($page = 1, $category = false, $search = false)
     {
         $page = intval($page);
         $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
@@ -16,6 +16,8 @@ class Project
         
         if ($category)
             $result = $db->query("SELECT id, title, image, head, capacity, description " . "FROM projects " . "WHERE fac = '".$category."' " . "LIMIT ".self::SHOW_BY_DEFAULT. " OFFSET " . $offset);
+        else if ($search)
+            $result = $db->query('SELECT id, title, image, head, capacity, description ' . 'FROM projects WHERE title REGEXP "' . $search . '" OR head REGEXP "' . $search . '" ' . 'LIMIT ' .self::SHOW_BY_DEFAULT. ' OFFSET ' . $offset);
         else
             $result = $db->query('SELECT id, title, image, head, capacity, description ' . 'FROM projects ' . 'LIMIT ' .self::SHOW_BY_DEFAULT. ' OFFSET ' . $offset);
         $i = 0;
@@ -32,12 +34,14 @@ class Project
         return $projectList;
     }
     
-    public static function getTotalProjects($category = false)
+    public static function getTotalProjects($category = false, $search = false)
     {
         $db = Db::getConnection();
         
         if ($category)
             $result = $db->query("SELECT count(id) AS count FROM projects WHERE fac = '" . $category ."'");
+        else if ($search)
+            $result = $db->query('SELECT count(id) AS count FROM projects WHERE title REGEXP "' . $search . '" OR head REGEXP "' . $search . '"');
         else
             $result = $db->query('SELECT count(id) AS count FROM projects');
         $result->setFetchMode(PDO::FETCH_ASSOC);

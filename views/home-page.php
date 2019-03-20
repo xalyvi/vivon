@@ -101,9 +101,9 @@
       <div class="container">
         <div class="row w-100">
             <div class="input-group md-form form-sm form-2 pl-0 p-1 pt-3 m-0 col-12 col-xl-9 align-middle" style="height: 50px;">
-                <input class="form-control my-0 py-1" type="text" placeholder="Название проекта" aria-label="Search">
+                <input class="form-control my-0 py-1" id="search" type="text" placeholder="Название проекта" aria-label="Search">
                 <div class="input-group-append">
-                    <a class="input-group-text blue darken-2" id="basic-text1"><i class="fas fa-search text-white" aria-hidden="true"></i></a>
+                    <a class="input-group-text blue darken-2" id="link-search"><i class="fas fa-search text-white" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div class="col-12 col-xl-3">
@@ -172,5 +172,12 @@
     <footer class="py-3">
     © 2019 Московский политехнический университет
   </footer>
+  <script>
+    $(document).ready(function(){
+        $("#search").blur(function(){
+            $("#link-search").attr("href", "/projects/search-" + $("#search").val())
+        });
+    });
+  </script>
 
 <?php include(ROOT.'/views/layouts/footer.php'); ?>
