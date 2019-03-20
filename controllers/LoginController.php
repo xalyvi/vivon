@@ -23,7 +23,7 @@ class LoginController
             }
         }
 
-        require(ROOT.'/views/login-page.php');
+        require(ROOT.'/views/login-page.phtml');
         return true;
     }
 

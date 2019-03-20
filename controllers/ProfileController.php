@@ -9,7 +9,7 @@ class ProfileController
 
         // Доделаю
 
-        require(ROOT.'/views/project/add.php');
+        require(ROOT.'/views/project/add.phtml');
         return true;
     }
 }

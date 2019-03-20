@@ -54,7 +54,7 @@ class ProjectController
         else
             $result = false;
 
-        require(ROOT.'/views/project/index.php');
+        require(ROOT.'/views/project/index.phtml');
         return true;
 
     }

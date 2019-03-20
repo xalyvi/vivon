@@ -5,7 +5,7 @@ class Project
     
     const SHOW_BY_DEFAULT = 3;
 
-    public static function getProjects($page = 1, $category = false, $search = false)
+    public static function getProjects($page = 1, $category = false, $search = false, $sort = false)
     {
         $page = intval($page);
         $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
@@ -15,11 +15,27 @@ class Project
         $projectList = array();
         
         if ($category)
-            $result = $db->query("SELECT id, title, image, head, capacity, description " . "FROM projects " . "WHERE fac = '".$category."' " . "LIMIT ".self::SHOW_BY_DEFAULT. " OFFSET " . $offset);
+            $sql = "SELECT id, title, image, head, capacity, description " . "FROM projects " . "WHERE fac = '".$category."' ";
         else if ($search)
-            $result = $db->query('SELECT id, title, image, head, capacity, description ' . 'FROM projects WHERE title REGEXP "' . $search . '" OR head REGEXP "' . $search . '" ' . 'LIMIT ' .self::SHOW_BY_DEFAULT. ' OFFSET ' . $offset);
+            $sql = 'SELECT id, title, image, head, capacity, description ' . 'FROM projects WHERE title REGEXP "' . $search . '" OR head REGEXP "' . $search . '" ';
         else
-            $result = $db->query('SELECT id, title, image, head, capacity, description ' . 'FROM projects ' . 'LIMIT ' .self::SHOW_BY_DEFAULT. ' OFFSET ' . $offset);
+            $sql = 'SELECT id, title, image, head, capacity, description ' . 'FROM projects ';
+            
+        if ($sort != false)
+        {
+            switch($sort) {
+                case 'aa':
+                    $sql .= 'ORDER BY timeCreated DESC ';
+                    break;
+                case 'ab':
+                    $sql .= 'ORDER BY timeCreated ASC ';
+                    break;
+            }
+        }
+        else
+            $sql .= 'ORDER BY timeCreated DESC ';
+        $sql .= 'LIMIT ' .self::SHOW_BY_DEFAULT. ' OFFSET ' . $offset;
+        $result = $db->query($sql);
         $i = 0;
         while($row = $result->fetch()) {
             $projectList[$i]['id'] = $row['id'];

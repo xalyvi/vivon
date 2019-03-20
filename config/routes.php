@@ -1,10 +1,16 @@
 <?php
 return array (
-    'projects/search-(.*)/page-([0-9]+)' => 'home/index/$2/$1',
-    'projects/search-(.*)' => 'home/index/1/$1',
+    'projects/search-(.*)/([ab][ab])/page-([0-9]+)' => 'home/index/$3/$2/$1',
+    'projects/search-(.*)/page-([0-9]+)' => 'home/index/$2/no/$1/',
+    'projects/search-(.*)/([ab][ab])' => 'home/index/1/$2/$1',
+    'projects/search-(.*)' => 'home/index/1/no/$1',
+    'projects/([a-z]+)/([ab][ab])/page-([0-9]+)' => 'home/category/$1/$3/$2',
+    'projects/([a-z]+)/([ab][ab])' => 'home/category/$1/1/$2',
+    'projects/([ab][ab])/page-([0-9]+)' => 'home/index/$2/$1',
     'projects/([a-z]+)/page-([0-9]+)' => 'home/category/$1/$2',
     'projects/page-([0-9]+)' => 'home/index/$1',
     'page-([0-9]+)' => 'home/index/$1',
+    'projects/([ab][ab])' => 'home/index/1/$1',
     'projects/([a-z]+)' => 'home/category/$1',
     'projects' => 'home/index',
     'project/id-([0-9]+)' => 'project/index/$1',

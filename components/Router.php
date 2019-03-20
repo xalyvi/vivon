@@ -70,3 +70,4 @@ class Router
         header('Location:'.$host.'/notfound');
     }
 }
+?>

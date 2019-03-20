@@ -1,4 +1,4 @@
-<?php $site = 'Проекты'; include(ROOT.'/views/layouts/header.php'); ?>
+<?php $site = 'Проекты'; include(ROOT.'/views/layouts/header.phtml'); ?>
 
 <!-- Custom styles -->
   <link href="/template/css/main.css" rel="stylesheet">
@@ -30,13 +30,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
           <a class="navbar-brand mr-5" href="/projects">Проекты МосПолитеха</a>
           <ul class="navbar-nav mt-lg-0">
-            <li class="nav-item dropdown mr-4 mega-dropdown
-            <?php
-
-                if(preg_match("/\A\/$/i",$_SERVER['REQUEST_URI']) || preg_match("/\A\/page-[0-9]+$/i",$_SERVER['REQUEST_URI']) || preg_match("/\A\/projects$/i",$_SERVER['REQUEST_URI']) || preg_match("/\A\/projects\/page-[0-9]+$/i",$_SERVER['REQUEST_URI']))
-                    echo ' active';
-            ?>
-                ">
+            <li class="nav-item dropdown mr-4 mega-dropdown active">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">Проекты
                 </a>
@@ -108,11 +102,11 @@
             </div>
             <div class="col-12 col-xl-3">
                 <p class="text-white m-1">Сортировка проектов</p>
-                <select class="browser-default custom-select">
-                    <option value="1">По дате (сначала новые)</option>
-                    <option value="2">По дате (сначала старые)</option>
-                    <option value="3">По заполненности (сначала заполненные)</option>
-                    <option value="4">По заполненности (сначала пустые)</option>
+                <select id="sort" class="browser-default custom-select">
+                    <option value="aa">По дате (сначала новые)</option>
+                    <option value="ab">По дате (сначала старые)</option>
+                    <option value="ba">По заполненности (сначала заполненные)</option>
+                    <option value="bb">По заполненности (сначала пустые)</option>
                 </select>
             </div>
         </div>
@@ -160,7 +154,7 @@
                 
                 <?php if ($total > 3) echo $pagination->get(); ?>
             <?php else: ?>
-                <h1 class="d-flex justify-content-center">Для этого направления пока нет проектов</h1>
+                <h1 class="d-flex justify-content-center">Не найдены проекты</h1>
             <?php endif; ?>
         </div>
         <?php if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'leader'): ?>
@@ -173,11 +167,32 @@
     © 2019 Московский политехнический университет
   </footer>
   <script>
+    let url = window.location.pathname;
+    url = url.match(/\/?[ab][ab]\/?/g);
+    if (url != null)
+        $('#sort').val(url[0].replace(/\//g, ''));
     $(document).ready(function(){
         $("#search").blur(function(){
             $("#link-search").attr("href", "/projects/search-" + $("#search").val())
         });
+        $("#search").on('keypress',function(e) {
+            if(e.which == 13) {
+                window.location.replace("/projects/search-" + $("#search").val());
+            }
+        });
+        $('#sort').on('change', function() {
+            let url = window.location.pathname;
+            let sort = $('#sort').val();
+            let i;
+            if (url.match(/\/?[ab][ab]\/?/g))
+                window.location.replace(url.replace(/\/?[ab][ab]\/?/g, "/" + sort + "/"));
+            else if (i = url.match(/page-[0-9]+/g))
+                window.location.replace(url.replace(/page-[0-9]+/g, "") + "/" + sort + i);
+            else
+                window.location.replace(url + "/" + sort);
+            console.log(i);
+        });
     });
   </script>
 
-<?php include(ROOT.'/views/layouts/footer.php'); ?>
+<?php include(ROOT.'/views/layouts/footer.phtml'); ?>
