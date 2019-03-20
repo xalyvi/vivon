@@ -1,8 +1,8 @@
 <?php
 
 return array(
-    'host' => 'std-mysql',
+    'host' => 'localhost',
     'dbname' => 'std_226',
-    'user' => 'std_226',
-    'password' => 'mysqlpassword',
+    'user' => 'root',
+    'password' => 'G1rlW!thoutLeg',
 );

@@ -161,13 +161,13 @@
                         <!--Table body-->
                         <tbody>
 
-                <?php foreach ($approved as $approved_item): ?>
+        <?php foreach ($approved as $approved_item): ?>
                     <tr>
                             <td class="align-middle"><?php echo $approved_item['name']; ?></td>
                             <td class="align-middle"><?php echo $approved_item['surname']; ?></td>
                             <td class="align-middle"><?php echo $approved_item['course']; ?></td>
                             <td class="align-middle"><?php echo $approved_item['role']; ?></td>
-                            <?php if (isset($_SESSION['user']) && ($approved_item['user_id'] == $_SESSION['user']['id'] || $_SESSION['user']['type'] == 'admin' || ($_SESSION['user']['type'] == 'leader' && $is_project_creator))): ?>
+        <?php if (isset($_SESSION['user']) && ($approved_item['user_id'] == $_SESSION['user']['id'] || $_SESSION['user']['type'] == 'admin' || ($_SESSION['user']['type'] == 'leader' && $is_project_creator))): ?>
                             <?php $already = true; ?>
                         <td class="align-middle">
                             <form action="" method="post">
@@ -179,7 +179,7 @@
                         <td class="align-middle"></td>
         <?php endif; ?>
                     </tr>
-                <? endforeach; ?>
+        <?php endforeach; ?>
                 </tbody>
                             <!--Table body-->
                         </table>
