@@ -4,7 +4,8 @@ class ProfileController
 {
     public function actionAdd()
     {
-        if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'leader')
+
+        if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'leader')
             header("Location: /");
 
         // Доделаю

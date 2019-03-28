@@ -6,7 +6,7 @@ class User
     {
         $db = Db::getConnection();
         
-        $sql = 'SELECT * FROM users WHERE login = :login AND password = :password';
+        $sql = 'SELECT id, type, course, name, surname FROM users WHERE login = :login AND password = :password';
         
         $result = $db->prepare($sql);
         $result->bindParam(':login', $login, PDO::PARAM_STR);
@@ -28,7 +28,6 @@ class User
 
     public static function checkLogged()
     {
-        
         if (isset($_SESSION['user'])) {
             return $_SESSION['user'];
         }

@@ -72,37 +72,25 @@
                     <h4 class="card-title text-center"><strong>Создание проекта</strong></h4>
                     <p class="text-left mb-1 red-text">* - обязательно для заполнения</p>
                     <form enctype="multipart/form-data" class="md-form mt-1 mb-1" action="" method="post">
-                        <p class="text-left mb-1"><strong>1. Фото проекта</strong></p>
-                        <div class="file-field">
-                            <div class="btn btn-primary btn-sm float-left">
-                                <span>Выбрать</span>
-                                <input type="hidden" name="MAX_FILE_SIZE" value="1000000000000" />
-                                <input type="file" name="photo" accept=".jpg, .jpeg, .png, .gif, .bmp">
-                            </div>
-                            <div class="file-path-wrapper">
-                                <input class="file-path validate" name="photo_name" type="text" placeholder="Я это поле уберу">
-                            </div>
-                        </div>
-                        <p class="text-left mt-3 mb-1"><strong>2. Название проекта</strong><span class="red-text"> *</span></p>
+                        <p class="text-left mt-3 mb-1"><strong>1. Название проекта</strong><span class="red-text"> *</span></p>
                         <div class="md-form mt-3">
                             <input type="text" name="title" id="materialSubscriptionFormPasswords" class="form-control" required>
                             <label for="materialSubscriptionFormPasswords">Название</label>
                         </div>
-                        <p class="text-left mb-1"><strong>3. Описание проекта</strong></p>
+                        <p class="text-left mb-1"><strong>2. Описание проекта</strong><span class="red-text"> *</span></p>
                         <div class="md-form mt-3">
                             <textarea type="text" name="description" id="materialContactFormMessage" class="form-control md-textarea" rows="3"></textarea>
                             <label for="materialContactFormMessage">Описание</label>
                         </div>
-                        <p class="text-left mb-1"><strong>4. Критерии. Soon...</strong></p>
 
-                        <p class="text-left mb-1"><strong>5. Количество команд на проекте</strong><span class="red-text"> *</span></p>
+                        <p class="text-left mb-1"><strong>3. Количество команд на проекте</strong><span class="red-text"> *</span></p>
                         <select class="browser-default custom-select" name="size" required>
                             <option value="" selected>Не выбрано</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                         </select>
-                        <p class="text-left mb-1"><strong>5. Количество членов команды</strong><span class="red-text"> *</span></p>
+                        <p class="text-left mb-1"><strong>4. Количество членов команды</strong><span class="red-text"> *</span></p>
                         <select class="browser-default custom-select" name="size" required>
                             <option value="" selected>Не выбрано</option>
                             <option value="1">1</option>
@@ -110,7 +98,6 @@
                             <option value="3">3</option>
                             <option value="4">4</option>
                             <option value="5">5</option>
-                            <option value="6">6</option>
                         </select>
                         <button class="btn btn-info btn-block my-4" name="create" type="submit">Создать проект</button>
                     </form>
