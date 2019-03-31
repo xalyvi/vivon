@@ -1,4 +1,5 @@
 <?php $site = 'Проекты'; include(ROOT.'/views/layouts/header.phtml'); ?>
+<?php include(ROOT.'/views/layouts/footer.phtml'); ?>
 
 <!-- Custom styles -->
   <link href="/template/css/main.css" rel="stylesheet">
@@ -94,7 +95,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark elegant-color">
       <div class="container">
         <div class="row w-100">
-            <div class="input-group md-form form-sm form-2 pl-0 p-1 pt-3 m-0 col-12 col-xl-9 align-middle" style="height: 50px;">
+            <div class="input-group md-form form-sm form-2 pl-0 p-1 pt-3 m-0 mt-3 col-12 col-xl-9 align-middle" style="height: 50px;">
                 <input class="form-control my-0 py-1" id="search" type="text" placeholder="Название проекта" aria-label="Search">
                 <div class="input-group-append">
                     <a class="input-group-text blue darken-2" id="link-search"><i class="fas fa-search text-white" aria-hidden="true"></i></a>
@@ -120,33 +121,36 @@
             <?php if ($total): ?>
                 <?php foreach ($projects as $project): ?>
                 <?php $approved_num = Project::getApprovedTeams($project['id']); ?>
-                    <div class="card">
-                    <div class="view overlay">
-                    <?php if ($project['image'] != 'none'): ?>
-                    <img class="card-img-top" src="/template/img/<?php echo $project['image'] ?>" alt="Card image cap">
-<?php else: ?>
-                    <p>Нет Картинки</p>
-<?php endif; ?>
-                    <a href="/project/id-<?php echo $project['id'] ?>">
-                    <div class="mask rgba-white-slight"></div>
-                    </a>
-                </div>
-                
-                <div class="card-body">
-                <h4 class="card-title"><strong><?php echo $project['title'] ?></strong></h4>
-                <div class="row justify-content-between">
-                    <h4 class="card-title col-lg-7 col-md-9"><strong>Руководитель: <?php echo $project['head'] ?></strong></h4>
-                    <h4 class="pr-5 pl-3" style="width: 150px;"><i class="fas fa-users" aria-hidden="true" style="padding-right: 8px;"></i><?php echo ($approved_num.'/'.$project['capacity']) ?></h4>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex card-block-1">
+                            <div class="view overlay mr-3 mb-2">
+                                <?php if ($project['image'] != 'none'): ?>
+                                <img class="card-img-top" style="border-radius: 50%; width: 80px; height: 80px;" src="/template/img/<?php echo $project['image'] ?>" alt="Card image cap">
+                                <?php else: ?>
+                                <p>Нет Картинки</p>
+                                <?php endif; ?>
+                                <a href="/project/id-<?php echo $project['id'] ?>">
+                                <div class="mask rgba-white-slight"></div>
+                                </a>
+                            </div>
+                            <div>
+                                <h4 class="card-title"><strong><?php echo $project['title'] ?></strong></h4>
+                                <div class="row justify-content-between">
+                                    <h4 class="card-title col-lg-7 col-md-9"><strong>Руководитель: <?php echo $project['head'] ?></strong></h4>
+                                    <h4 class="pr-5 pl-3" style="width: 150px;"><i class="fas fa-users" aria-hidden="true" style="padding-right: 8px;"></i><?php echo ($approved_num.'/'.$project['capacity']) ?></h4>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="card-text"><?php echo $project['description'] ?></p>
+                        <hr>
+                        <!-- Button -->
+                        <div class="d-flex justify-content-center align-items-center">
+                            <a href="/project/id-<?php echo $project['id'] ?>" class="text-primary">
+                                <h4 class="waves-effect waves-light"><strong>Записаться</strong></h4>
+                            </a>
+                        </div>
                     </div>
-                    <p class="card-text"><?php echo $project['description'] ?></p>
-                    <hr>
-                    <!-- Button -->
-                    <div class="d-flex justify-content-center align-items-center">
-                    <a href="/project/id-<?php echo $project['id'] ?>" class="text-primary">
-                        <h4 class="waves-effect waves-light"><strong>Записаться</strong></h4>
-                    </a>
-                    </div>
-                </div>
                 </div>
 
 
@@ -166,6 +170,7 @@
     <footer class="py-3">
     © 2019 Московский политехнический университет
   </footer>
+
   <script>
     let url = window.location.pathname;
     url = url.match(/\/?[ab][ab]\/?/g);
@@ -194,4 +199,5 @@
     });
   </script>
 
-<?php include(ROOT.'/views/layouts/footer.phtml'); ?>
+</body>
+</html>

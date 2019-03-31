@@ -76,6 +76,16 @@ main {
     margin: 0;
 }
 
+.card-block-1 {
+    flex-direction: column;
+}
+
+@media screen and (min-width: 1000px) {
+    .card-block-1 {
+        flex-direction: row;
+    }
+}
+
 .pagination .page-item .page-link:hover {
     background-color: #4285f49c;
 }
