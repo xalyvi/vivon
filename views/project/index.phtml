@@ -73,7 +73,7 @@
                     <div class="card-body">
                         <div class="d-flex card-block-1">
                             <div class="view overlay mr-3 mb-2">
-                                <img class="card-img-top" style="border-radius: 50%; width: 80px; height: 80px;" src="/template/img/<?php echo $project['image']; ?>" alt="Card image cap">
+                                <img class="card-img-top" style="border-radius: 50%; width: 80px; height: 80px;" src="/temp/<?php echo $project['image']; ?>" alt="Card image cap">
                             </div>
                             <div>
                                 <h4 class="card-title"><strong><?php echo $project['title']; ?></strong></h4>
@@ -85,72 +85,68 @@
                         </div>
                         <p class="card-text"><?php echo $project['description']; ?></p>
 
-            <?php if (isset($requests[0])): ?>
-                <hr>
-                <div class="d-flex justify-content-center align-items-center">
-                    <h5><strong>Поданные заявки</strong></h5>
-                </div>
-                <div class="table-responsive">
-                    <!--Table-->
-                    <table id="tablePreview" class="table table-striped table-sm text-nowrap">
-                        <!--Table head-->
-                        <thead>
-                            <tr>
-                                <th><strong>Имя</strong></th>
-                                <th><strong>Фамилия</strong></th>
-                                <th><strong>Курс</strong></th>
-                                <th><strong>Роль</strong></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <!--Table head-->
-                        <!--Table body-->
-                        <tbody>
-                <?php foreach ($requests as $request): ?>
-                    <tr>
-                            <td class="align-middle"><?php echo $request['name']; ?></td>
-                            <td class="align-middle"><?php echo $request['surname']; ?></td>
-                            <td class="align-middle"><?php echo $request['course']; ?></td>
-                            <td class="align-middle"><?php echo $request['role']; ?></td>
-                    <?php if (isset($_SESSION['user']) && ($request['user_id'] == $_SESSION['user']['id'] || $_SESSION['user']['type'] == 'admin' || ($_SESSION['user']['type'] == 'leader' && $is_project_creator))): ?>
-                    <?php $already = true; ?>
-                        <td class="align-middle">
-                            <form action="" method="post">
-                                <input type="hidden" name="id" value="<?php echo $request['user_id']; ?>">
-                                <input type="submit" class="btn btn-primary btn-rounded btn-sm" name="cancel_req" value="Отменить">
-                            </form>
-                        </td>
-                    <?php else: ?>
-                        <td class="align-middle"></td>
-                    <?php endif; ?>
-                    <?php if (isset($_SESSION['user']) && ($_SESSION['user']['type'] == 'admin' || ($_SESSION['user']['type'] == 'leader' && $is_project_creator))): ?>
-                        <td class="align-middle">
-                            <form action="" method="post">
-                                <input type="hidden" name="id" value="<?php echo $request['user_id']; ?>">
-                                <input type="submit" class="btn btn-primary btn-rounded btn-sm" name="add_req" value="Добавить">
-                            </form>
-                        </td>
-                    <?php else: ?>
-                        <td class="align-middle"></td>
-                    <?php endif; ?>
-                    </tr>
-        <?php endforeach; ?>
-                </tbody>
-                            <!--Table body-->
-                        </table>
-                        <!--Table-->
-                    </div>
-        <?php endif; ?>
-
         <?php  if (isset($approved[0])): ?> 
-                <div class="d-flex justify-content-center align-items-center">
-                    <h5><strong>Сформированная команда</strong></h5>
-                </div>
-                <div class="table-responsive">
-                    <!--Table-->
+            <div class="container">
+                    <div class="mt-5 d-flex justify-content-center align-items-center">
+                        <h5><strong>Сформированная команда</strong></h5>
+                    </div>
+
+
+                        <div class="col-md-6 col-sm-12">
+
+                            <?php for ($i = 0; $i < $approved_num / 2; $i++): ?>
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex">
+                                                <div class="view overlay mr-3">
+                                                    <img class="card-img-top" style="border-radius: 50%; width: 80px; height: 80px;" src="/temp/<?php echo $approved[$i]['pic']; ?>" alt="Card image cap">
+                                                </div>
+                                                    <div class="my-auto">
+                                                        <h5><?php echo $approved[$i]['full_name']; ?></h5>
+                                                        <span>1 Курс, Информационные Технологии</span>
+                                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <?php endfor; ?>
+
+                        </div>
+
+                        <?php if ($approved_num > 1): ?>
+                            <div class="col-md-6 col-sm-12">
+
+
+                                <?php for ($i = $approved_num / 2; $i < $approved_num; $i++): ?>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex">
+                                                    <div class="view overlay mr-3">
+                                                        <img class="card-img-top" style="border-radius: 50%; width: 80px; height: 80px;" src="/temp/<?php echo $approved[$i]['pic']; ?>" alt="Card image cap">
+                                                    </div>
+                                                        <div class="my-auto">
+                                                            <h5><?php echo $approved[$i]['full_name']; ?></h5>
+                                                            <span>1 Курс, Информационные Технологии</span>
+                                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php endfor; ?>
+
+
+                            </div>
+                        <?php endif; ?>
+
+
+                
+                
+                
+                
+                <!-- <div class="table-responsive">
                     <table id="tablePreview" class="table table-striped table-sm text-nowrap">
-                        <!--Table head-->
                         <thead>
                             <tr>
                                 <th><strong>Имя</strong></th>
@@ -160,52 +156,44 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <!--Table head-->
-                        <!--Table body-->
-                        <tbody>
+                        <tbody> -->
 
-        <?php foreach ($approved as $approved_item): ?>
-                    <tr>
-                            <td class="align-middle"><?php echo $approved_item['name']; ?></td>
-                            <td class="align-middle"><?php echo $approved_item['surname']; ?></td>
-                            <td class="align-middle"><?php echo $approved_item['course']; ?></td>
-                            <td class="align-middle"><?php echo $approved_item['role']; ?></td>
-        <?php if (isset($_SESSION['user']) && ($approved_item['user_id'] == $_SESSION['user']['id'] || $_SESSION['user']['type'] == 'admin' || ($_SESSION['user']['type'] == 'leader' && $is_project_creator))): ?>
-                            <?php $already = true; ?>
-                        <td class="align-middle">
-                            <form action="" method="post">
-                                <input type="hidden" name="id" value="<?php echo $approved_item['user_id'] ?>">
-                                <input type="submit" class="btn btn-primary btn-rounded btn-sm" name="cancel_apr" value="Отменить">
-                            </form>
-                        </td>
-        <?php else: ?>
-                        <td class="align-middle"></td>
-        <?php endif; ?>
-                    </tr>
-        <?php endforeach; ?>
-                </tbody>
                             <!--Table body-->
-                        </table>
                         <!--Table-->
                     </div>
         <?php endif; ?>
 
-                <?php if (isset($_SESSION['user']) && $_SESSION['user']['type'] == 'student' && !$already): ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!-- <?php if (isset($_SESSION['user']) && $_SESSION['user']['type'] == 'student' && !$already): ?>
                     <form action="" method="post">
                         <div class="row justify-content-center d-flex align-items-center text-center">
                             <input type="text" class="form-control col-8 col-sm-4 mr-4" name="role" placeholder="Ваша роль">
                             <input type="submit" class="btn btn-primary btn-rounded" name="add" value="Подать заявку">
                         </div>
                     </form>';
-                <?php endif; ?>
+                <?php endif; ?> -->
 
-                <div class="d-flex justify-content-center align-items-center">
+                <!-- <div class="d-flex justify-content-center align-items-center">
                     <h5><strong>Критерии проекта</strong></h5>
                 </div>
                 <div class="table-responsive">
-                    <!--Table-->
+                    
                     <table id="tablePreview" class="table table-striped table-sm text-nowrap">
-                        <!--Table head-->
+                        
                         <thead>
                             <tr>
                                 <th><strong>Код</strong></th>
@@ -218,8 +206,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <!--Table head-->
-                        <!--Table body-->
+                        
                         <tbody>
                         <tr>
                             <td class="align-middle">1488</td>
@@ -236,10 +223,10 @@
                             </td>
                         </tr>
                         </tbody>
-                        <!--Table body-->
+                        
                     </table>
-                    <!--Table-->
-                </div>
+                    
+                </div> -->
                 
                 <?php if (isset($_SESSION['user']) && $_SESSION['user']['type'] == 'leader'): ?>
                     <h4 class="card-title text-center mt-3"><strong>Создание критерия оценки</strong></h4>

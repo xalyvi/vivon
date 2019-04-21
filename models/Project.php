@@ -3,7 +3,7 @@
 class Project
 {
     
-    const SHOW_BY_DEFAULT = 3;
+    const SHOW_BY_DEFAULT = 6;
 
     public static function getProjects($page = 1, $category = false, $search = false, $sort = false)
     {
@@ -88,11 +88,12 @@ class Project
     {
         $db = Db::getConnection();
         
-        $result = $db->query('SELECT count(id) AS count FROM approved WHERE project_id=' . $projectId);
+        $result = $db->query('SELECT COUNT(*) as count FROM approved WHERE project_id=' . $projectId);
+
         $result->setFetchMode(PDO::FETCH_ASSOC);
-        $row = $result->fetch();
-        
-        return $row['count'];
+        $result = $result->fetch();
+
+        return $result['count'];
     }
 
     public static function makeRequest($userId, $userName, $userSurname, $userCourse, $role, $projectId)
@@ -179,22 +180,10 @@ class Project
     {
         $db = Db::getConnection();
 
-        $sql = 'SELECT * FROM requests WHERE user_id = :user_id AND project_id = :project_id';
+        $sql = 'INSERT INTO approved (user_id, full_name, course, project_id)' . ' SELECT user_id, full_name, course, project_id FROM requests WHERE user_id = :user_id AND project_id = :project_id';
         $result = $db->prepare($sql);
         $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
         $result->bindParam(':project_id', $projectId, PDO::PARAM_INT);
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-        $result->execute();
-        $student = $result->fetch();
-
-        $sql = 'INSERT INTO approved (user_id, name, surname, course, role, project_id)' . ' VALUES (:user_id, :name, :surname, :course, :role, :project_id)';
-        $result = $db->prepare($sql);
-        $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $result->bindParam(':name', $student['name'], PDO::PARAM_STR);
-        $result->bindParam(':surname', $student['surname'], PDO::PARAM_STR);
-        $result->bindParam(':course', $student['course'], PDO::PARAM_INT);
-        $result->bindParam(':role', $student['role'], PDO::PARAM_STR);
-        $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
         $result->execute();
 
         $sql = 'DELETE FROM requests WHERE user_id = :id AND project_id = :project_id';
@@ -251,14 +240,12 @@ class Project
         
         $requests = array();
             
-        $result = $db->query("SELECT user_id, name, surname, course, role FROM approved WHERE project_id = ".$project_id);
+        $result = $db->query("SELECT user_id, pic, full_name FROM approved WHERE project_id = ".$project_id);
         $i = 0;
         while($row = $result->fetch()) {
             $requests[$i]['user_id'] = $row['user_id'];
-            $requests[$i]['name'] = $row['name'];
-            $requests[$i]['surname'] = $row['surname'];
-            $requests[$i]['course'] = $row['course'];
-            $requests[$i]['role'] = $row['role'];
+            $requests[$i]['pic'] = $row['pic'];
+            $requests[$i]['full_name'] = $row['full_name'];
             $i++;
         }
         
