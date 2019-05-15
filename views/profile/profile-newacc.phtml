@@ -19,7 +19,7 @@
                     aria-haspopup="true" aria-expanded="false"><?php echo ($_SESSION['user']['name'].' '.$_SESSION['user']['surname']) ?></button>
 
                     <div class="dropdown-menu dropdown-primary dropdown-user">
-                        <a class="dropdown-item" href="/profile"><i class="fal fa-user-circle fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Личный кабинет</a>
+                        <a class="dropdown-item" href="#"><i class="fal fa-user-circle fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Личный кабинет</a>
                         <a class="dropdown-item" href="#"><i class="far fa-calendar fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>График</a>
                         <a class="dropdown-item" href="#"><i class="fas fa-file-alt fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Мои проекты</a>
                         <a class="dropdown-item" href="/logout"><i class="fas fa-power-off fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Выйти</a>
@@ -63,43 +63,43 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/profile/projects">Мои Проекты</a></li>
-                    <li class="breadcrumb-item active">Создание проекта</li>
+                    <li class="breadcrumb-item"><a href="/profile">Личный кабинет</a></li>
+                    <li class="breadcrumb-item active">Новый аккаунт</li>
                 </ol>
             </nav>
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title text-center"><strong>Создание проекта</strong></h4>
+                    <h4 class="card-title text-center"><strong>Создание аккаунта</strong></h4>
                     <p class="text-left mb-1 red-text">* - обязательно для заполнения</p>
                     <form enctype="multipart/form-data" class="md-form mt-1 mb-1" action="" method="post">
-                        <p class="text-left mt-3 mb-1"><strong>1. Название проекта</strong><span class="red-text"> *</span></p>
+                        <p class="text-left mt-3 mb-1"><strong>1. Фамилия Имя Отчество</strong><span class="red-text"> *</span></p>
                         <div class="md-form mt-3">
-                            <input type="text" name="title" id="materialSubscriptionFormPasswords" class="form-control" required>
-                            <label for="materialSubscriptionFormPasswords">Название</label>
+                            <input type="text" name="title" id="PersonName" class="form-control" required>
+                            <label for="PersonName">ФИО</label>
                         </div>
-                        <p class="text-left mb-1"><strong>2. Описание проекта</strong><span class="red-text"> *</span></p>
+                        <p class="text-left mt-3 mb-1"><strong>2. Тип аккаунта</strong><span class="red-text"> *</span></p>
+                        <select class="browser-default custom-select mt-3" required>
+                            <option value="student" selected>Студент</option>
+                            <option value="leader">Лидер</option>
+                            <option value="expert">Эсперт</option>
+                            <option value="kurator">Куратор</option>
+                        </select>
+                        <p class="text-left mt-3 mb-1"><strong>3. Должность</strong><span class="red-text"> *</span></p>
                         <div class="md-form mt-3">
-                            <textarea type="text" name="description" id="materialContactFormMessage" class="form-control md-textarea" rows="3"></textarea>
-                            <label for="materialContactFormMessage">Описание</label>
+                            <input type="text" name="title" id="Job" class="form-control" required>
+                            <label for="Job">Должность</label>
                         </div>
-
-                        <p class="text-left mb-1"><strong>3. Количество команд на проекте</strong><span class="red-text"> *</span></p>
-                        <select class="browser-default custom-select mb-2" name="size" required>
-                            <option value="" selected>Не выбрано</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                        <p class="text-left mb-1"><strong>4. Количество членов команды</strong><span class="red-text"> *</span></p>
-                        <select class="browser-default custom-select" name="size" required>
-                            <option value="" selected>Не выбрано</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                        <button class="btn btn-info btn-block my-4" name="create" type="submit">Создать проект</button>
+                        <p class="text-left mt-3 mb-1"><strong>4. Логин</strong><span class="red-text"> *</span></p>
+                        <div class="md-form mt-3">
+                            <input type="text" name="title" id="login" class="form-control" required>
+                            <label for="login">логин</label>
+                        </div>
+                        <p class="text-left mt-3 mb-1"><strong>5. Пароль</strong><span class="red-text"> *</span></p>
+                        <div class="md-form mt-3">
+                            <input type="password" name="title" id="materialSubscriptionFormPasswords" class="form-control" required>
+                            <label for="materialSubscriptionFormPasswords">ФИО</label>
+                        </div>
+                        <button class="btn btn-info btn-block my-4" name="create" type="submit">Создать аккаунт</button>
                     </form>
                 </div>
             </div>

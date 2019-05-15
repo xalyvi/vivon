@@ -17,6 +17,9 @@ return array (
     'profile/addproject' => 'profile/add',
     'login' => 'login/index',
     'logout' => 'login/logout',
+    'profile' => 'profile/index',
+    'newtype' => 'profile/newtype',
+    'newacc' => 'profile/newaccount',
     'notfound' => 'notfound/index',
     '' => 'home/index',
     );

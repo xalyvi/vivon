@@ -1,9 +1,10 @@
-<?php $site = '404'; include(ROOT.'/views/layouts/header.phtml'); ?>
+<?php $site = 'Добавить Проект'; include(ROOT.'/views/layouts/header.phtml'); ?>
 
 <!-- Custom styles -->
 <link href="/template/css/main.css" rel="stylesheet">
-</head>
-    <body class="d-flex flex-column h-100">
+  <link href="/template/css/project.css" rel="stylesheet">
+  </head>
+  <body class="d-flex flex-column h-100">
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark elegant-color-dark">
@@ -12,20 +13,20 @@
           aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-              <!-- <?php if (isset($_SESSION['user'])): ?> -->
+            <!-- <?php if (isset($_SESSION['user'])): ?> -->
                 <div class="dropdown user-dropdown align-self-end">
                     <button class="btn btn-primary dropdown-toggle btn-blue btn-rounded" type="button" id="dropdownMenu1" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false"><?php echo ($_SESSION['user']['name'].' '.$_SESSION['user']['surname']) ?></button>
 
                     <div class="dropdown-menu dropdown-primary dropdown-user">
-                        <a class="dropdown-item" href="/profile"><i class="fal fa-user-circle fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Личный кабинет</a>
+                        <a class="dropdown-item" href="#"><i class="fal fa-user-circle fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Личный кабинет</a>
                         <a class="dropdown-item" href="#"><i class="far fa-calendar fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>График</a>
                         <a class="dropdown-item" href="#"><i class="fas fa-file-alt fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Мои проекты</a>
                         <a class="dropdown-item" href="/logout"><i class="fas fa-power-off fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Выйти</a>
                     </div>
                 </div>
-              <!-- <?php else: ?> -->
-              <a class="btn btn-primary btn-blue btn-rounded btn-login" href="/login" style="align-self: flex-end;" type="button">Войти</a>
+            <!-- <?php else: ?> -->
+            <a class="btn btn-primary btn-blue btn-rounded btn-login" href="/login" style="align-self: flex-end;" type="button">Войти</a>
             <!-- <?php endif; ?> -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
           <a class="navbar-brand mr-5" href="/projects">Проекты МосПолитеха</a>
@@ -58,14 +59,47 @@
       </div>
     </nav>
   </header>
-    <!-- 404 -->
-    <h1 class="d-flex justify-content-center">404 PAGE NOT FOUND</h1>
-                    <style type="text/css">
-                        footer {
-                        position: absolute;
-                        
-                        }
-                    </style>
+  <main class="flex-fill">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">Личный кабинет</li>
+                </ol>
+            </nav>
+            <div class="row">
+            <div class="card col-sm m-1">
+                <div class="card-body">
+
+                  <h4 class="card-title">Создать новый тип проекта</h4>
+                  <a href="newtype" class="btn btn-primary">Создать</a>
+
+                </div>
+
+            </div>
+            <div class="card col-sm m-1">
+                <div class="card-body">
+
+                  <h4 class="card-title">Добавить новый аккаунт</h4>
+                  <a href="newacc" class="btn btn-primary">Добавить</a>
+
+                </div>
+
+            </div>
+            <div class="card col-sm m-1">
+                <div class="card-body">
+
+                  <h4 class="card-title">Просмотр и изменение учетных записей</h4>
+                  <a href="#" class="btn btn-primary">Изменить</a>
+
+                </div>
+
+            </div>
+            </div>
+        </div>
+  </main>
+  <footer class="py-3">
+    © 2019 Московский политехнический университет
+  </footer>
 
 <?php include(ROOT.'/views/layouts/footer.phtml'); ?>
 
