@@ -5,32 +5,8 @@ class ProjectController
     public function actionIndex($projectId)
     {
         $already = false;
-
+        $types = Project::getProjectTypes();
         $project = Project::getProjectById($projectId);
-
-        switch ($project['fac']) {
-            case 'transport':
-                $category = 'Транспорт';
-                break;
-            case 'tech':
-                $category = 'Технология';
-                break;
-            case 'him':
-                $category = 'Химбиотех';
-                break;
-            case 'energ':
-                $category = 'Энергетика';
-                break;
-            case 'design':
-                $category = 'Дизайн';
-                break;
-            case 'social':
-                $category = 'Социальные Технологии';
-                break;
-            case 'initiativ':
-                $category = 'Инициативные проекты';
-                break;
-        }
         if (isset($_POST['role']) && isset($_POST['add']) && isset($_SESSION['user']))
             Project::makeRequest($_SESSION['user']['id'], $_SESSION['user']['name'], $_SESSION['user']['surname'], $_SESSION['user']['course'], $_POST['role'], $projectId);
         else if (isset($_POST['cancel_req']) && isset($_POST['id']) && $_SESSION['user']['type'] == 'student')

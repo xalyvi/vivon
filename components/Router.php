@@ -24,12 +24,13 @@ class Router
     public function run()
     {
         $uri = $this->getURI();
+        $uri = urldecode($uri);
         
         foreach ($this->routes as $uriPattern => $path) {
             if (preg_match("~$uriPattern~", $uri)) {
-                
+
+
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
-                
                 $segments = explode('/', $internalRoute);
                 
                 $controllerName = array_shift($segments). 'Controller';

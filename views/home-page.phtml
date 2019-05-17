@@ -38,55 +38,18 @@
                 <div class="dropdown-menu mega-menu v-2 z-depth-1 elegant-color px-3" aria-labelledby="navbarDropdownMenuLink2">
                         <div class="row">
                         <a class="nav-link mx-3
-            <?php
-
-                if(preg_match("/\A\/projects$/",$_SERVER['REQUEST_URI']) || preg_match("/\A\/projects\/page-[0-9]+$/i",$_SERVER['REQUEST_URI']))
+				<?php if(preg_match("/\A\/projects$/",$_SERVER['REQUEST_URI']) || preg_match("/\A\/projects\/page-[0-9]+$/i",$_SERVER['REQUEST_URI']))
                     echo ' selected';
-                echo '" href="/projects">Все</a>
-                <a class="nav-link mx-3';
-                if(preg_match("/\btransport\b/i",$_SERVER['REQUEST_URI']))
-                    echo ' selected';
-                echo '" href="/projects/transport">Транспорт</a>
-                <a class="nav-link mx-3';
-                if(preg_match("/\btech\b/i",$_SERVER['REQUEST_URI']))
-                    echo ' selected';
-                echo '" href="/projects/tech">Технология</a>
-                <a class="nav-link mx-3';
-                if(preg_match("/\bhim\b/i",$_SERVER['REQUEST_URI']))
-                    echo ' selected';
-                echo '" href="/projects/him">Химбиотех</a>
-                <a class="nav-link mx-3';
-                if(preg_match("/\benerg\b/i",$_SERVER['REQUEST_URI']))
-                    echo ' selected';
-                echo '" href="/projects/energ">Энергетика</a>
-                <a class="nav-link mx-3';
-                if(preg_match("/\bdesign\b/i",$_SERVER['REQUEST_URI']))
-                    echo ' selected';
-                echo '" href="/projects/design">Дизайн</a>
-                <a class="nav-link mx-3';
-                if(preg_match("/\bsocial\b/i",$_SERVER['REQUEST_URI']))
-                    echo ' selected';
-                echo '" href="/projects/social">Социальные Технологии</a>
-                <a class="nav-link mx-3';
-                if(preg_match("/\binitiativ\b/i",$_SERVER['REQUEST_URI']))
-                    echo ' selected';
-                echo '" href="/projects/initiativ">Инициативные проекты</a>
-                    </div>
-                    </div>
-                </li>
-                <li class="nav-item mr-4';
-                if(preg_match("/users/i",$_SERVER['REQUEST_URI']))
-                    echo ' active';
-                echo '">
-                    <a class="nav-link" href="/users">Участники</a>
-                </li>
-                <li class="nav-item mr-4';
-                if(preg_match("/teams/i",$_SERVER['REQUEST_URI']))
-                    echo ' active';
-                echo '">
-                    <a class="nav-link" href="/teams">Команды</a>
-                </li>';
-            ?>
+                echo '" href="/projects">Все</a>';
+                	?>
+			<?php foreach ($types as $type)
+			{
+				echo '<a class="nav-link mx-3';
+				if (preg_match("/\b".$type."\b/i", $_SERVER['REQUEST_URI']))
+					echo ' selected';
+					echo '" href="/projects/'.$type.'">'.$type.'</a>';
+			}
+				?>
           </ul>
         </div>
       </div>

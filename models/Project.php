@@ -49,6 +49,21 @@ class Project
         
         return $projectList;
     }
+
+    public static function getProjectTypes()
+    {
+        $db = Db::getConnection();
+        $types = array();
+        $sql = 'SELECT project_type FROM users WHERE type="leader"';
+        $result = $db->query($sql);
+        $i = 0;
+        while ($row = $result->fetch())
+        {
+            $types[$i] = $row['project_type'];
+            $i++;
+        }
+        return $types;
+    }
     
     public static function getTotalProjects($category = false, $search = false)
     {

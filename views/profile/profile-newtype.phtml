@@ -78,18 +78,13 @@
                             <label for="ProjectName">Название типа</label>
                         </div>
                         <p class="text-left mt-3 mb-1"><strong>2. Лидер проекта</strong><span class="red-text"> *</span></p>
-                        <select class="browser-default custom-select mt-3" required>
+                        <select name="leader" class="browser-default custom-select mt-3" required>
                             <option value="" disabled selected>Выберите лидера проекта</option>
-                            <option value="1">ФИО лидера 1</option>
-                            <option value="2">ФИО лидера 2</option>
-                            <option value="3">ФИО лидера 3</option>
-                            <option value="4">ФИО лидера 4</option>
-                            <option value="5">ФИО лидера 5</option>
-                            <option value="6">ФИО лидера 6</option>
-                            <option value="7">ФИО лидера 7</option>
-                            <option value="8">ФИО лидера 8</option>
-                            <option value="9">ФИО лидера 9</option>
-                            <option value="10">ФИО лидера 10</option>
+                            <?php foreach($leaders as $leader)
+                            {
+                                echo '<option value="'.$leader['id'].'">'.$leader['surname'].' '.$leader['name'].' '.$leader['patronymic'].'</option>';
+                            }
+                                ?>
                         </select>
                         <p class="text-left mt-3 mb-1"><strong>3. Описание типа проекта</strong></p>
                         <div class="md-form mt-3">
