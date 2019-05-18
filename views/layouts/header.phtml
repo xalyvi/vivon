@@ -12,3 +12,84 @@
   <link href="/template/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="/template/css/mdb.min.css" rel="stylesheet">
+
+<!-- Custom styles -->
+<link href="/template/css/main.css" rel="stylesheet">
+<?php if ($site == 'Кабинет' || $site == 'Проект' || $site == 'Добавить Проект') echo '<link href="/template/css/project.css" rel="stylesheet">'; ?>
+</head>
+    <body class="d-flex flex-column h-100">
+
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark elegant-color-dark">
+      <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+          aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+           <?php if (isset($_SESSION['user'])): ?>
+                <div class="dropdown user-dropdown" style="align-self: flex-end;">
+                    <button class="btn btn-primary dropdown-toggle btn-blue btn-rounded" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['user']['name'].' '.$_SESSION['user']['surname']; ?></button>
+        
+                    <div class="dropdown-menu dropdown-primary dropdown-user">
+                        <a class="dropdown-item" href="profile"><i class="fal fa-user-circle fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Личный кабинет</a>
+                        <a class="dropdown-item" href="#"><i class="far fa-calendar fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>График</a>
+                        <a class="dropdown-item" href="#"><i class="fas fa-file-alt fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Мои проекты</a>
+                        <a class="dropdown-item" href="logout"><i class="fas fa-power-off fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Выйти</a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <a class="btn btn-primary btn-blue btn-rounded btn-login" href="/login" style="align-self: flex-end;" type="button">Войти</a>
+            <?php endif; ?>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+          <a class="navbar-brand mr-5" href="/projects">Проекты МосПолитеха</a>
+          <ul class="navbar-nav mt-lg-0">
+            <li class="nav-item dropdown mr-4 mega-dropdown active">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Проекты
+                </a>
+                <div class="dropdown-menu mega-menu v-2 z-depth-1 elegant-color px-3" aria-labelledby="navbarDropdownMenuLink2">
+                        <div class="row">
+                        <a class="nav-link mx-3
+				<?php if(preg_match("/\A\/projects$/",$_SERVER['REQUEST_URI']) || preg_match("/\A\/projects\/page-[0-9]+$/i",$_SERVER['REQUEST_URI']))
+                    echo ' selected';
+                echo '" href="/projects">Все</a>';
+                	?>
+			<?php foreach ($types as $type)
+			{
+				echo '<a class="nav-link mx-3';
+				if (preg_match("/\b".$type."\b/i", $_SERVER['REQUEST_URI']))
+					echo ' selected';
+					echo '" href="/projects/'.$type.'">'.$type.'</a>';
+			}
+				?>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <?php if ($site == 'Проекты'): ?>
+    <nav class="navbar navbar-expand-lg navbar-dark elegant-color">
+      <div class="container">
+        <div class="row w-100">
+            <div class="input-group md-form form-sm form-2 pl-0 p-1 pt-3 m-0 mt-3 col-12 col-xl-9 align-middle" style="height: 50px;">
+                <input class="form-control my-0 py-1" id="search" type="text" placeholder="Название проекта" aria-label="Search">
+                <div class="input-group-append">
+                    <a class="input-group-text blue darken-2" id="link-search"><i class="fas fa-search text-white" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="col-12 col-xl-3">
+                <p class="text-white m-1">Сортировка проектов</p>
+                <select id="sort" class="browser-default custom-select">
+                    <option value="aa">По дате (сначала новые)</option>
+                    <option value="ab">По дате (сначала старые)</option>
+                    <option value="ba">По заполненности (сначала заполненные)</option>
+                    <option value="bb">По заполненности (сначала пустые)</option>
+                </select>
+            </div>
+        </div>
+      </div>
+    </nav>
+    <?php endif; ?>
+
+  </header>

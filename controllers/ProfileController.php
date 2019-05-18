@@ -6,7 +6,8 @@ class ProfileController
     {
         if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'admin')
             header("Location: /");
-
+        $types = Project::getProjectTypes();
+        
         require(ROOT.'/views/profile/profile.phtml');
         return true;
     }
@@ -16,7 +17,7 @@ class ProfileController
         if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'admin')
             header("Location: /");
         $leaders = User::getLeaders();
-
+        $types = Project::getProjectTypes();
         if (isset($_POST['title']) && isset($_POST['leader']))
         {
             echo $_POST['leader'];
@@ -31,7 +32,32 @@ class ProfileController
     {
         if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'admin')
             header("Location: /");
-
+        $types = Project::getProjectTypes();
+        $errors = array();
+        if (isset($_POST['name']))
+        {
+            $str_arr = preg_split("/[ ]+/", $_POST['name']);
+            if (sizeof($str_arr) != 3)
+                $errors[0] = 'Неправильно введено ФИО.';
+            switch($_POST['type']) {
+                case 0:
+                    $_POST['type'] = 'student';
+                    break;
+                case 1:
+                    $_POST['type'] = 'leader';
+                    break;
+                case 2:
+                    $_POST['type'] = 'expert';
+                    break;
+            }
+            if ($_POST['pswd'] != $_POST['accept'])
+                $errors[1] = 'Неправильно введен пароль';
+            if (sizeof($errors) < 1)
+            {
+                $hashed = hash('sha512', $_POST['pswd']);
+                User::addUser($_POST['login'], $hashed, $_POST['type'], $_POST['position'], $str_arr);
+            }
+        }
         require(ROOT.'/views/profile/profile-newacc.phtml');
         return true;
     }
@@ -41,7 +67,7 @@ class ProfileController
 
         if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'leader')
             header("Location: /");
-
+        $types = Project::getProjectTypes();
         require(ROOT.'/views/project/add.phtml');
         return true;
     }

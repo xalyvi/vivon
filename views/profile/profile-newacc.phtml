@@ -1,64 +1,5 @@
-<?php $site = 'Добавить Проект'; include(ROOT.'/views/layouts/header.phtml'); ?>
+<?php $site = 'Кабинет'; include(ROOT.'/views/layouts/header.phtml'); ?>
 
-<!-- Custom styles -->
-<link href="/template/css/main.css" rel="stylesheet">
-  <link href="/template/css/project.css" rel="stylesheet">
-  </head>
-  <body class="d-flex flex-column h-100">
-
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark elegant-color-dark">
-      <div class="container">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
-          aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-            <!-- <?php if (isset($_SESSION['user'])): ?> -->
-                <div class="dropdown user-dropdown align-self-end">
-                    <button class="btn btn-primary dropdown-toggle btn-blue btn-rounded" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false"><?php echo ($_SESSION['user']['name'].' '.$_SESSION['user']['surname']) ?></button>
-
-                    <div class="dropdown-menu dropdown-primary dropdown-user">
-                        <a class="dropdown-item" href="#"><i class="fal fa-user-circle fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Личный кабинет</a>
-                        <a class="dropdown-item" href="#"><i class="far fa-calendar fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>График</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-file-alt fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Мои проекты</a>
-                        <a class="dropdown-item" href="/logout"><i class="fas fa-power-off fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Выйти</a>
-                    </div>
-                </div>
-            <!-- <?php else: ?> -->
-            <a class="btn btn-primary btn-blue btn-rounded btn-login" href="/login" style="align-self: flex-end;" type="button">Войти</a>
-            <!-- <?php endif; ?> -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
-          <a class="navbar-brand mr-5" href="/projects">Проекты МосПолитеха</a>
-          <ul class="navbar-nav mt-lg-0">
-          <li class="nav-item dropdown mr-4 mega-dropdown active">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink2" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">Проекты
-                    </a>
-                    <div class="dropdown-menu mega-menu v-2 z-depth-1 elegant-color px-3" aria-labelledby="navbarDropdownMenuLink2">
-                            <div class="row">
-                            <a class="nav-link mx-3" href="/projects">Все</a>
-                    <a class="nav-link mx-3" href="/projects/transport">Транспорт</a>
-                    <a class="nav-link mx-3" href="/projects/tech">Технология</a>
-                    <a class="nav-link mx-3" href="/projects/him">Химбиотех</a>
-                    <a class="nav-link mx-3" href="/projects/energ">Энергетика</a>
-                    <a class="nav-link mx-3" href="/projects/design">Дизайн</a>
-                    <a class="nav-link mx-3" href="/projects/social">Социальные Технологии</a>
-                    <a class="nav-link mx-3" href="/projects/initiativ">Инициативные проекты</a>
-                        </div>
-                        </div>
-                    </li>
-                    <li class="nav-item mr-4">
-                        <a class="nav-link" href="/users">Участники</a>
-                    </li>
-                    <li class="nav-item mr-4">
-                        <a class="nav-link" href="/teams">Команды</a>
-                    </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
   <main class="flex-fill">
         <div class="container">
             <nav aria-label="breadcrumb">
@@ -74,30 +15,35 @@
                     <form enctype="multipart/form-data" class="md-form mt-1 mb-1" action="" method="post">
                         <p class="text-left mt-3 mb-1"><strong>1. Фамилия Имя Отчество</strong><span class="red-text"> *</span></p>
                         <div class="md-form mt-3">
-                            <input type="text" name="title" id="PersonName" class="form-control" required>
+                            <input type="text" name="name" id="PersonName" class="form-control" required>
                             <label for="PersonName">ФИО</label>
                         </div>
                         <p class="text-left mt-3 mb-1"><strong>2. Тип аккаунта</strong><span class="red-text"> *</span></p>
-                        <select class="browser-default custom-select mt-3" required>
-                            <option value="student" selected>Студент</option>
-                            <option value="leader">Лидер</option>
-                            <option value="expert">Эсперт</option>
-                            <option value="kurator">Куратор</option>
+                        <select class="browser-default custom-select mt-3" name="type" required>
+                            <option value="0" selected>Студент</option>
+                            <option value="1">Лидер</option>
+                            <option value="2">Эсперт</option>
+                            <!-- <option value="kurator">Куратор</option> -->
                         </select>
                         <p class="text-left mt-3 mb-1"><strong>3. Должность</strong><span class="red-text"> *</span></p>
                         <div class="md-form mt-3">
-                            <input type="text" name="title" id="Job" class="form-control" required>
+                            <input type="text" name="position" id="position" class="form-control" required>
                             <label for="Job">Должность</label>
                         </div>
                         <p class="text-left mt-3 mb-1"><strong>4. Логин</strong><span class="red-text"> *</span></p>
                         <div class="md-form mt-3">
-                            <input type="text" name="title" id="login" class="form-control" required>
-                            <label for="login">логин</label>
+                            <input type="text" name="login" id="login" class="form-control" required>
+                            <label for="login">Логин</label>
                         </div>
                         <p class="text-left mt-3 mb-1"><strong>5. Пароль</strong><span class="red-text"> *</span></p>
                         <div class="md-form mt-3">
-                            <input type="password" name="title" id="materialSubscriptionFormPasswords" class="form-control" required>
-                            <label for="materialSubscriptionFormPasswords">ФИО</label>
+                            <input type="password" name="pswd" id="pswd" class="form-control" required>
+                            <label for="pswd">Пароль</label>
+                        </div>
+                        <p class="text-left mt-3 mb-1"><strong>6. Подтвердите пароль</strong><span class="red-text"> *</span></p>
+                        <div class="md-form mt-3">
+                            <input type="password" name="accept" id="accept" class="form-control" required>
+                            <label for="accept">Пароль</label>
                         </div>
                         <button class="btn btn-info btn-block my-4" name="create" type="submit">Создать аккаунт</button>
                     </form>

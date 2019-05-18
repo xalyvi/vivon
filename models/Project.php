@@ -54,7 +54,7 @@ class Project
     {
         $db = Db::getConnection();
         $types = array();
-        $sql = 'SELECT project_type FROM users WHERE type="leader"';
+        $sql = 'SELECT project_type FROM users WHERE type="leader" AND NOT project_type IS NULL';
         $result = $db->query($sql);
         $i = 0;
         while ($row = $result->fetch())

@@ -17,7 +17,7 @@ class ProjectController
             Project::cancelApproved($_POST['id'], $projectId);   
         else if (isset($_POST['add_req']) && isset($_POST['id']))
             Project::makeApproved($_POST['id'], $projectId);
-
+        $types = Project::getProjectTypes();
         $requests = Project::getRequests($projectId);
         $approved = Project::getApproved($projectId);
         $approved_num = count($approved);

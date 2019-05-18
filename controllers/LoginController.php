@@ -10,7 +10,7 @@ class LoginController
         $errors = false;
         if (isset($_POST['password']) && isset($_POST['login'])) {
             $login = $_POST['login'];
-            $password = $_POST['password'];
+            $password = hash('sha512', $_POST['password']);
             
             
             $user = User::checkUserData($login, $password);

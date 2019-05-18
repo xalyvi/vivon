@@ -1,6 +1,36 @@
   <!-- SCRIPTS -->
   <!-- JQuery -->
   <script type="text/javascript" src="/template/js/jquery-3.3.1.min.js"></script>
+  <?php if ($site == 'Проекты'): ?>
+    <script>
+      let url = window.location.pathname;
+      url = url.match(/\/?[ab][ab]\/?/g);
+      if (url != null)
+          $('#sort').val(url[0].replace(/\//g, ''));
+      $(document).ready(function(){
+          $("#search").blur(function(){
+              $("#link-search").attr("href", "/projects/search-" + $("#search").val())
+          });
+          $("#search").on('keypress',function(e) {
+              if(e.which == 13) {
+                  window.location.replace("/projects/search-" + $("#search").val());
+              }
+          });
+          $('#sort').on('change', function() {
+              console.log("change");
+              let url = window.location.pathname;
+              let sort = $('#sort').val();
+              let i;
+              if (url.match(/\/?[ab][ab]\/?/g))
+                  window.location.replace(url.replace(/\/?[ab][ab]\/?/g, "/" + sort + "/"));
+              else if (i = url.match(/page-[0-9]+/g))
+                  window.location.replace(url.replace(/page-[0-9]+/g, "") + "/" + sort + i);
+              else
+                  window.location.replace(url + "/" + sort);
+          });
+      });
+    </script>
+  <?php endif; ?>
   <!-- Bootstrap tooltips -->
   <script type="text/javascript" src="/template/js/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->
