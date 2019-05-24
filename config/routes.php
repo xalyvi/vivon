@@ -19,6 +19,7 @@ return array (
     'logout' => 'login/logout',
     'profile' => 'profile/index',
     'newtype' => 'profile/newtype',
+    'showaccs' => 'profile/showaccs',
     'newacc' => 'profile/newaccount',
     'notfound' => 'notfound/index',
     '' => 'home/index',

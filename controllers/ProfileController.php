@@ -28,6 +28,15 @@ class ProfileController
         return true;
     }
 
+    public function actionShowAccs() 
+    {
+        if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'admin')
+            header("Location: /");
+            
+        require(ROOT.'/views/profile/profile-showaccs.phtml');
+        return true;
+    }
+
     public function actionNewAccount() 
     {
         if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'admin')
