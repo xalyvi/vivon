@@ -4,11 +4,14 @@ class ProfileController
 {
     public function actionIndex() 
     {
-        if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'admin')
+        if(!isset($_SESSION['user']) || ($_SESSION['user']['type'] != 'admin' && $_SESSION['user']['type'] != 'leader'))
             header("Location: /");
         $types = Project::getProjectTypes();
         
-        require(ROOT.'/views/profile/profile.phtml');
+        if ($_SESSION['user']['type'] == 'admin')
+            require(ROOT.'/views/profile/profile-admin.phtml');
+        else if ($_SESSION['user']['type'] == 'leader')
+            require(ROOT.'/views/profile/profile-leader.phtml');
         return true;
     }
 

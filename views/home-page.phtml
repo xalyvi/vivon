@@ -40,10 +40,15 @@
                         </div>
                         <p class="card-text"><?php echo $project['description'] ?></p>
                         <hr>
-                        <!-- Button -->
                         <div class="d-flex justify-content-center align-items-center">
                             <a href="/project/id-<?php echo $project['id'] ?>" class="text-primary">
-                                <h4 class="waves-effect waves-light"><strong>Записаться</strong></h4>
+
+                                <!-- (Для лидера) Сделать так чтобы только на проектах с тем же направлением что и у лидера высвечивалась кнопка редактировать. -->
+                                <?php if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'leader'): ?>
+                                    <h4 class="waves-effect waves-light"><strong>Редактировать</strong></h4>
+                                <?php else: ?>
+                                    <h4 class="waves-effect waves-light"><strong>Записаться</strong></h4>
+                                <?php endif; ?>
                             </a>
                         </div>
                     </div>
