@@ -1,0 +1,34 @@
+<?php $site = 'Кабинет'; include(ROOT.'/views/layouts/header.phtml'); ?>
+
+  <main class="flex-fill">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">Личный кабинет</li>
+                </ol>
+            </nav>
+            <div class="row justify-content-md-center"><h2 class="text-center"><strong>Вы <span class="text-primary">ЛИДЕР</span> направления "название направления"<strong></h2></div>
+            <hr>
+            <div class="row"><p class="text-center col-md-8">На ЛИДЕРЕ направления лежит ответственность по <span class="text-success">созданию</span> и <span class="text-success">редактированию</span> проектов. Назначайте <span class="text-success">кураторов</span>, прикрепляйте к проекту <span class="text-success">экспертов</span> и <span class="text-success">критерии</span> оценки.</p></div>
+            <div class="card-deck">
+                <div class="card col-sm m-1">
+                    <div class="card-body">
+                      <h4 class="card-title">Добавить новый проект</h4>
+                      <a href="profile/addproject" class="btn btn-primary">Добавить</a>
+                    </div>
+                </div>
+                <div class="card col-sm m-1">
+                    <div class="card-body">
+                      <h4 class="card-title">Просмотр и редактирование проектов</h4>
+                      <!-- Должна быть ссылка на проекты направления залогиненного лидера. -->
+                      <a href="#" class="btn btn-primary">Редактировать</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </main>
+  <footer class="py-3">
+    © 2019 Московский политехнический университет
+  </footer>
+
+<?php include(ROOT.'/views/layouts/footer.phtml'); ?>
