@@ -44,12 +44,19 @@
                             <a href="/project/id-<?php echo $project['id'] ?>" class="text-primary">
 
                                 <!-- (Для лидера) Сделать так чтобы только на проектах с тем же направлением что и у лидера высвечивалась кнопка редактировать. -->
+<<<<<<< HEAD
                                 <?php if(isset($_SESSION['user']) && $_SESSION['user']['project_type'] == $project['fac']): ?>
                                     <h4 class="waves-effect waves-light"><strong>Редактировать</strong></h4>
                                 <?php elseif(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'student'): ?>
                                     <h4 class="waves-effect waves-light"><strong>Записаться</strong></h4>
                                 <?php else: ?>
                                     <h4 class="waves-effect waves-light"><strong>Просмотреть</strong></h4>
+=======
+                                <?php if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'leader'): ?>
+                                    <h4 class="waves-effect waves-light"><strong>Редактировать</strong></h4>
+                                <?php else: ?>
+                                    <h4 class="waves-effect waves-light"><strong>Записаться</strong></h4>
+>>>>>>> 764603c01024d0a99fc0670894e64ea729757bbf
                                 <?php endif; ?>
                             </a>
                         </div>
