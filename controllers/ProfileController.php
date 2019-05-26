@@ -36,6 +36,7 @@ class ProfileController
         if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'admin')
             header("Location: /");
             
+        $accs = User::getAllAccs();
         require(ROOT.'/views/profile/profile-showaccs.phtml');
         return true;
     }
@@ -68,6 +69,7 @@ class ProfileController
             {
                 $hashed = hash('sha512', $_POST['pswd']);
                 User::addUser($_POST['login'], $hashed, $_POST['type'], $_POST['position'], $str_arr);
+                header("Location: /profile");
             }
         }
         require(ROOT.'/views/profile/profile-newacc.phtml');

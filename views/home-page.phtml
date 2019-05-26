@@ -2,18 +2,18 @@
 
   <main class="flex-fill">
         <div class="container">
-
+            <?php if (isset($category)): ?>
             <div class="card border-info">
                 <div class="card-header">
-                    Лидер: Даньшина Марина Владимировна
+                    Лидер: <?php echo $leader['surname'].' '.$leader['name'].' '.$leader['patronymic']; ?>
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">Дизайн</h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <a href="newtype">Редактировать</a>
+                    <h4 class="card-title"><?php echo $leader['project_type']; ?></h4>
+                    <p class="card-text"><?php echo $leader['p_type_des'] ?></p>
+                    <?php if (isset($_SESSION['user']) && $_SESSION['user']['project_type'] == $leader['project_type']) echo '<a href="newtype">Редактировать</a>'; ?>
                 </div>
             </div>
-
+            <?php endif; ?>
             <?php if ($total): ?>
                 <?php foreach ($projects as $project): ?>
                 <?php $approved_num = Project::getApprovedTeams($project['id']); ?>
@@ -44,10 +44,12 @@
                             <a href="/project/id-<?php echo $project['id'] ?>" class="text-primary">
 
                                 <!-- (Для лидера) Сделать так чтобы только на проектах с тем же направлением что и у лидера высвечивалась кнопка редактировать. -->
-                                <?php if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'leader'): ?>
+                                <?php if(isset($_SESSION['user']) && $_SESSION['user']['project_type'] == $project['fac']): ?>
                                     <h4 class="waves-effect waves-light"><strong>Редактировать</strong></h4>
-                                <?php else: ?>
+                                <?php elseif(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'student'): ?>
                                     <h4 class="waves-effect waves-light"><strong>Записаться</strong></h4>
+                                <?php else: ?>
+                                    <h4 class="waves-effect waves-light"><strong>Просмотреть</strong></h4>
                                 <?php endif; ?>
                             </a>
                         </div>

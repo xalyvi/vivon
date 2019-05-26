@@ -1,3 +1,5 @@
+<?php $req_url = urldecode($_SERVER['REQUEST_URI']); ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -32,10 +34,10 @@
                     aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['user']['name'].' '.$_SESSION['user']['surname']; ?></button>
         
                     <div class="dropdown-menu dropdown-primary dropdown-user">
-                        <a class="dropdown-item" href="profile"><i class="fal fa-user-circle fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Личный кабинет</a>
+                        <a class="dropdown-item" href="/profile"><i class="fal fa-user-circle fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Личный кабинет</a>
                         <a class="dropdown-item" href="#"><i class="far fa-calendar fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>График</a>
                         <a class="dropdown-item" href="#"><i class="fas fa-file-alt fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Мои проекты</a>
-                        <a class="dropdown-item" href="logout"><i class="fas fa-power-off fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Выйти</a>
+                        <a class="dropdown-item" href="/logout"><i class="fas fa-power-off fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Выйти</a>
                     </div>
                 </div>
             <?php else: ?>
@@ -51,14 +53,14 @@
                 <div class="dropdown-menu mega-menu v-2 z-depth-1 elegant-color px-3" aria-labelledby="navbarDropdownMenuLink2">
                         <div class="row">
                         <a class="nav-link mx-3
-				<?php if(preg_match("/\A\/projects$/",$_SERVER['REQUEST_URI']) || preg_match("/\A\/projects\/page-[0-9]+$/i",$_SERVER['REQUEST_URI']))
+				<?php if(preg_match("/\A\/projects$/", $req_url) || preg_match("/\A\/projects\/page-[0-9]+$/i", $req_url))
                     echo ' selected';
                 echo '" href="/projects">Все</a>';
                 	?>
 			<?php foreach ($types as $type)
 			{
-				echo '<a class="nav-link mx-3';
-				if (preg_match("/\b".$type."\b/i", $_SERVER['REQUEST_URI']))
+        echo '<a class="nav-link mx-3';
+				if (preg_match("/\A\/projects\/".$type."/i", $req_url))
 					echo ' selected';
 					echo '" href="/projects/'.$type.'">'.$type.'</a>';
 			}

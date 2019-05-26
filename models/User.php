@@ -6,7 +6,7 @@ class User
     {
         $db = Db::getConnection();
         
-        $sql = 'SELECT pic, type, name, surname, patronymic FROM users WHERE login = :login AND pswd = :password';
+        $sql = 'SELECT pic, type, project_type, name, surname, patronymic FROM users WHERE login = :login AND pswd = :password';
         
         $result = $db->prepare($sql);
         $result->bindParam(':login', $login, PDO::PARAM_STR);
@@ -18,6 +18,45 @@ class User
             return $user;
         }
         
+        return false;
+    }
+
+    public static function getAllAccs($type = false)
+    {
+        $db = Db::getConnection();
+        $sql = 'SELECT id, login, pic, type, position, project_type, name, surname, patronymic FROM users';
+        if ($type)
+            $sql .= ' WHERE type="'.$type.'"';
+        $accs = array();
+        $result = $db->query($sql);
+        $i = 0;
+        while ($row = $result->fetch())
+        {
+            $accs[$i]['id'] = $row['id'];
+            $accs[$i]['login'] = $row['login'];
+            $accs[$i]['pic'] = $row['pic'];
+            $accs[$i]['type'] = $row['type'];
+            $accs[$i]['position'] = $row['position'];
+            $accs[$i]['project_type'] = $row['project_type'];
+            $accs[$i]['name'] = $row['name'];
+            $accs[$i]['surname'] = $row['surname'];
+            $accs[$i]['patronymic'] = $row['patronymic'];
+            $i++;
+        }
+        return $accs;
+    }
+
+    public static function getLeaderbyCat($cat)
+    {
+        $db = Db::getConnection();
+        $sql = 'SELECT project_type, p_type_des, name, surname, patronymic FROM users WHERE project_type = :cat';
+        $result = $db->prepare($sql);
+        $result->bindParam(':cat', $cat, PDO::PARAM_STR);
+        $result->execute();
+        $user = $result->fetch();
+        if ($user) {
+            return $user;
+        }
         return false;
     }
 
@@ -44,7 +83,7 @@ class User
         $db = Db::getConnection();
         $sql = 'INSERT INTO users (login, pswd, pic, type, position, name, surname, patronymic) VALUES (:login, :pswd, "temp.png", :type, :position, :name, :surname, :patronymic)';
         $result = $db->prepare($sql);
-        $result->bindParam(':login', $login, PDO::PARAM_INT);
+        $result->bindParam(':login', $login, PDO::PARAM_STR);
         $result->bindParam(':pswd', $pswd, PDO::PARAM_STR);
         $result->bindParam(':type', $type, PDO::PARAM_STR);
         $result->bindParam(':position', $position, PDO::PARAM_STR);

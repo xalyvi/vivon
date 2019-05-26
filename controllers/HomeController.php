@@ -20,6 +20,7 @@ class HomeController
     public function actionCategory($category, $page = 1, $sort = false)
     {
         $projects = Project::getProjects($page, $category, false, $sort);
+        $leader = User::getLeaderByCat($category);
         $types = Project::getProjectTypes();
         $total = Project::getTotalProjects($category);
 

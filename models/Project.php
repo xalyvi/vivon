@@ -15,11 +15,11 @@ class Project
         $projectList = array();
         
         if ($category)
-            $sql = "SELECT id, title, image, head, capacity, description " . "FROM projects " . "WHERE fac = '".$category."' ";
+            $sql = "SELECT id, title, image, head, fac, capacity, description " . "FROM projects " . "WHERE fac = '".$category."' ";
         else if ($search)
-            $sql = 'SELECT id, title, image, head, capacity, description ' . 'FROM projects WHERE title REGEXP "' . $search . '" OR head REGEXP "' . $search . '" ';
+            $sql = 'SELECT id, title, image, head, fac, capacity, description ' . 'FROM projects WHERE title REGEXP "' . $search . '" OR head REGEXP "' . $search . '" ';
         else
-            $sql = 'SELECT id, title, image, head, capacity, description ' . 'FROM projects ';
+            $sql = 'SELECT id, title, image, head, fac, capacity, description ' . 'FROM projects ';
             
         if ($sort != false)
         {
@@ -41,6 +41,7 @@ class Project
             $projectList[$i]['id'] = $row['id'];
             $projectList[$i]['title'] = $row['title'];
             $projectList[$i]['image'] = $row['image'];
+            $projectList[$i]['fac'] = $row['fac'];
             $projectList[$i]['head'] = $row['head'];
             $projectList[$i]['capacity'] = $row['capacity'];
             $projectList[$i]['description'] = $row['description'];

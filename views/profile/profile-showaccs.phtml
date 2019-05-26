@@ -14,7 +14,6 @@
                         <tr>
                             <th>id</th>
                             <th>login</th>
-                            <th>password</th>
                             <th>avatar</th>
                             <th>type</th>
                             <th>position</th>
@@ -27,20 +26,23 @@
                         </tr>
                     </thead>
                     <tbody class="white">
-                        <tr>
-                            <th>3</th>
-                            <td>admin</td>
-                            <td>admin</td>
-                            <td>temp.png</td>
-                            <td>admin</td>
-                            <td>NULL</td>
-                            <td>NULL</td>
-                            <td>admin</td>
-                            <td>admin</td>
-                            <td>NULL</td>
-                            <td><button type="button" class="btn btn-link p-0">Редактировать</button></td>
-                            <td><button type="button" class="btn btn-link p-0">Удалить</button></td>
-                        </tr>
+                    <?php foreach($accs as $acc)
+                    {
+                        echo '<tr>
+                        <th>'.$acc['id'].'</th>
+                        <td>'.$acc['login'].'</td>
+                        <td>'.$acc['pic'].'</td>
+                        <td>'.$acc['type'].'</td>
+                        <td>'.$acc['position'].'</td>
+                        <td>'.$acc['project_type'].'</td>
+                        <td>'.$acc['name'].'</td>
+                        <td>'.$acc['surname'].'</td>
+                        <td>'.$acc['patronymic'].'</td>
+                        <td><button type="button" class="btn btn-link p-0">Редактировать</button></td>
+                        <td><button type="button" class="btn btn-link p-0">Удалить</button></td>
+                        </tr>';
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>
