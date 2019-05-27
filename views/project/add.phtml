@@ -19,19 +19,13 @@
                             <label for="materialSubscriptionFormPasswords">Название</label>
                         </div>
                         <p class="text-left mt-3 mb-1"><strong>2. Куратор</strong><span class="red-text"> *</span></p>
-                        <select class="browser-default custom-select" name="evaluation" id="evaluation">
+                        <select class="browser-default custom-select" name="curator" id="curator" required>
                             <option value="" disabled selected>Выберите куратора</option>
-                            <option value="kur1">Куратор 1</option>
-                            <option value="kur2">Куратор 2</option>
-                            <option value="kur3">Куратор 3</option>
-                            <option value="kur4">Куратор 4</option>
-                            <option value="kur5">Куратор 5</option>
-                            <option value="kur6">Куратор 6</option>
-                            <option value="kur7">Куратор 7</option>
-                            <option value="kur8">Куратор 8</option>
-                            <option value="kur9">Куратор 9</option>
-                            <option value="kur10">Куратор 10</option>
+                            <?php foreach($curators as $curator)
+                                echo '<option value="'.$curator['id'].'">'.$curator['surname'].' '.$curator['name'].' '.$curator['patronymic'].'</option>';
+                            ?>
                         </select>
+                        <!--
                         <p class="text-left mt-3 mb-1"><strong>3. Эксперты</strong><span class="red-text"> *</span></p>
                         <div class="table-responsive">
                             <table id="tablePreview" class="table table-striped table-sm text-nowrap">
@@ -72,11 +66,13 @@
                                 </tbody>
                             </table>
                         </div>
-                        <p class="text-left mt-3 mb-1"><strong>4. Описание проекта</strong></p>
+                        -->
+                        <p class="text-left mt-3 mb-1"><strong>3. Описание проекта</strong></p>
                         <div class="md-form mt-3">
                             <textarea type="text" name="description" id="materialContactFormMessage" class="form-control md-textarea" rows="3"></textarea>
                             <label for="materialContactFormMessage">Описание</label>
                         </div>
+                        <!--
                         <p class="text-left mt-3 mb-1"><strong>5. Критерии оценки</strong></p>
                         <div class="table-responsive">
                             <table id="tablePreview" class="table table-striped table-sm text-nowrap">
@@ -117,14 +113,15 @@
                                 </tbody>
                             </table>
                         </div>
-                        <p class="text-left mb-1"><strong>6. Количество команд на проекте</strong><span class="red-text"> *</span></p>
-                        <select class="browser-default custom-select mb-2" name="size" required>
+                        -->
+                        <p class="text-left mb-1"><strong>4. Количество команд на проекте</strong><span class="red-text"> *</span></p>
+                        <select class="browser-default custom-select mb-2" name="teams" required>
                             <option value="" selected>Не выбрано</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                         </select>
-                        <p class="text-left mb-1"><strong>7. Количество членов команды</strong><span class="red-text"> *</span></p>
+                        <p class="text-left mb-1"><strong>5. Количество членов команды</strong><span class="red-text"> *</span></p>
                         <select class="browser-default custom-select" name="size" required>
                             <option value="" selected>Не выбрано</option>
                             <option value="1">1</option>

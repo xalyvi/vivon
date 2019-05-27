@@ -5,7 +5,7 @@ class Project
     
     const SHOW_BY_DEFAULT = 6;
 
-    public static function getProjects($page = 1, $category = false, $search = false, $sort = false)
+    public static function getProjects($status, $page = 1, $category = false, $search = false, $sort = false)
     {
         $page = intval($page);
         $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
@@ -14,26 +14,25 @@ class Project
         
         $projectList = array();
         
+        $sql = 'SELECT id, title, image, curator, type, capacity, description FROM projects WHERE status='.$status;
         if ($category)
-            $sql = "SELECT id, title, image, head, fac, capacity, description " . "FROM projects " . "WHERE fac = '".$category."' ";
+            $sql = " WHERE type = '".$category."'";
         else if ($search)
-            $sql = 'SELECT id, title, image, head, fac, capacity, description ' . 'FROM projects WHERE title REGEXP "' . $search . '" OR head REGEXP "' . $search . '" ';
-        else
-            $sql = 'SELECT id, title, image, head, fac, capacity, description ' . 'FROM projects ';
+            $sql = ' WHERE title REGEXP "' . $search . '" OR head REGEXP "' . $search . '"';
             
         if ($sort != false)
         {
             switch($sort) {
                 case 'aa':
-                    $sql .= 'ORDER BY timeCreated DESC ';
+                    $sql .= ' ORDER BY timeCreated DESC ';
                     break;
                 case 'ab':
-                    $sql .= 'ORDER BY timeCreated ASC ';
+                    $sql .= ' ORDER BY timeCreated ASC ';
                     break;
             }
         }
         else
-            $sql .= 'ORDER BY timeCreated DESC ';
+            $sql .= ' ORDER BY timeCreated DESC ';
         $sql .= 'LIMIT ' .self::SHOW_BY_DEFAULT. ' OFFSET ' . $offset;
         $result = $db->query($sql);
         $i = 0;
@@ -41,14 +40,28 @@ class Project
             $projectList[$i]['id'] = $row['id'];
             $projectList[$i]['title'] = $row['title'];
             $projectList[$i]['image'] = $row['image'];
-            $projectList[$i]['fac'] = $row['fac'];
-            $projectList[$i]['head'] = $row['head'];
+            $projectList[$i]['type'] = $row['type'];
+            $projectList[$i]['curator'] = $row['curator'];
             $projectList[$i]['capacity'] = $row['capacity'];
             $projectList[$i]['description'] = $row['description'];
             $i++;
         }
         
         return $projectList;
+    }
+
+    public static function addProject($title, $curator_id, $type, $des, $cap)
+    {
+        $db = Db::getConnection();
+
+        $sql = 'INSERT INTO projects (`image`, `curator`, `curator_id`, `title`, `description`, `type`, `team/students`) SELECT users.`pic`, users.`surname` + " " + users.`name` + " " users.`patronimyc`, users.`id`, :title, :descrip, :type, :cap FROM users WHERE users.`id` = :id';
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $curator_id, PDO::PARAM_INT);
+        $result->bindParam(':title', $title, PDO::PARAM_STR);
+        $result->bindParam(':descrip', $des, PDO::PARAM_STR);
+        $result->bindParam(':cap', $cap, PDO::PARAM_STR);
+        $result->bindParam(':type', $type, PDO::PARAM_STR);
+        $result->execute();
     }
 
     public static function getProjectTypes()

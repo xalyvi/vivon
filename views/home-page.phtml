@@ -33,7 +33,7 @@
                             <div>
                                 <h4 class="card-title"><strong><?php echo $project['title'] ?></strong></h4>
                                 <div class="row justify-content-between">
-                                    <h4 class="card-title col-lg-7 col-md-9"><strong>Руководитель: <?php echo $project['head'] ?></strong></h4>
+                                    <h4 class="card-title col-lg-7 col-md-9"><strong>Руководитель: <?php echo $project['curator'] ?></strong></h4>
                                     <h4 class="pr-5 pl-3" style="width: 150px;"><i class="fas fa-users" aria-hidden="true" style="padding-right: 8px;"></i><?php echo ($approved_num.'/'.$project['capacity']) ?></h4>
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                             <a href="/project/id-<?php echo $project['id'] ?>" class="text-primary">
 
                                 <!-- (Для лидера) Сделать так чтобы только на проектах с тем же направлением что и у лидера высвечивалась кнопка редактировать. -->
-                                <?php if(isset($_SESSION['user']) && $_SESSION['user']['project_type'] == $project['fac']): ?>
+                                <?php if(isset($_SESSION['user']) && $_SESSION['user']['project_type'] == $project['type']): ?>
                                     <h4 class="waves-effect waves-light"><strong>Редактировать</strong></h4>
                                 <?php elseif(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'student'): ?>
                                     <h4 class="waves-effect waves-light"><strong>Записаться</strong></h4>
@@ -66,7 +66,7 @@
         </div>
         <?php if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'leader'): ?>
             <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-                    <a class="btn-floating btn-lg blue-gradient" href="/profile/addproject"><i class="fas fa-plus"></i></a>
+                    <a class="btn-floating btn-lg blue-gradient" href="/profile/addProject"><i class="fas fa-plus"></i></a>
             </div>
         <?php endif;?>
   </main>

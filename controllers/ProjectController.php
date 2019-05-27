@@ -22,9 +22,6 @@ class ProjectController
         $approved = Project::getApproved($projectId);
         $approved_num = count($approved);
 
-        if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'leader')
-            $is_project_creator = ($project['creator_id'] == $_SESSION['user']['id']) ? TRUE : FALSE;
-
         if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'student')
             $result = Project::getRequestByUserAndId($_SESSION['user']['id'], $projectId);
         else

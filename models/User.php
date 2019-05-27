@@ -60,22 +60,25 @@ class User
         return false;
     }
 
-    public static function getLeaders()
+    public static function getTypeUsers($type, $pr_type = false)
     {
         $db = Db::getConnection();
-        $leaders = array();
-        $sql = 'SELECT id, name, surname, patronymic FROM users WHERE type="leader" AND project_type IS NULL';
-        $result = $db->query($sql);
+        $users = array();
+        $sql = 'SELECT id, name, surname, patronymic FROM users WHERE type = :type';
+        if ($pr_type)
+            $sql .= ' AND project_type IS NULL';
+        $result = $db->prepare($sql);
+        $result->bindParam(':type', $type, PDO::PARAM_STR);
         $i = 0;
         while ($row = $result->fetch())
         {
-            $leaders[$i]['id'] = $row['id'];
-            $leaders[$i]['name'] = $row['name'];
-            $leaders[$i]['surname'] = $row['surname'];
-            $leaders[$i]['patronymic'] = $row['patronymic'];
+            $users[$i]['id'] = $row['id'];
+            $users[$i]['name'] = $row['name'];
+            $users[$i]['surname'] = $row['surname'];
+            $users[$i]['patronymic'] = $row['patronymic'];
             $i++;
         }
-        return $leaders;
+        return $users;
     }
 
     public static function addUser($login, $pswd, $type, $position, $name)

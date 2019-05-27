@@ -19,7 +19,7 @@ class ProfileController
     {
         if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'admin')
             header("Location: /");
-        $leaders = User::getLeaders();
+        $leaders = User::getTypeUsers("leader", true);
         $types = Project::getProjectTypes();
         if (isset($_POST['title']) && isset($_POST['leader']))
         {
@@ -81,7 +81,15 @@ class ProfileController
 
         if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'leader')
             header("Location: /");
+
         $types = Project::getProjectTypes();
+        $curators = User::getTypeUsers("curator");
+
+        if (isset($_POST['title']))
+        {
+            Project::addProject($_POST['title'], $_POST['curator'], $_SESSION['user']['project_type'], $_POST['description'], $_POST['teams'].'/'.$_POST['size']);
+            header("Location: /profile");
+        }
         require(ROOT.'/views/project/add.phtml');
         return true;
     }
