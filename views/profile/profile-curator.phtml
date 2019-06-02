@@ -1,0 +1,27 @@
+<?php $site = 'Кабинет'; include(ROOT.'/views/layouts/header.phtml'); ?>
+
+  <main class="flex-fill">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active">Личный кабинет</li>
+                </ol>
+            </nav>
+            <div class="row justify-content-md-center"><h2 class="text-center"><strong>Вы <span class="text-primary">ЛИДЕР</span> направления "<?php echo $_SESSION['user']['project_type'] ?>"<strong></h2></div>
+            <hr>
+            <div class="row"><p class="text-center col-md-8">На КУРАТОРЕ проекта лежит ответственность по <span class="text-success">управлению</span> проектами. Формируйте <span class="text-success">команды</span>, выкладывайте <span class="text-success">требования</span> и меняйте <span class="text-success">статус</span> проекта.</p></div>
+            <div class="card-deck">
+                <div class="card col-sm m-1">
+                    <div class="card-body">
+                      <h4 class="card-title">Мои проекты</h4>
+                      <a href="#" class="btn btn-primary">Просмотреть</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </main>
+  <footer class="py-3">
+    © 2019 Московский политехнический университет
+  </footer>
+
+<?php include(ROOT.'/views/layouts/footer.phtml'); ?>

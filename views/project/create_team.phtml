@@ -1,0 +1,55 @@
+<?php $site = 'Кабинет'; include(ROOT.'/views/layouts/header.phtml'); ?>
+
+  <main class="flex-fill">
+        <div class="container">
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/projects">Проекты</a></li>
+                        <li class="breadcrumb-item"><a href="#">Тип проекта</a></li>
+                        <li class="breadcrumb-item"><a href="#">Название проекта</a></li>
+                        <li class="breadcrumb-item active">Создание команды</li>
+                </ol>
+            </nav>
+
+            <div class="card">
+                <div class="card-body">
+
+                    <!-- choose one -->
+                    <h4 class="card-title text-center"><strong>Создание команды</strong></h4>
+                    <p class="text-left mb-1 red-text">* - обязательно для заполнения</p>
+                    <form enctype="multipart/form-data" class="md-form mt-1 mb-1" action="" method="post">
+                        <p class="text-left mt-3 mb-1"><strong>1. Название команды</strong><span class="red-text"> *</span></p>
+                        <div class="md-form mt-3">
+                            <input type="text" name="name" id="PersonName" class="form-control" required>
+                            <label for="PersonName">Название</label>
+                        </div>
+                        <p class="text-left mt-3 mb-1"><strong>2. Количество участников</strong><span class="red-text"> *</span></p>
+                        <select class="browser-default custom-select mt-3" name="type" required>
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+
+                        <!-- choose one -->
+                        <button class="btn btn-info btn-block my-4" name="create" type="submit">Создать команду</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+  </main>
+  <footer class="py-3">
+    © 2019 Московский политехнический университет
+  </footer>
+
+<?php include(ROOT.'/views/layouts/footer.phtml'); ?>
+
+</body>
+</html>

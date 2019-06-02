@@ -31,4 +31,22 @@ class ProjectController
         return true;
 
     }
+
+    public function actionCreateTeam()
+    {
+        require(ROOT.'/views/project/create_team.phtml');
+        return true;
+    }
+
+    public function actionProjectTeam()
+    {
+        require(ROOT.'/views/project/project_team.phtml');
+        return true;
+    }
+
+    public function actionCreateCriteria()
+    {
+        require(ROOT.'/views/profile/criteria.phtml');
+        return true;
+    }
 }
