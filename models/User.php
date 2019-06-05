@@ -6,7 +6,7 @@ class User
     {
         $db = Db::getConnection();
         
-        $sql = 'SELECT pic, type, project_type, name, surname, patronymic FROM users WHERE login = :login AND pswd = :password';
+        $sql = 'SELECT id, pic, type, project_type, name, surname, patronymic FROM users WHERE login = :login AND pswd = :password';
         
         $result = $db->prepare($sql);
         $result->bindParam(':login', $login, PDO::PARAM_STR);

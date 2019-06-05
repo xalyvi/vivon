@@ -4,14 +4,29 @@ class ProfileController
 {
     public function actionIndex() 
     {
-        if(!isset($_SESSION['user']) || ($_SESSION['user']['type'] != 'admin' && $_SESSION['user']['type'] != 'leader'))
+        if(!isset($_SESSION['user']))
             header("Location: /");
+        
         $types = Project::getProjectTypes();
         
-        if ($_SESSION['user']['type'] == 'admin')
-            require(ROOT.'/views/profile/profile-admin.phtml');
-        else if ($_SESSION['user']['type'] == 'leader')
-            require(ROOT.'/views/profile/profile-leader.phtml');
+        switch($_SESSION['user']['type'])
+        {
+            case 'admin':
+                require(ROOT.'/views/admin/profile.phtml');
+                break;
+            case 'curator':
+                require(ROOT.'/views/profile/profile-curator.phtml');
+                break;
+            case 'leader':
+                require(ROOT.'/views/profile/profile-leader.phtml');
+                break;
+            case 'expert':
+                require(ROOT.'/views/profile/profile-expert.phtml');
+                break;
+            default:
+                header("Location: /");
+        }
+
         return true;
     }
 
@@ -23,7 +38,6 @@ class ProfileController
         $types = Project::getProjectTypes();
         if (isset($_POST['title']) && isset($_POST['leader']))
         {
-            echo $_POST['leader'];
             User::setLeaderType($_POST['leader'], $_POST['title']);
             header("Location: /profile");
         }
@@ -62,6 +76,8 @@ class ProfileController
                 case 2:
                     $_POST['type'] = 'expert';
                     break;
+                case 3:
+                    $_POST['type'] = 'curator';
             }
             if ($_POST['pswd'] != $_POST['accept'])
                 $errors[1] = 'Неправильно введен пароль';

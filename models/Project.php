@@ -13,12 +13,12 @@ class Project
         $db = Db::getConnection();
         
         $projectList = array();
-        
+
         $sql = 'SELECT id, title, image, curator, type, capacity, description FROM projects WHERE status='.$status;
         if ($category)
-            $sql = " WHERE type = '".$category."'";
+            $sql .= " AND type = '".$category."'";
         else if ($search)
-            $sql = ' WHERE title REGEXP "' . $search . '" OR head REGEXP "' . $search . '"';
+            $sql .= ' AND title REGEXP "' . $search . '" OR head REGEXP "' . $search . '"';
             
         if ($sort != false)
         {
@@ -84,7 +84,7 @@ class Project
         $db = Db::getConnection();
         
         if ($category)
-            $result = $db->query("SELECT count(id) AS count FROM projects WHERE fac = '" . $category ."'");
+            $result = $db->query("SELECT count(id) AS count FROM projects WHERE type = '" . $category ."'");
         else if ($search)
             $result = $db->query('SELECT count(id) AS count FROM projects WHERE title REGEXP "' . $search . '" OR head REGEXP "' . $search . '"');
         else
