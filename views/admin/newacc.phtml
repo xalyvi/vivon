@@ -4,48 +4,59 @@
         <div class="container">
 
             <!-- Показать определенную nav в зависимости от того создаем ли мы или изменяем уже созданный аккаунт -->
+	    <?php if ($status == 1): ?>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/profile">Личный кабинет</a></li>
                     <li class="breadcrumb-item active">Новый аккаунт</li>
                 </ol>
             </nav>
+	    <?php else: ?>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
+		    <li class="breadcrumb-item"><a href="/profile/showaccs">Аккаунты</a></li>
                     <li class="breadcrumb-item active">Редактирование аккаунта</li>
                 </ol>
             </nav>
+	    <?php endif; ?>
             <div class="card">
                 <div class="card-body">
 
                     <!-- choose one -->
-                    <h4 class="card-title text-center"><strong>Создание аккаунта</strong></h4>
-                    <h4 class="card-title text-center"><strong>Редактирование аккаунта</strong></h4>
+		    <?php if ($status == 1)
+			echo "<h4 class=\"card-title text-center\"><strong>Создание аккаунта</strong></h4>";
+			else
+				echo "<h4 class=\"card-title text-center\"><strong>Редактирование аккаунта</strong></h4>";
+			if (isset($errors))
+				foreach($errors as $error)
+				{
+				echo '<p class="text-left mb-1 red-text">'.$error.'</p>';
+				} ?>
                     <p class="text-left mb-1 red-text">* - обязательно для заполнения</p>
                     <form enctype="multipart/form-data" class="md-form mt-1 mb-1" action="" method="post">
                         <p class="text-left mt-3 mb-1"><strong>1. Фамилия Имя Отчество</strong><span class="red-text"> *</span></p>
                         <div class="md-form mt-3">
-                            <input type="text" name="name" id="PersonName" class="form-control" required>
+                            <input type="text" name="name" id="PersonName" class="form-control" value="<?php if (isset($user)) echo $user['surname'].' '.$user['name'].' '.$user['patronymic']; ?>" required>
                             <label for="PersonName">ФИО</label>
                         </div>
                         <p class="text-left mt-3 mb-1"><strong>2. Тип аккаунта</strong><span class="red-text"> *</span></p>
                         <select class="browser-default custom-select mt-3" name="type" required>
-                            <option value="0" selected>Студент</option>
-                            <option value="1">Лидер</option>
-                            <option value="2">Эсперт</option>
-                            <option value="3">Куратор</option>
-                            <!-- <option value="kurator">Куратор</option> -->
+                            <option value="0" <?php if (isset($user)) { if ($user['type'] == 'student') echo 'selected';} else echo 'selected';?>>Студент</option>
+                            <option value="1" <?php if (isset($user) && $user['type'] == 'leader') echo 'selected'; ?>>Лидер</option>
+                            <option value="2" <?php if (isset($user) && $user['type'] == 'expert') echo 'selected'; ?>>Эсперт</option>
+                            <option value="3" <?php if (isset($user) && $user['type'] == 'curator') echo 'selected'; ?>>Куратор</option>
                         </select>
                         <p class="text-left mt-3 mb-1"><strong>3. Должность</strong><span class="red-text"> *</span></p>
                         <div class="md-form mt-3">
-                            <input type="text" name="position" id="position" class="form-control" required>
+                            <input type="text" name="position" id="position" class="form-control" value="<?php if (isset($user)) echo $user['position']; ?>" required>
                             <label for="Job">Должность</label>
                         </div>
                         <p class="text-left mt-3 mb-1"><strong>4. Логин</strong><span class="red-text"> *</span></p>
                         <div class="md-form mt-3">
-                            <input type="text" name="login" id="login" class="form-control" required>
+                            <input type="text" name="login" id="login" value="<?php if (isset($user)) echo $user['login']; ?>" class="form-control" required>
                             <label for="login">Логин</label>
                         </div>
+			<?php if ($status == 1): ?>
                         <p class="text-left mt-3 mb-1"><strong>5. Пароль</strong><span class="red-text"> *</span></p>
                         <div class="md-form mt-3">
                             <input type="password" name="pswd" id="pswd" class="form-control" required>
@@ -56,10 +67,10 @@
                             <input type="password" name="accept" id="accept" class="form-control" required>
                             <label for="accept">Пароль</label>
                         </div>
-
-                        <!-- choose one -->
                         <button class="btn btn-info btn-block my-4" name="create" type="submit">Создать аккаунт</button>
-                        <button class="btn btn-info btn-block my-4" name="create" type="submit">Сохранить информацию</button>
+                        <?php else: ?>
+			<button class="btn btn-info btn-block my-4" name="create" type="submit">Сохранить информацию</button>
+			<?php endif; ?>
                     </form>
                 </div>
             </div>

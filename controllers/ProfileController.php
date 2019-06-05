@@ -41,7 +41,7 @@ class ProfileController
             User::setLeaderType($_POST['leader'], $_POST['title']);
             header("Location: /profile");
         }
-        require(ROOT.'/views/profile/profile-newtype.phtml');
+        require(ROOT.'/views/admin/newtype.phtml');
         return true;
     }
 
@@ -51,14 +51,18 @@ class ProfileController
             header("Location: /");
             
         $accs = User::getAllAccs();
-        require(ROOT.'/views/profile/profile-showaccs.phtml');
+        require(ROOT.'/views/admin/showaccs.phtml');
         return true;
     }
 
-    public function actionNewAccount() 
+    public function actionAccountEdit($status, $id = false) 
     {
         if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'admin')
             header("Location: /");
+	if ($status != 1 && $id != false)
+		$user = User::getUserById($id);
+	if ($user == false)
+		echo "false";
         $types = Project::getProjectTypes();
         $errors = array();
         if (isset($_POST['name']))
@@ -79,16 +83,21 @@ class ProfileController
                 case 3:
                     $_POST['type'] = 'curator';
             }
-            if ($_POST['pswd'] != $_POST['accept'])
+            if ($status == 1 && $_POST['pswd'] != $_POST['accept'])
                 $errors[1] = 'Неправильно введен пароль';
             if (sizeof($errors) < 1)
             {
-                $hashed = hash('sha512', $_POST['pswd']);
-                User::addUser($_POST['login'], $hashed, $_POST['type'], $_POST['position'], $str_arr);
+		if ($status == 1)
+		{
+			$hashed = hash('sha512', $_POST['pswd']);
+                	User::addUser($_POST['login'], $hashed, $_POST['type'], $_POST['position'], $str_arr);
+		}
+		else
+			User::updateUserById($id, $_POST['login'], $_POST['type'], $_POST['position'], $str_arr);
                 header("Location: /profile");
             }
         }
-        require(ROOT.'/views/profile/profile-newacc.phtml');
+        require(ROOT.'/views/admin/newacc.phtml');
         return true;
     }
 

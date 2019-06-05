@@ -2,6 +2,37 @@
 
 class User
 {
+    public static function getUserById($id)
+    {
+	$db = Db::getConnection();
+
+	$sql = 'SELECT surname, name, patronymic, type, position, login FROM users WHERE id=:id';
+	$result = $db->prepare($sql);
+	$result->bindParam(':id', $id, PDO::PARAM_STR);
+	$result->execute();
+	$user = $result->fetch();
+	if ($user)
+		return $user;
+	return false;
+    }
+
+    public static function updateUserById($id, $login, $type, $position, $fullname)
+    {
+	$db = Db::getConnection();
+
+	$sql = 'UPDATE users SET login = :login, type = :type, position = :position, surname = :surname, name = :name, patronymic = :patronymic WHERE id = :id';
+
+	$result = $db->prepare($sql);
+	$result->bindParam(':login', $login, PDO::PARAM_STR);
+	$result->bindParam(':type', $type, PDO::PARAM_STR);
+	$result->bindParam(':position', $position, PDO::PARAM_STR);
+	$result->bindParam(':surname', $fullname[0], PDO::PARAM_STR);
+	$result->bindParam(':name', $fullname[1], PDO::PARAM_STR);
+	$result->bindParam(':patronymic', $fullname[2], PDO::PARAM_STR);
+	$result->bindParam(':id', $id, PDO::PARAM_INT);
+	$result->execute();
+    }
+
     public static function checkUserData($login, $password)
     {
         $db = Db::getConnection();
@@ -24,9 +55,9 @@ class User
     public static function getAllAccs($type = false)
     {
         $db = Db::getConnection();
-        $sql = 'SELECT id, login, pic, type, position, project_type, name, surname, patronymic FROM users';
+        $sql = 'SELECT id, login, pic, type, position, project_type, name, surname, patronymic FROM users WHERE NOT type = \'admin\'';
         if ($type)
-            $sql .= ' WHERE type="'.$type.'"';
+            $sql .= ' AND type="'.$type.'"';
         $accs = array();
         $result = $db->query($sql);
         $i = 0;
