@@ -16,3 +16,7 @@ main {
     -webkit-box-shadow: none;
     border-radius: 0;
 }
+
+.border-round {
+    border-radius: .25rem;
+}
