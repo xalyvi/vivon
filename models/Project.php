@@ -14,7 +14,7 @@ class Project
         
         $projectList = array();
 
-        $sql = 'SELECT id, title, image, curator, type, capacity, description FROM projects WHERE status='.$status;
+        $sql = 'SELECT projects.id, projects.title, projects.image, projects.curator, projects.type, projects.description, projects.`team/students` FROM projects WHERE status='.$status;
         if ($category)
             $sql .= " AND type = '".$category."'";
         else if ($search)
@@ -42,7 +42,7 @@ class Project
             $projectList[$i]['image'] = $row['image'];
             $projectList[$i]['type'] = $row['type'];
             $projectList[$i]['curator'] = $row['curator'];
-            $projectList[$i]['capacity'] = $row['capacity'];
+            $projectList[$i]['team/students'] = $row['team/students'];
             $projectList[$i]['description'] = $row['description'];
             $i++;
         }
@@ -77,6 +77,26 @@ class Project
             $i++;
         }
         return $types;
+    }
+
+    public static function getRequests($projectId)
+    {
+        $projectId = intval($projectId);
+   
+        $db = Db::getConnection();
+        
+        $requests = array();
+            
+        $result = $db->query("SELECT team, app, user_id FROM requests WHERE project_id = ".$projectId);
+        $i = 0;
+        while($row = $result->fetch()) {
+            $requests[$i]['user_id'] = $row['user_id'];
+            $requests[$i]['team'] = $row['team'];
+            $requests[$i]['app'] = $row['app'];
+            $i++;
+        }
+        
+        return $requests;
     }
     
     public static function getTotalProjects($category = false, $search = false)
@@ -221,28 +241,6 @@ class Project
         $result->bindParam(':id', $userId, PDO::PARAM_INT);
         $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
         return $result->execute();
-    }
-
-    public static function getRequests($projectId)
-    {
-        $projectId = intval($projectId);
-   
-        $db = Db::getConnection();
-        
-        $requests = array();
-            
-        $result = $db->query("SELECT user_id, name, surname, course, role FROM requests WHERE project_id = ".$projectId);
-        $i = 0;
-        while($row = $result->fetch()) {
-            $requests[$i]['user_id'] = $row['user_id'];
-            $requests[$i]['name'] = $row['name'];
-            $requests[$i]['surname'] = $row['surname'];
-            $requests[$i]['course'] = $row['course'];
-            $requests[$i]['role'] = $row['role'];
-            $i++;
-        }
-        
-        return $requests;
     }
 
     public static function getOrderById($project_id)

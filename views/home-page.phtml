@@ -51,7 +51,6 @@
 
             <?php if ($total): ?>
                 <?php foreach ($projects as $project): ?>
-                <?php $approved_num = Project::getApprovedTeams($project['id']); ?>
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex card-block-1">
@@ -69,7 +68,7 @@
                                 <h4 class="card-title"><strong><?php echo $project['title'] ?></strong></h4>
                                 <div class="row justify-content-between">
                                     <h4 class="card-title col-lg-7 col-md-9"><strong>Руководитель: <?php echo $project['curator'] ?></strong></h4>
-                                    <h4 class="pr-5 pl-3" style="width: 200px;"><i class="fas fa-users" aria-hidden="true" style="padding-right: 8px;"></i><?php echo ($approved_num.'/'.$project['capacity']) ?></h4>
+                                    <h4 class="pr-5 pl-3" style="width: 200px;"><i class="fas fa-users" aria-hidden="true" style="padding-right: 8px;"></i><?php echo (explode('/', $project['team/students']))[0]; ?></h4>
                                 </div>
                             </div>
                         </div>
@@ -104,3 +103,5 @@
   </footer>
 
 <?php include(ROOT.'/views/layouts/footer.phtml'); ?>
+</body>
+</html>

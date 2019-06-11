@@ -18,7 +18,7 @@
                         <h4 class="card-title"><strong><?php echo $project['title']; ?></strong></h4>
                         <div class="row justify-content-between">
                             <h4 class="card-title col-lg-7 col-md-9"><strong>Руководитель: <?php echo $project['curator']; ?></strong></h4>
-                            <h4 class="pr-5 pl-3" style="width: 200px;"><i class="fas fa-users" aria-hidden="true" style="padding-right: 8px;"></i><?php echo $approved_num.'/'.$project['capacity']; ?></h4>
+                            <h4 class="pr-5 pl-3" style="width: 200px;"><i class="fas fa-users" aria-hidden="true" style="padding-right: 8px;"></i><?php echo $app; ?></h4>
                         </div>
                     </div>
                 </div>
@@ -35,12 +35,17 @@
                     <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Файл.pdf</a>
                 </div>
                 <hr>
+                <?php if ($_SESSION['user']['id'] == $project['curator_id'] || $_SESSION['user']['project_type'] == $project['type']): ?>
                 <div class="row justify-content-center">
-                    <h3><strong>Участники без команд << Вид куратора >></strong></h3>
+                    <h3><strong>Участники без команд</strong></h3>
                     <div class="w-100"></div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row justify-content-start">
+                            <!-- <div class="row">
+                                <div class="col-sm-12 col-md-6"></div>
+                                <div class="col-sm-12 col-md-6">
+                                
+                                </div>
+                            </div> -->
+                            <!-- <div class="row justify-content-start">
                                 <div class="view overlay mr-3">
                                     <img class="card-img-top" style="border-radius: 50%; width: 40px; height: 40px;" src="/temp/temp.png" alt="Card image cap">
                                 </div>
@@ -62,37 +67,50 @@
                                 <div class="my-auto">
                                     <a type="button" class="m-3 btn btn-primary btn-rounded btn-sm" href="#">Отклонить заявку</a>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row justify-content-start">
-                                    <div class="view overlay mr-3">
-                                        <img class="card-img-top" style="border-radius: 50%; width: 40px; height: 40px;" src="/temp/temp.png" alt="Card image cap">
-                                    </div>
-                                    <div class="my-auto">
-                                        <h5>Имя студента</h5>
-                                        <span>1 Курс, Информационные Технологии</span>
-                                    </div>
-                                    <div class="ml-4 my-auto dropdown">
-                                        <button class="btn btn-primary dropdown-toggle btn-sm btn-primary btn-rounded" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">Добавить в команду</button>
+                            </div> -->
+                            <div class="table-wrapper-scroll-y table-wrapper-scroll-x my-custom-scrollbar request-table-wrapper">
+                            <table id="request-table" class="table">
+                                <thead>
+                                    <tr>
+                                    <th class="th-sm">Аватар
+                                    </th>
+                                    <th class="th-sm">Ф.И.О
+                                    </th>
+                                    <th class="th-sm">Кто и откуда
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    <tr class="align-items-center">
+                                        <td><img class="card-img-top" style="border-radius: 50%; width: 50px; height: 50px;" src="/temp/temp.png" alt="Card image cap"></td>
+                                        <td>Имя Студента</td>
+                                        <td>1 Курс, Информационные Технологии</td>
+                                        <td>
+                                            <div class="ml-4 my-auto dropdown">
+                                                <button class="btn btn-primary dropdown-toggle btn-sm btn-primary btn-rounded" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">Добавить в команду</button>
 
-                                        <div class="dropdown-menu dropdown-primary dropdown-user">
-                                            <a class="dropdown-item" href="#">Команда 1</a>
-                                            <a class="dropdown-item" href="#">Команда 2</a>
-                                            <a class="dropdown-item" href="#">Команда 3</a>
-                                            <a class="dropdown-item" href="#">Команда 4</a>
-                                        </div>
-                                    </div>
-                                    <div class="my-auto">
-                                        <a type="button" class="m-3 btn btn-primary btn-rounded btn-sm" href="#">Отклонить заявку</a>
-                                    </div>
-                                </div>
+                                                <div class="dropdown-menu dropdown-primary dropdown-user">
+                                                    <a class="dropdown-item" href="#">Команда 1</a>
+                                                    <a class="dropdown-item" href="#">Команда 2</a>
+                                                    <a class="dropdown-item" href="#">Команда 3</a>
+                                                    <a class="dropdown-item" href="#">Команда 4</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="my-auto">
+                                                <a type="button" class="m-2 btn btn-primary btn-rounded btn-sm" href="#">Отклонить заявку</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             </div>
-                        </div>
                     </div>
                 </div>
+                <?php else: ?>
                 <div class="row justify-content-center">
                     <h3><strong>Участники без команд << Вид студента >></strong></h3>
                     <div class="w-100"></div>
@@ -149,10 +167,12 @@
                         </div>
                     </div>
                     <div class="w-100"></div>
-                    <a type="button" href="#" class="col-md-auto btn btn-primary btn-rounded">Вступить</a>
+                    <?php if ($_SESSION['user']['type'] == 'student') echo '<a type="button" href="#" class="col-md-auto btn btn-primary btn-rounded">Вступить</a>' ?>
                 </div>
+                <?php endif; ?>
                 <hr>
                 <div class="row justify-content-center">
+                    <?php if ($_SESSION['user']['id'] != $project['curator_id'] && $_SESSION['user']['project_type'] != $project['type']): ?>
                     <div class="card border-dark border-round col-md-auto p-0 m-3">
                         <div class="card-header">Команда А << Вид студента >></div>
                         <div class="card-body px-5">
@@ -191,6 +211,7 @@
                             </div>
                         </div>
                     </div>
+                    <?php else: ?>
                     <div class="card border-dark border-round col-md-auto p-0 m-3">
                         <div class="card-header">Команда В << Вид куратора >></div>
                         <div class="card-body px-5">
@@ -206,6 +227,7 @@
                             </div>
                         </div>
                     </div>
+                    <?php endif; ?>
                 </div>
                 <hr>
                 <div class="row justify-content-center">
@@ -220,47 +242,18 @@
                                 <div class="my-auto">
                                     <span>Имя фамилия подавшего студента</span>
                                     <p>Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента</p>
+                                    <?php if ($_SESSION['user']['id'] == $project['curator_id'] || $_SESSION['user']['project_type'] == $project['type']): ?>
                                     <div class="row justify-content-center">
                                         <a type="button" class="m-3 btn btn-primary btn-rounded btn-sm" href="#">Принять команду</a>
                                         <a type="button" class="m-3 btn btn-primary btn-rounded btn-sm" href="#">Отклонить команду</a>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body px-5">
-                            <div class="row justify-content-start">
-                                <div class="view overlay mr-3">
-                                    <img class="card-img-top" style="border-radius: 50%; width: 40px; height: 40px;" src="/temp/temp.png" alt="Card image cap">
-                                </div>
-                                <h5 class="mt-2">Название команды</h5>
-                                <div class="my-auto">
-                                    <span>Имя фамилия подавшего студента</span>
-                                    <p>Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента</p>
-                                    <div class="row justify-content-center">
-                                        <a type="button" class="m-3 btn btn-primary btn-rounded btn-sm" href="#">Принять команду</a>
-                                        <a type="button" class="m-3 btn btn-primary btn-rounded btn-sm" href="#">Отклонить команду</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body px-5">
-                            <div class="row justify-content-start">
-                                <div class="view overlay mr-3">
-                                    <img class="card-img-top" style="border-radius: 50%; width: 40px; height: 40px;" src="/temp/temp.png" alt="Card image cap">
-                                </div>
-                                <h5 class="mt-2">Название команды</h5>
-                                <div class="my-auto">
-                                    <span>Имя фамилия подавшего студента</span>
-                                    <p>Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента Комментарий от студента</p>
-                                    <div class="row justify-content-center">
-                                        <a type="button" class="m-3 btn btn-primary btn-rounded btn-sm" href="#">Принять команду</a>
-                                        <a type="button" class="m-3 btn btn-primary btn-rounded btn-sm" href="#">Отклонить команду</a>
-                                    </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <?php if ($_SESSION['user']['type'] == 'student'): ?>
                 <div class="row justify-content-center">
                     <div class="card border-dark border-round col-8 p-0 m-3">
                         <div class="card-body px-5">
@@ -275,8 +268,22 @@
                         </div>
                     </div>
                 </div>
+                <?php endif; ?>
         </div>
     </div>
 </main>
 
 <?php include(ROOT.'/views/layouts/footer.phtml'); ?>
+<script src="/template/js/addons/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#request-table').DataTable({
+            "scrollY": "50vh",
+            "scrollX": true,
+            "scrollCollapse": true,
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>
+</body>
+</html>
