@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: std_226
 -- ------------------------------------------------------
--- Server version	5.7.26-0ubuntu0.19.04.1
+-- Server version	5.7.26
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -42,6 +42,52 @@ INSERT INTO `approved` VALUES (11,'temp.png','test test test','1 course',1),(12,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `criterias`
+--
+
+DROP TABLE IF EXISTS `criterias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `criterias` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `code` int(11) unsigned NOT NULL,
+  `name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deadline` date NOT NULL,
+  `produ` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `points` int(2) unsigned NOT NULL,
+  `expert_id` int(11) unsigned NOT NULL,
+  `end_eval_day` date NOT NULL,
+  `penalty` int(2) unsigned DEFAULT NULL,
+  `project_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `criterias`
+--
+
+LOCK TABLES `criterias` WRITE;
+/*!40000 ALTER TABLE `criterias` DISABLE KEYS */;
+/*!40000 ALTER TABLE `criterias` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `add_criteria` AFTER INSERT ON `criterias` FOR EACH ROW UPDATE `projects` SET `projects`.`criteria_sums`=`projects`.`criteria_sums` + NEW.`points` WHERE `projects`.`id`=NEW.`project_id` */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
 -- Table structure for table `friends`
 --
 
@@ -50,17 +96,17 @@ DROP TABLE IF EXISTS `friends`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `friends` (
   `id` int(32) unsigned NOT NULL AUTO_INCREMENT,
-  `fam` text NOT NULL,
-  `name` text NOT NULL,
-  `patronymic` text NOT NULL,
-  `gender` text NOT NULL,
+  `fam` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `patronymic` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gender` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `born_date` date NOT NULL,
-  `phone` text NOT NULL,
-  `address` text NOT NULL,
-  `e_mail` text NOT NULL,
-  `comment` text NOT NULL,
+  `phone` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `e_mail` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comment` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,18 +128,19 @@ DROP TABLE IF EXISTS `projects`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `projects` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `image` varchar(128) NOT NULL,
-  `title` varchar(128) NOT NULL,
-  `curator` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `type` varchar(32) NOT NULL,
-  `curator_id` int(11) NOT NULL,
+  `image` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `curator` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `curator_id` int(11) unsigned NOT NULL,
+  `criteria_sums` int(3) unsigned NOT NULL DEFAULT '0',
   `status` int(2) unsigned NOT NULL DEFAULT '0',
-  `team/students` varchar(64) NOT NULL,
-  `mes` int(5) unsigned DEFAULT '0',
+  `team/students` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mes` int(5) unsigned NOT NULL DEFAULT '0',
   `timeCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +149,7 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` VALUES (1,'jotaro.jpeg','VR energetics','Савельев Илья Леонидович','VR ENERGETICS это проект, направленный на повышение эффективности проектирования зданий, коммуникаций и инфраструктуры города в целом. Основными задачами проекта является разработка оптимальной технологии работы с 3D моделями, внедрение BIM и CIM технологий в процесс проектирования в таких областях как строительство, энергетика, и др. Одной из неотъемлемых частей проекта должна стать разработка VR проекта т.к. данная технология позволяет значительно расширить возможности как проектировщика, так и конечного пользователя разрабатываемого продукта.','Энергетика',14,0,'3/5',0,'2019-04-19 16:05:55'),(3,'giorno.jpeg','Биодизель','Апелинский Дмитрий Викторович','ООО НПП \"Агродизель\" занимается организацией строительства первого отечественного промышленного производства биоэтанола и метиловых (этиловых) эфиров растительного масла. Подготовлен пилотный проект. С целью участия в выставках требуется разработать и изготовить действующую модель установки для получения метиловых (этиловых) эфиров растительного масла. Наличие производства этих возобновляемых, экологически чистых топлив позволит заместить бензин и дизельное топливо. Тем самым уменьшится выброс углекислого газа и вредных веществ с отработавшими газами двигателя, сократится потребление топлива нефтяного происхождения.','Транспорт',21,0,'3/5',0,'2019-04-19 16:05:47'),(4,'dio.jpg','PUSHKAforum','Храповицкий Виктор Алексеевич','Конкурсный проект для Международного форума инноваций в промышленном дизайне PUSHKA. В первую очередь проекты будут интересны для студентов обучающихся по направлениям «Промышленный дизайн» и «Дизайн средств транспорта». Проекты могут выполняться согласно методике «Production design» – проектирование промышленно производимого продукта; и по методике «Advanced design» - проектирование продвинутых, перспективных продуктов, для реализации потребностей пользователя.','Технология',16,0,'3/5',0,'2019-04-19 16:05:29');
+INSERT INTO `projects` VALUES (1,'jotaro.jpeg','VR energetics','Савельев Илья Леонидович','VR ENERGETICS это проект, направленный на повышение эффективности проектирования зданий, коммуникаций и инфраструктуры города в целом. Основными задачами проекта является разработка оптимальной технологии работы с 3D моделями, внедрение BIM и CIM технологий в процесс проектирования в таких областях как строительство, энергетика, и др. Одной из неотъемлемых частей проекта должна стать разработка VR проекта т.к. данная технология позволяет значительно расширить возможности как проектировщика, так и конечного пользователя разрабатываемого продукта.','Энергетика',14,6,0,'3/5',0,'2019-04-19 16:05:55'),(3,'giorno.jpeg','Биодизель','Апелинский Дмитрий Викторович','ООО НПП \"Агродизель\" занимается организацией строительства первого отечественного промышленного производства биоэтанола и метиловых (этиловых) эфиров растительного масла. Подготовлен пилотный проект. С целью участия в выставках требуется разработать и изготовить действующую модель установки для получения метиловых (этиловых) эфиров растительного масла. Наличие производства этих возобновляемых, экологически чистых топлив позволит заместить бензин и дизельное топливо. Тем самым уменьшится выброс углекислого газа и вредных веществ с отработавшими газами двигателя, сократится потребление топлива нефтяного происхождения.','Транспорт',21,0,0,'3/5',0,'2019-04-19 16:05:47'),(4,'dio.jpg','PUSHKAforum','Храповицкий Виктор Алексеевич','Конкурсный проект для Международного форума инноваций в промышленном дизайне PUSHKA. В первую очередь проекты будут интересны для студентов обучающихся по направлениям «Промышленный дизайн» и «Дизайн средств транспорта». Проекты могут выполняться согласно методике «Production design» – проектирование промышленно производимого продукта; и по методике «Advanced design» - проектирование продвинутых, перспективных продуктов, для реализации потребностей пользователя.','Технология',16,0,0,'3/5',0,'2019-04-19 16:05:29');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,12 +162,12 @@ DROP TABLE IF EXISTS `requests`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `requests` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `team` varchar(64) NOT NULL DEFAULT '0',
+  `team` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `app` int(2) unsigned NOT NULL DEFAULT '0',
   `user_id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,6 +178,7 @@ LOCK TABLES `requests` WRITE;
 /*!40000 ALTER TABLE `requests` DISABLE KEYS */;
 /*!40000 ALTER TABLE `requests` ENABLE KEYS */;
 UNLOCK TABLES;
+ALTER DATABASE `std_226` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -142,16 +190,17 @@ UNLOCK TABLES;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER new_app_added AFTER UPDATE ON requests
 FOR EACH ROW
-BEGIN
-IF NEW.app = 2 THEN
-UPDATE projects SET projects.mes = projects.mes+1 WHERE projects.id = NEW.project_id;
-END IF;
-END */;;
+	BEGIN
+		IF NEW.app = 2 THEN
+			UPDATE projects SET projects.mes = projects.mes+1 WHERE projects.id = NEW.project_id;
+		END IF;
+	END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `std_226` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
 
 --
 -- Table structure for table `users`
@@ -162,18 +211,18 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `login` text NOT NULL,
-  `pswd` varchar(256) NOT NULL,
-  `pic` varchar(50) NOT NULL,
-  `type` varchar(16) DEFAULT NULL,
-  `position` text,
-  `project_type` varchar(32) DEFAULT NULL,
-  `p_type_des` text,
-  `name` varchar(64) NOT NULL,
-  `surname` varchar(64) NOT NULL,
-  `patronymic` varchar(64) DEFAULT NULL,
+  `login` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pswd` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pic` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `position` mediumtext COLLATE utf8mb4_unicode_ci,
+  `project_type` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `p_type_des` mediumtext COLLATE utf8mb4_unicode_ci,
+  `name` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `surname` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `patronymic` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,4 +244,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-14  4:41:54
+-- Dump completed on 2019-06-14 14:50:23

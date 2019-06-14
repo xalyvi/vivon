@@ -46,7 +46,7 @@
                     }
                     $cap = explode('/', $project['team/students']);
                     $cap = $cap[0]*$cap[1];
-                    echo '<tr><td>'.$project['title'].'</td><td>'.$project['curator'].'</td><td>'.$project['type'].'</td><td></td><td>'.$project['mes'].'/'.$cap.'</td><td>'.$project['timeCreated'].'</td><td>'.$project['status'].'</td></tr>';
+                    echo '<tr><td>'.$project['title'].'</td><td>'.$project['curator'].'</td><td>'.$project['type'].'</td><td>'.$project['criteria_sum'].' баллов</td><td>'.$project['mes'].'/'.$cap.'</td><td>'.$project['timeCreated'].'</td><td>'.$project['status'].'</td></tr>';
                 } ?>
             </tbody>
             <tfoot>

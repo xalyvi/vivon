@@ -55,7 +55,7 @@ class Project
     {
         $db = Db::getConnection();
 
-        $sql = 'SELECT id, title, curator, type, status, `team/students`, mes, timeCreated FROM projects WHERE curator_id = :id';
+        $sql = 'SELECT id, title, curator, type, status, criteria_sum, `team/students`, mes, timeCreated FROM projects WHERE curator_id = :id';
         if ($type != NULL)
             $sql .= ' OR type = :type';
         $result = $db->prepare($sql);
@@ -74,6 +74,7 @@ class Project
             $projectList[$i]['mes'] = $row['mes'];
             $projectList[$i]['timeCreated'] = $row['timeCreated'];
             $projectList[$i]['status'] = $row['status'];
+            $projectList[$i]['criteria_sum'] = $row['criteria_sum'];
             $i++;
         }
 
