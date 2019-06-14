@@ -61,39 +61,37 @@ class ProfileController
             header("Location: /");
 	if ($status != 1 && $id != false)
 		$user = User::getUserById($id);
-	if ($user == false)
-		echo "false";
-        $types = Project::getProjectTypes();
-        $errors = array();
-        if (isset($_POST['name']))
+	$types = Project::getProjectTypes();
+    $errors = array();
+    if (isset($_POST['name']))
+    {
+        $str_arr = preg_split("/[ ]+/", $_POST['name']);
+        if (sizeof($str_arr) != 3)
+            $errors[0] = 'Неправильно введено ФИО.';
+        switch($_POST['type']) {
+            case 0:
+                $_POST['type'] = 'student';
+                break;
+            case 1:
+                $_POST['type'] = 'leader';
+                 break;
+            case 2:
+                 $_POST['type'] = 'expert';
+                break;
+            case 3:
+                 $_POST['type'] = 'curator';
+        }
+        if ($status == 1 && $_POST['pswd'] != $_POST['accept'])
+            $errors[1] = 'Неправильно введен пароль';
+        if (sizeof($errors) < 1)
         {
-            $str_arr = preg_split("/[ ]+/", $_POST['name']);
-            if (sizeof($str_arr) != 3)
-                $errors[0] = 'Неправильно введено ФИО.';
-            switch($_POST['type']) {
-                case 0:
-                    $_POST['type'] = 'student';
-                    break;
-                case 1:
-                    $_POST['type'] = 'leader';
-                    break;
-                case 2:
-                    $_POST['type'] = 'expert';
-                    break;
-                case 3:
-                    $_POST['type'] = 'curator';
-            }
-            if ($status == 1 && $_POST['pswd'] != $_POST['accept'])
-                $errors[1] = 'Неправильно введен пароль';
-            if (sizeof($errors) < 1)
-            {
-		if ($status == 1)
-		{
-			$hashed = hash('sha512', $_POST['pswd']);
-                	User::addUser($_POST['login'], $hashed, $_POST['type'], $_POST['position'], $str_arr);
-		}
-		else
-			User::updateUserById($id, $_POST['login'], $_POST['type'], $_POST['position'], $str_arr);
+			if ($status == 1)
+			{
+				$hashed = hash('sha512', $_POST['pswd']);
+                User::addUser($_POST['login'], $hashed, $_POST['type'], $_POST['position'], $str_arr);
+			}
+			else
+				User::updateUserById($id, $_POST['login'], $_POST['type'], $_POST['position'], $str_arr);
                 header("Location: /profile");
             }
         }

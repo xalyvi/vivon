@@ -100,6 +100,7 @@ class User
             $sql .= ' AND project_type IS NULL';
         $result = $db->prepare($sql);
         $result->bindParam(':type', $type, PDO::PARAM_STR);
+        $result->execute();
         $i = 0;
         while ($row = $result->fetch())
         {

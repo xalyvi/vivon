@@ -41,20 +41,38 @@ class ProjectController
 
     }
 
+    public function actionMyProjects()
+    {
+        if (isset($_SESSION['user']))
+        {
+            if ($_SESSION['user']['type'] != 'leader' && $_SESSION['user']['type'] != 'curator')
+                header('Location: /');
+        }
+        else
+            header('Location: /');
+        $types = Project::getProjectTypes();
+        $projects = Project::getProjectsByLEC($_SESSION['user']['id'], $_SESSION['user']['project_type']);
+        require(ROOT.'/views/project/my-projects.phtml');
+        return true;
+    }
+
     public function actionCreateTeam()
     {
+        $types = Project::getProjectTypes();
         require(ROOT.'/views/project/create_team.phtml');
         return true;
     }
 
     public function actionProjectTeam()
     {
+        $types = Project::getProjectTypes();
         require(ROOT.'/views/project/project_team.phtml');
         return true;
     }
 
     public function actionCreateCriteria()
     {
+        $types = Project::getProjectTypes();
         require(ROOT.'/views/profile/criteria.phtml');
         return true;
     }

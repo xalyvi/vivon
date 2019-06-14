@@ -13,6 +13,7 @@ return array (
     'projects/([ab][ab])' => 'home/index/1/$1',
     'projects/([а-яА-ЯЁёa-zA-Z]+)' => 'home/category/$1',
     'projects' => 'home/index',
+    'myprojectlist' => 'project/myProjects',
     'createTeam' => 'project/createTeam',
     'projectTeam' => 'project/projectTeam',
     'createCriteria' => 'project/createCriteria',

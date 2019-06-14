@@ -44,9 +44,39 @@ class Project
             $projectList[$i]['curator'] = $row['curator'];
             $projectList[$i]['team/students'] = $row['team/students'];
             $projectList[$i]['description'] = $row['description'];
+            $projectList[$i]['mes'] = $row['mes'];
             $i++;
         }
         
+        return $projectList;
+    }
+
+    public static function getProjectsByLEC($id, $type)
+    {
+        $db = Db::getConnection();
+
+        $sql = 'SELECT id, title, curator, type, status, `team/students`, mes, timeCreated FROM projects WHERE curator_id = :id';
+        if ($type != NULL)
+            $sql .= ' OR type = :type';
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        if ($type != NULL)
+            $result->bindParam(':type', $type, PDO::PARAM_STR);
+        $result->execute();
+        $i = 0;
+        while ($row = $result->fetch())
+        {
+            $projectList[$i]['id'] = $row['id'];
+            $projectList[$i]['title'] = $row['title'];
+            $projectList[$i]['type'] = $row['type'];
+            $projectList[$i]['curator'] = $row['curator'];
+            $projectList[$i]['team/students'] = $row['team/students'];
+            $projectList[$i]['mes'] = $row['mes'];
+            $projectList[$i]['timeCreated'] = $row['timeCreated'];
+            $projectList[$i]['status'] = $row['status'];
+            $i++;
+        }
+
         return $projectList;
     }
 
@@ -135,94 +165,94 @@ class Project
 
     public static function getApprovedTeams($projectId)
     {
-        $db = Db::getConnection();
+        // $db = Db::getConnection();
         
-        $result = $db->query('SELECT COUNT(*) as count FROM approved WHERE project_id=' . $projectId);
+        // $result = $db->query('SELECT COUNT(*) as count FROM approved WHERE project_id=' . $projectId);
 
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-        $result = $result->fetch();
+        // $result->setFetchMode(PDO::FETCH_ASSOC);
+        // $result = $result->fetch();
 
-        return $result['count'];
+        // return $result['count'];
     }
 
     public static function makeRequest($userId, $userName, $userSurname, $userCourse, $role, $projectId)
     {
         
-        $db = Db::getConnection();
+        // $db = Db::getConnection();
         
-        $sql = 'INSERT INTO requests (user_id, name, surname, course, role, project_id)' . 'VALUES (:user_id, :name, :surname, :course, :role, :project_id)';
+        // $sql = 'INSERT INTO requests (user_id, name, surname, course, role, project_id)' . 'VALUES (:user_id, :name, :surname, :course, :role, :project_id)';
         
-        $result = $db->prepare($sql);
-        $result->bindParam(':user_id', $userId, PDO::PARAM_STR);
-        $result->bindParam(':name', $userName, PDO::PARAM_INT);
-        $result->bindParam(':surname', $userSurname, PDO::PARAM_INT);
-        $result->bindParam(':course', $userCourse, PDO::PARAM_INT);
-        $result->bindParam(':role', $role, PDO::PARAM_STR);
-        $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
-        if ($result->execute()) {
-            return $db->lastInsertId();
-        }
+        // $result = $db->prepare($sql);
+        // $result->bindParam(':user_id', $userId, PDO::PARAM_STR);
+        // $result->bindParam(':name', $userName, PDO::PARAM_INT);
+        // $result->bindParam(':surname', $userSurname, PDO::PARAM_INT);
+        // $result->bindParam(':course', $userCourse, PDO::PARAM_INT);
+        // $result->bindParam(':role', $role, PDO::PARAM_STR);
+        // $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
+        // if ($result->execute()) {
+        //     return $db->lastInsertId();
+        // }
         
-        return 0;
+        // return 0;
     }
 
     public static function getRequestByUserAndId($userId, $projectId)
     {
-        $db = Db::getConnection();
+        // $db = Db::getConnection();
 
-        $sql = 'SELECT * FROM requests WHERE user_id = :user_id AND project_id = :projectId';
+        // $sql = 'SELECT * FROM requests WHERE user_id = :user_id AND project_id = :projectId';
 
-        $result = $db->prepare($sql);
-        $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
+        // $result = $db->prepare($sql);
+        // $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        // $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
         
-        $result->setFetchMode(PDO::FETCH_ASSOC);
+        // $result->setFetchMode(PDO::FETCH_ASSOC);
             
-        $requestItem = $result->fetch();
+        // $requestItem = $result->fetch();
 
-        return $requestItem;
+        // return $requestItem;
     }
 
     public static function cancelRequest($userId, $projectId)
     {
-        $db = Db::getConnection();
+        // $db = Db::getConnection();
         
-        $sql = 'DELETE FROM requests WHERE user_id = :id AND project_id = :project_id';
+        // $sql = 'DELETE FROM requests WHERE user_id = :id AND project_id = :project_id';
         
-        $result = $db->prepare($sql);
-        $result->bindParam(':id', $userId, PDO::PARAM_INT);
-        $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
-        return $result->execute();
+        // $result = $db->prepare($sql);
+        // $result->bindParam(':id', $userId, PDO::PARAM_INT);
+        // $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
+        // return $result->execute();
     }
 
     public static function cancelApproved($userId, $projectId)
     {
-        $db = Db::getConnection();
+        // $db = Db::getConnection();
 
-        $sql = 'SELECT * FROM approved WHERE user_id = :user_id AND project_id = :project_id';
-        $result = $db->prepare($sql);
-        $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $result->bindParam(':project_id', $projectId, PDO::PARAM_INT);
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-        $result->execute();
-        $student = $result->fetch();
+        // $sql = 'SELECT * FROM approved WHERE user_id = :user_id AND project_id = :project_id';
+        // $result = $db->prepare($sql);
+        // $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        // $result->bindParam(':project_id', $projectId, PDO::PARAM_INT);
+        // $result->setFetchMode(PDO::FETCH_ASSOC);
+        // $result->execute();
+        // $student = $result->fetch();
 
-        $sql = 'INSERT INTO requests (user_id, name, surname, course, role, project_id)' . ' VALUES (:user_id, :name, :surname, :course, :role, :project_id)';
-        $result = $db->prepare($sql);
-        $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $result->bindParam(':name', $student['name'], PDO::PARAM_STR);
-        $result->bindParam(':surname', $student['surname'], PDO::PARAM_STR);
-        $result->bindParam(':course', $student['course'], PDO::PARAM_INT);
-        $result->bindParam(':role', $student['role'], PDO::PARAM_STR);
-        $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
-        $result->execute();
+        // $sql = 'INSERT INTO requests (user_id, name, surname, course, role, project_id)' . ' VALUES (:user_id, :name, :surname, :course, :role, :project_id)';
+        // $result = $db->prepare($sql);
+        // $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        // $result->bindParam(':name', $student['name'], PDO::PARAM_STR);
+        // $result->bindParam(':surname', $student['surname'], PDO::PARAM_STR);
+        // $result->bindParam(':course', $student['course'], PDO::PARAM_INT);
+        // $result->bindParam(':role', $student['role'], PDO::PARAM_STR);
+        // $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
+        // $result->execute();
 
-        $sql = 'DELETE FROM approved WHERE user_id = :id AND project_id = :project_id';
+        // $sql = 'DELETE FROM approved WHERE user_id = :id AND project_id = :project_id';
         
-        $result = $db->prepare($sql);
-        $result->bindParam(':id', $userId, PDO::PARAM_INT);
-        $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
-        return $result->execute();
+        // $result = $db->prepare($sql);
+        // $result->bindParam(':id', $userId, PDO::PARAM_INT);
+        // $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
+        // return $result->execute();
     }
 
     public static function makeApproved($userId, $projectId)

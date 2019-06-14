@@ -6,7 +6,7 @@ class HomeController
     {
         $search = urldecode($search);
         $types = Project::getProjectTypes();
-        $projects = Project::getProjects(2, $page, false, $search, $sort);
+        $projects = Project::getProjects(1, $page, false, $search, $sort);
 
         $total = Project::getTotalProjects(false, $search);
         
@@ -19,7 +19,7 @@ class HomeController
 
     public function actionCategory($category, $page = 1, $sort = false)
     {
-        $projects = Project::getProjects(2, $page, $category, false, $sort);
+        $projects = Project::getProjects(1, $page, $category, false, $sort);
         $leader = User::getLeaderByCat($category);
         $types = Project::getProjectTypes();
         $total = Project::getTotalProjects($category);
