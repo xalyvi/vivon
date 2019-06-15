@@ -70,9 +70,21 @@ class ProjectController
         return true;
     }
 
-    public function actionCreateCriteria()
+    public function actionCreateCriteria($id)
     {
+        if (isset($_SESSION['user']))
+        {
+            if ($_SESSION['user']['type'] != 'leader' && $_SESSION['user']['type'] != 'curator')
+                header('Location: /');
+        }
+        else
+            header('Location: /');
         $types = Project::getProjectTypes();
+        $experts = User::getTypeUsers('expert');
+        if (isset($_POST['points']))
+        {
+            
+        }
         require(ROOT.'/views/profile/criteria.phtml');
         return true;
     }

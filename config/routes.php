@@ -16,7 +16,7 @@ return array (
     'myprojectlist' => 'project/myProjects',
     'createTeam' => 'project/createTeam',
     'projectTeam' => 'project/projectTeam',
-    'createCriteria' => 'project/createCriteria',
+    'addCriteria-id([0-9]+)' => 'project/createCriteria/$1',
     'project/id-([0-9]+)' => 'project/index/$1',
     'profile/addProject' => 'profile/add',
     'profile/newtype' => 'profile/newtype',

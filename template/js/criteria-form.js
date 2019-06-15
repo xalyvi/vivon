@@ -36,7 +36,7 @@ function onFileSelected(event) {
       } else if (result[0][3].indexOf('Объективный') != -1) {
           form.elements['Objective'][1].checked = true;
       }
-      form.elements['evaluation'] = result[0][4];
+      form.elements['points'] = result[0][4];
       if (result[0][5].indexOf('строгий') != -1) {
           form.elements['strict'].checked = true;
           onStrictCheck();
