@@ -150,18 +150,24 @@ class Project
     {
         $id = intval($id);
         
-        if ($id) {
+        $db = Db::getConnection();
+        $result = $db->query('SELECT * FROM projects WHERE id=' . $id); 
+        $result->setFetchMode(PDO::FETCH_ASSOC);  
+        $project = $result->fetch();
             
-            $db = Db::getConnection();
+        return $project;
+    }
+
+    public static function getCriteriasPoints($id)
+    {
+        $id = intval($id);
+        
+        $db = Db::getConnection();
+        $result = $db->query('SELECT `type`, `curator_id`, `criteria_sum` FROM projects WHERE id=' . $id); 
+        $result->setFetchMode(PDO::FETCH_ASSOC);  
+        $project = $result->fetch();
             
-            $result = $db->query('SELECT * FROM projects WHERE id=' . $id);
-            
-            $result->setFetchMode(PDO::FETCH_ASSOC);
-            
-            $catalogItem = $result->fetch();
-            
-            return $catalogItem;
-        }
+        return $project;
     }
 
     public static function getApprovedTeams($projectId)

@@ -76,12 +76,15 @@ class ProjectController
         {
             if ($_SESSION['user']['type'] != 'leader' && $_SESSION['user']['type'] != 'curator')
                 header('Location: /');
+            $project = Project::getCriteriasPoints($id);
+            if ($_SESSION['user']['project_type'] != $project['type'] && $_SESSION['user']['id'] != $project['curator_id'])
+                header('Location: /myprojectlist');
         }
         else
             header('Location: /');
         $types = Project::getProjectTypes();
         $experts = User::getTypeUsers('expert');
-        if (isset($_POST['points']))
+        if (isset($_POST['create']) && $_POST['points'] < 10 && $_POST['points'] + $project['criteria_sum'] <= 100)
         {
             
         }

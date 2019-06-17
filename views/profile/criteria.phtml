@@ -8,12 +8,12 @@
                 <form enctype="multipart/form-data" class="md-form mt-1 mb-1" action="" id="form_criteria" method="post">
                     <p class="text-left mt-3 mb-1"><strong>1. Код</strong></p>
                     <div class="md-form mt-3">
-                        <input type="text" name="title" id="code" name="code" class="form-control" pattern="[0-9]+" required>
+                        <input type="text" name="title" id="code" name="code" class="form-control" pattern="[0-9]+">
                         <label for="code">Код</label>
                     </div>
                     <p class="text-left mt-3 mb-1"><strong>2. Наименование</strong></p>
                     <div class="md-form mt-3">
-                        <input type="text" name="title" id="name" name="name" class="form-control" required>
+                        <input type="text" name="title" id="name" name="name" class="form-control">
                         <label for="name">Наименование</label>
                     </div>
                     <p class="text-left mt-3 mb-1"><strong>3. Срок</strong></p>
@@ -32,26 +32,20 @@
                     </div>
                     <p class="text-left mt-3 mb-0"><strong>4. Процедура</strong></p>
                     <div class="custom-control custom-radio ml-4">
-                        <input type="radio" class="custom-control-input" id="defaultInline1" name="Procedure" required>
+                        <input type="radio" class="custom-control-input" id="defaultInline1" name="Procedure">
                         <label class="custom-control-label" for="defaultInline1" style="cursor: pointer;">Субъективный</label>
                     </div>
                     <div class="custom-control custom-radio ml-4">
-                        <input type="radio" class="custom-control-input" id="defaultInline2" name="Procedure" required>
+                        <input type="radio" class="custom-control-input" id="defaultInline2" name="Procedure">
                         <label class="custom-control-label" for="defaultInline2" style="cursor: pointer;">Объективный</label>
                     </div>
                     <p class="text-left mt-3 mb-1"><strong>5. Балл</strong></p>
                     <select class="browser-default custom-select" name="points" id="points">
                         <option value="" disabled selected>Выберите балл</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
+                        <?php
+							for ($i = 1; ($i <= 10 && $i + $project['criteria_sum'] <= 100); $i++)
+								echo '<option value="'.$i.'">'.$i.'</option>';
+							?>
                     </select>
                     <p class="text-left mt-3 mb-1"><strong>6. Эксперты</strong></p>
 
@@ -133,7 +127,7 @@
                             </select>
                         </div>
                         <div class="col-md-4 col-12">
-                            <input type="text" name="title" id="penalty" name="penalty" class="form-control" required>
+                            <input type="text" name="title" id="penalty" name="penalty" class="form-control">
                             <label class="ml-3" for="penalty">Штраф в процентах</label>
                         </div>
                         <div class="col-md-4 col-12">
@@ -143,7 +137,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-info btn-block my-4" name="create" type="submit">Добавить критерий</button>
+                    <button class="btn btn-info btn-block my-4" data-toggle="modal" data-target="#exampleModalCenter">Добавить критерий</button>
                 </form>
                 <h4 class="card-title text-center mt-3"><strong>Или загрузите CSV-файл</strong></h4>
                 <form class="md-form">
@@ -160,6 +154,30 @@
             </div>
         </div>
     </div>
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+
+	<!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+	<div class="modal-dialog modal-dialog-centered" role="document">
+
+
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			...
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Save changes</button>
+		</div>
+		</div>
+	</div>
+	</div>
 </main>
 
 <footer class="py-3">
