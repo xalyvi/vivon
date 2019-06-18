@@ -1,4 +1,4 @@
-<?php $site = ''; include(ROOT.'/views/layouts/header.phtml'); ?>
+<?php $site = 'Добавить критерий'; include(ROOT.'/views/layouts/header.phtml'); ?>
 
 <main class="flex-fill">
     <div class="container">
@@ -8,24 +8,24 @@
                 <form enctype="multipart/form-data" class="md-form mt-1 mb-1" action="" id="form_criteria" method="post">
                     <p class="text-left mt-3 mb-1"><strong>1. Код</strong></p>
                     <div class="md-form mt-3">
-                        <input type="text" name="title" id="code" name="code" class="form-control" pattern="[0-9]+">
+                        <input type="text" name="title" id="code" name="code" class="form-control" pattern="[0-9]+" required>
                         <label for="code">Код</label>
                     </div>
                     <p class="text-left mt-3 mb-1"><strong>2. Наименование</strong></p>
                     <div class="md-form mt-3">
-                        <input type="text" name="title" id="name" name="name" class="form-control">
+                        <input type="text" name="title" id="name" name="name" class="form-control" required>
                         <label for="name">Наименование</label>
                     </div>
                     <p class="text-left mt-3 mb-1"><strong>3. Срок</strong></p>
                     <div class="row mt-3">
                         <div class="col-md-9 col-12">
                             <div class="md-form mt-0">
-                                <input type="date" name="date" id="date" class="form-control" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}">
+                                <input type="date" name="date" id="date" class="form-control" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" required>
                             </div>
                         </div>
                         <div class="col-md-3 col-12">
                             <div class="custom-control custom-checkbox ml-4">
-                                <input type="checkbox" class="custom-control-input" id="anyDay" onchange="anyDate()" name="anyDay">
+                                <input type="checkbox" class="custom-control-input" id="anyDay" onchange="anyDate()" name="anyDay" required>
                                 <label class="custom-control-label" for="anyDay" style="cursor: pointer;">В любой день</label>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                         <label class="custom-control-label" for="defaultInline2" style="cursor: pointer;">Объективный</label>
                     </div>
                     <p class="text-left mt-3 mb-1"><strong>5. Балл</strong></p>
-                    <select class="browser-default custom-select" name="points" id="points">
+                    <select class="mdb-select md-form" onChange="" name="points" id="points" required>
                         <option value="" disabled selected>Выберите балл</option>
                         <?php
 							for ($i = 1; ($i <= 10 && $i + $project['criteria_sum'] <= 100); $i++)
@@ -48,51 +48,18 @@
 							?>
                     </select>
                     <p class="text-left mt-3 mb-1"><strong>6. Эксперты</strong></p>
-
-                    <div class="table-responsive">
-                        <table id="tablePreview" class="table table-striped table-sm text-nowrap">
-                            <thead>
-                                <tr>
-                                    <th><strong>Эксперт</strong></th>
-                                    <th><strong>Добавить эксперта для критерия</strong></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td class="align-middle">Имя эксперта 1</td>
-                                <td>
-                                    <div class="custom-control custom-checkbox ml-4 mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="expert1">
-                                        <label class="custom-control-label" for="expert1" style="cursor: pointer;"></label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">Имя эксперта 2</td>
-                                <td>
-                                    <div class="custom-control custom-checkbox ml-4 mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="expert2">
-                                        <label class="custom-control-label" for="expert2" style="cursor: pointer;"></label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">Имя эксперта 3</td>
-                                <td>
-                                    <div class="custom-control custom-checkbox ml-4 mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="expert3">
-                                        <label class="custom-control-label" for="expert3" style="cursor: pointer;"></label>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <select class="mdb-select md-form" searchable="Введите имя..." required>
+                        <option value="" disabled selected>Выберите эксперта</option>
+                        <option value="1" data-icon="https://mdbootstrap.com/img/Photos/Avatars/avatar-1.jpg" class="rounded-circle">USA</option>
+                        <option value="2" data-icon="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="rounded-circle">Germany</option>
+                        <option value="3" data-icon="https://mdbootstrap.com/img/Photos/Avatars/avatar-3.jpg" class="rounded-circle">France</option>
+                    </select>
+                    <label class="mdb-main-label">Label example</label>
 
                     <p class="text-left mt-3 mb-1"><strong>7. Тип</strong></p>
                     <div class="row mt-3">
                         <div class="col-md-4 col-12">
-                            <select id="penalty-days" name="penalty-days" class="browser-default custom-select">
+                            <select id="penalty-days" name="penalty-days" class="browser-default custom-select" required>
                                 <option value="" disabled selected>Количество дней</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -127,7 +94,7 @@
                             </select>
                         </div>
                         <div class="col-md-4 col-12">
-                            <input type="text" name="title" id="penalty" name="penalty" class="form-control">
+                            <input type="text" name="title" id="penalty" name="penalty" class="form-control" required >
                             <label class="ml-3" for="penalty">Штраф в процентах</label>
                         </div>
                         <div class="col-md-4 col-12">
@@ -137,7 +104,23 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-info btn-block my-4" data-toggle="modal" data-target="#exampleModalCenter">Добавить критерий</button>
+                    <button class="btn btn-info btn-block my-4" type="button" data-toggle="modal" data-target="#basicExampleModal">Добавить критерий</button>
+                    <div class="modal fad" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Добавить критерий</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div id="modal-body" class="modal-body justify-content-center">
+                                <button type="submit" class="btn btn-light-green">Готово</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
                 <h4 class="card-title text-center mt-3"><strong>Или загрузите CSV-файл</strong></h4>
                 <form class="md-form">
@@ -154,37 +137,16 @@
             </div>
         </div>
     </div>
-	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
-
-	<!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
-	<div class="modal-dialog modal-dialog-centered" role="document">
-
-
-		<div class="modal-content">
-		<div class="modal-header">
-			<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-		<div class="modal-body">
-			...
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			<button type="button" class="btn btn-primary">Save changes</button>
-		</div>
-		</div>
-	</div>
-	</div>
 </main>
 
 <footer class="py-3">
     © 2019 Московский политехнический университет
 </footer>
 
-<script type="text/javascript" src="/template/js/criteria-form.js"></script>
 <?php include(ROOT.'/views/layouts/footer.phtml'); ?>
+<script>
+    var crit_sum = "<?php echo $project['criteria_sum']; ?>";
+</script>
+<script type="text/javascript" src="/template/js/criteria-form.js"></script>
 </body>
 </html>

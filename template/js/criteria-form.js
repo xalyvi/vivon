@@ -1,3 +1,7 @@
+$(document).ready(function() {
+    $('.mdb-select').materialSelect();
+    });
+    
 function onStrictCheck() {
     let penalty = document.getElementById("penalty");
     let days = document.getElementById("penalty-days");
@@ -19,6 +23,14 @@ function anyDate() {
         date.disabled = false;
     }
 }
+
+$('#points').on('change', function() {
+    let inner = '<button id="next-criteria" type="submit" class="btn btn-cyan">Добавить новый критерий</button>';
+    if (this.value + crit_sum <= 100)
+        $('#modal-body').append(inner);
+    else
+        $('#next-criteria').remove();
+  });
 
 function onFileSelected(event) {
     let selectedFile = event.target.files[0];

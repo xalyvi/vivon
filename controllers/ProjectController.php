@@ -84,10 +84,10 @@ class ProjectController
             header('Location: /');
         $types = Project::getProjectTypes();
         $experts = User::getTypeUsers('expert');
-        if (isset($_POST['create']) && $_POST['points'] < 10 && $_POST['points'] + $project['criteria_sum'] <= 100)
-        {
+        // if (isset($_POST['create']) && $_POST['points'] < 10 && $_POST['points'] + $project['criteria_sum'] <= 100)
+        // {
             
-        }
+        // }
         require(ROOT.'/views/profile/criteria.phtml');
         return true;
     }
