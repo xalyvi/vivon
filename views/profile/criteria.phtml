@@ -6,102 +6,24 @@
         <div class="card-body">
             <h4 class="card-title text-center mt-3"><strong>Создание критерия оценки</strong></h4>
                 <form enctype="multipart/form-data" class="md-form mt-1 mb-1" action="" id="form_criteria" method="post">
-                    <p class="text-left mt-3 mb-1"><strong>1. Код</strong></p>
-                    <div class="md-form mt-3">
-                        <input type="text" name="title" id="code" name="code" class="form-control" pattern="[0-9]+" required>
-                        <label for="code">Код</label>
-                    </div>
-                    <p class="text-left mt-3 mb-1"><strong>2. Наименование</strong></p>
-                    <div class="md-form mt-3">
-                        <input type="text" name="title" id="name" name="name" class="form-control" required>
-                        <label for="name">Наименование</label>
-                    </div>
-                    <p class="text-left mt-3 mb-1"><strong>3. Срок</strong></p>
+                    <p class="text-left mt-3 mb-1"><strong>3. Начало проверки</strong></p>
                     <div class="row mt-3">
                         <div class="col-md-9 col-12">
                             <div class="md-form mt-0">
-                                <input type="date" name="date" id="date" class="form-control" pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" required>
+                                <input placeholder="Выберите дату" name="evalday" type="text" id="evalday" class="form-control datepicker" required>
                             </div>
                         </div>
-                        <div class="col-md-3 col-12">
+                        <div id="evalday-any" class="col-md-3 col-12">
                             <div class="custom-control custom-checkbox ml-4">
-                                <input type="checkbox" class="custom-control-input" id="anyDay" onchange="anyDate()" name="anyDay" required>
+                                <input type="checkbox" class="custom-control-input" id="anyDay" name="anyDay">
                                 <label class="custom-control-label" for="anyDay" style="cursor: pointer;">В любой день</label>
                             </div>
                         </div>
                     </div>
-                    <p class="text-left mt-3 mb-0"><strong>4. Процедура</strong></p>
-                    <div class="custom-control custom-radio ml-4">
-                        <input type="radio" class="custom-control-input" id="defaultInline1" name="Procedure">
-                        <label class="custom-control-label" for="defaultInline1" style="cursor: pointer;">Субъективный</label>
-                    </div>
-                    <div class="custom-control custom-radio ml-4">
-                        <input type="radio" class="custom-control-input" id="defaultInline2" name="Procedure">
-                        <label class="custom-control-label" for="defaultInline2" style="cursor: pointer;">Объективный</label>
-                    </div>
-                    <p class="text-left mt-3 mb-1"><strong>5. Балл</strong></p>
-                    <select class="mdb-select md-form" onChange="" name="points" id="points" required>
-                        <option value="" disabled selected>Выберите балл</option>
-                        <?php
-							for ($i = 1; ($i <= 10 && $i + $project['criteria_sum'] <= 100); $i++)
-								echo '<option value="'.$i.'">'.$i.'</option>';
-							?>
-                    </select>
-                    <p class="text-left mt-3 mb-1"><strong>6. Эксперты</strong></p>
-                    <select class="mdb-select md-form" searchable="Введите имя..." required>
-                        <option value="" disabled selected>Выберите эксперта</option>
-                        <option value="1" data-icon="https://mdbootstrap.com/img/Photos/Avatars/avatar-1.jpg" class="rounded-circle">USA</option>
-                        <option value="2" data-icon="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="rounded-circle">Germany</option>
-                        <option value="3" data-icon="https://mdbootstrap.com/img/Photos/Avatars/avatar-3.jpg" class="rounded-circle">France</option>
-                    </select>
-                    <label class="mdb-main-label">Label example</label>
-
-                    <p class="text-left mt-3 mb-1"><strong>7. Тип</strong></p>
-                    <div class="row mt-3">
+                    <p class="text-left mt-3 mb-1"><strong>7. Дедлайн и штраф</strong></p>
+                    <div id="deadline-row" class="row mt-3">
                         <div class="col-md-4 col-12">
-                            <select id="penalty-days" name="penalty-days" class="browser-default custom-select" required>
-                                <option value="" disabled selected>Количество дней</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                                <option value="20">20</option>
-                                <option value="21">21</option>
-                                <option value="22">22</option>
-                                <option value="23">23</option>
-                                <option value="24">24</option>
-                                <option value="25">25</option>
-                                <option value="26">26</option>
-                                <option value="27">27</option>
-                                <option value="28">28</option>
-                                <option value="29">29</option>
-                                <option value="30">30</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <input type="text" name="title" id="penalty" name="penalty" class="form-control" required >
-                            <label class="ml-3" for="penalty">Штраф в процентах</label>
-                        </div>
-                        <div class="col-md-4 col-12">
-                            <div class="custom-control custom-checkbox ml-4">
-                            <input type="checkbox" class="custom-control-input" name="strict" onchange="onStrictCheck()" id="strict">
-                                <label class="custom-control-label" for="strict" style="cursor: pointer;">Строгий</label>
-                            </div>
+                            <input placeholder="Выберите дату дедлайна" name="deadline" type="date" id="deadline" class="form-control datepicker" required disabled>
                         </div>
                     </div>
                     <button class="btn btn-info btn-block my-4" type="button" data-toggle="modal" data-target="#basicExampleModal">Добавить критерий</button>
@@ -147,6 +69,7 @@
 <script>
     var crit_sum = "<?php echo $project['criteria_sum']; ?>";
 </script>
+<script type="text/javascript" src="/template/js/modules/material-select.js"></script>
 <script type="text/javascript" src="/template/js/criteria-form.js"></script>
 </body>
 </html>

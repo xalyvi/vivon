@@ -76,8 +76,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       value: function setPushPoint() {
         if (this.options.startScrolling === 'bottom' && !this.isScreenHeightEnough()) {
           this.$pushPoint = this.$element.offset().top + this.$element.outerHeight(true) - this.$window.height();
-        } else if (this.options.startScrolling === 'bottom') {
-          this.$pushPoint = this.$element.offset().top + this.$element.outerHeight(true) + this.options.topSpacing - this.$window.height();
         } else {
           this.$pushPoint = this.$element.offset().top - this.options.topSpacing;
         }

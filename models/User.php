@@ -95,7 +95,7 @@ class User
     {
         $db = Db::getConnection();
         $users = array();
-        $sql = 'SELECT id, name, surname, patronymic FROM users WHERE type = :type';
+        $sql = 'SELECT id, pic, name, surname, patronymic FROM users WHERE type = :type';
         if ($pr_type)
             $sql .= ' AND project_type IS NULL';
         $result = $db->prepare($sql);
@@ -105,6 +105,7 @@ class User
         while ($row = $result->fetch())
         {
             $users[$i]['id'] = $row['id'];
+            $users[$i]['pic'] = $row['pic'];
             $users[$i]['name'] = $row['name'];
             $users[$i]['surname'] = $row['surname'];
             $users[$i]['patronymic'] = $row['patronymic'];
