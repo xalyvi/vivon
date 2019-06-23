@@ -48,7 +48,12 @@
                     $cap = $cap[0]*$cap[1];
                     echo '<tr';
                     if ($project['status'] == 0) echo ' class="red lighten-5"';
-                    echo '><td>'.$project['title'].'</td><td>'.$project['curator'].'</td><td>'.$project['type'].'</td><td>'.$project['criteria_sum'].' баллов</td><td>'.$project['mes'].'/'.$cap.'</td><td>'.$project['timeCreated'].'</td><td class="text-center">';
+                    echo '><td>'.$project['title'].'</td><td>'.$project['curator'].'</td><td>'.$project['type'].'</td><td>'.$project['criteria_sum'];
+                    if ($project['criteria_sum'] % 10 == 1)
+                        echo ' балл';
+                    else
+                        echo ' баллов';
+                    echo '</td><td>'.$project['mes'].'/'.$cap.'</td><td>'.$project['timeCreated'].'</td><td class="text-center">';
                     if ($project['status'] == 0) echo '<i class="red-text fas fa-exclamation-triangle"></i> нехватает критериев<br><a type="button" href="/addCriteria-id'.$project['id'].'" class="btn btn-deep-orange btn-sm m-0">Добавить критерий</a>';
                     echo '</td></tr>';
                 } ?>

@@ -1,68 +1,77 @@
-var dateeval = $('#evalday').pickadate().pickadate('picker');
 var innerDead = '<div id="deadline-dday" class="col-md-4 col-12"><div class="custom-control custom-checkbox ml-4"><input type="checkbox" class="custom-control-input" name="strict" id="strict"><label class="custom-control-label" for="strict" style="cursor: pointer;">Дедлайн в день начало проверки</label></div></div>';
+
+$('.datepicker').pickadate({
+    monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+    monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Няб', 'Дек'],
+    weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+    weekdaysShort: ['Вос', 'Пон', 'Втор', 'Сред', 'Четв', 'Пятн', 'Суб'],
+    format: 'd mmmm, yyyy',
+    formatSubmit: 'yyyy-mm-dd',
+    hiddenName: true
+});
 
 $(document).ready(function() {
     $('.mdb-select').materialSelect();
-    $('.datepicker').pickadate({
-        monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-        monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Няб', 'Дек'],
-        weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-        weekdaysShort: ['Вос', 'Пон', 'Втор', 'Сред', 'Четв', 'Пятн', 'Суб'],
-        format: 'yyyy-mm-dd',
-        formatSubmit: 'yyyy/mm/dd',
-        hiddenPrefix: 'prefix__',
-        hiddenSuffix: '__suffix'
-    });
+    var dateeval = $('#evalday').pickadate().pickadate('picker');
     $('#evalday').pickadate('picker').set('min', new Date( Date.now() + 30 * 24 * 60 * 60 * 1000));
     $('#evalday').pickadate('picker').on('set', function (event) {
         if (event.select) {
             if (!$('#deadline-dday').length && !$('#anyDay').checked) {
-                console.log($('#deadline-dday').length);
                 $('#deadline-row').append(innerDead);
                 $('#strict').on('change', function() {
-                    console.log('strict');
-                    $('#deadline').prop("disabled", true);
-                    $('#deadline').pickadate('picker').set('select', new Date(dateeval.get('select')['pick']));
+                    if (this.checked) {
+                        let now = new Date(dateeval.get('select')['pick']);
+                        $('#deadline').prop("disabled", true);
+                        $('#deadline').pickadate('picker').set('min', now);
+                        $('#deadline').pickadate('picker').set('max', now);
+                        $('#deadline').pickadate('picker').set('select', now);
+                    }
+                    else
+                        $('#deadline').prop("disabled", false);
+                        $('#deadline').pickadate('picker').set('min', new Date (dateeval.get('select')['pick'] + 24 * 60 * 60 * 1000));
                 });
             }
             if (document.getElementById('deadline').disabled)
                 document.getElementById('deadline').disabled = false;
-            $('#deadline').pickadate('picker').set('min', new Date (dateeval.get('select')['pick'] + 24 * 60 * 60 * 1000));
-            $('#deadline').pickadate('picker').set('max', new Date (dateeval.get('select')['pick'] + 30 * 24 * 60 * 60 * 1000));
+                if ($('#strict').prop("checked") == false)
+                {
+                    $('#deadline').pickadate('picker').set('min', new Date (dateeval.get('select')['pick'] + 24 * 60 * 60 * 1000));
+                }
+                $('#deadline').pickadate('picker').set('max', new Date (dateeval.get('select')['pick'] + 30 * 24 * 60 * 60 * 1000));
+            if ($('#strict').prop("checked") || !$('#deadline').pickadate('picker').get('select') || $('#deadline').pickadate('picker').get('select')['pick'] < dateeval.get('select')['pick']) {
+                $('#deadline').pickadate('picker').set('select', new Date(dateeval.get('select')['pick']));
+            }
         } else if ('clear' in event) {
             document.getElementById('deadline').disabled = true;
         }
       });
-});
-
-$('#anyDay').on('change', function () {
-    if (this.checked) {
-        console.log('dday');
-        $('#evalday').prop("disabled", true);
-        $('#deadline').prop("disabled", true);
-        $('#deadline-dday').remove();
-    } else {
-        console.log('disable');
-        $('#evalday').prop("disabled", false);
-        $('#deadline').prop("disabled", false);
-        if (!$('#deadline-dday').length && dateeval.get('select') != null)
-        {
-            $('#deadline-row').append(innerDead);
-            $('#strict').on('change', function() {
-                console.log('strict');
-                $('#deadline').prop("disabled", true);
-                $('#deadline').pickadate('picker').set('select', new Date(dateeval.get('select')['pick']));
-            });
+    $('#anyDay').on('change', function () {
+        if (this.checked) {
+            $('#evalday').prop("disabled", true);
+            $('#deadline').prop("disabled", true);
+            $('#deadline-dday').remove();
+        } else {
+            $('#evalday').prop("disabled", false);
+            $('#deadline').prop("disabled", false);
+            if (!$('#deadline-dday').length && dateeval.get('select') != null)
+            {
+                $('#deadline-row').append(innerDead);
+                $('#strict').on('change', function() {
+                    $('#deadline').prop("disabled", true);
+                    $('#deadline').pickadate('picker').set('select', new Date(dateeval.get('select')['pick']));
+                });
+            }
         }
-    }
+    });
 });
-
 
 
 $('#points').on('change', function() {
-    let inner = '<button id="next-criteria" type="submit" class="btn btn-cyan">Добавить новый критерий</button>';
-    if (this.value + crit_sum <= 100)
-        $('#modal-body').append(inner);
+    let inner = '<button id="next-criteria" name="next-criteria" type="submit" class="btn btn-cyan">Добавить новый критерий</button>';
+    if (this.value + crit_sum <= 100) {
+        if (!$('#next-criteria').length)
+            $('#modal-body').append(inner);
+    }
     else
         $('#next-criteria').remove();
   });

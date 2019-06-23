@@ -84,10 +84,6 @@ class ProjectController
             header('Location: /');
         $types = Project::getProjectTypes();
         $experts = User::getTypeUsers('expert');
-        if (isset($_POST['evalday']) && isset($_POST['deadline'])) {
-            $date = $_POST['evalday'];
-            $date .= ' ' . $_POST['deadline'];
-        }
         if (isset($date)) echo $date;
         // if (isset($_POST['create']) && $_POST['points'] < 10 && $_POST['points'] + $project['criteria_sum'] <= 100)
         // {
