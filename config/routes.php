@@ -14,7 +14,7 @@ return array (
     'projects/([а-яА-ЯЁёa-zA-Z]+)' => 'home/category/$1',
     'projects' => 'home/index',
     'myprojectlist' => 'project/myProjects',
-    'createTeam' => 'project/createTeam',
+    'teammaking-id([0-9]+)' => 'project/teamMaking/$1',
     'projectTeam' => 'project/projectTeam',
     'addCriteria-id([0-9]+)' => 'project/createCriteria/$1',
     'project/id-([0-9]+)' => 'project/index/$1',

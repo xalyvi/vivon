@@ -68,7 +68,7 @@ $(document).ready(function() {
 
 $('#points').on('change', function() {
     let inner = '<button id="next-criteria" name="next-criteria" type="submit" class="btn btn-cyan">Добавить новый критерий</button>';
-    if (this.value + crit_sum <= 100) {
+    if (parseInt(this.value)+parseInt(crit_sum) < 100) {
         if (!$('#next-criteria').length)
             $('#modal-body').append(inner);
     }

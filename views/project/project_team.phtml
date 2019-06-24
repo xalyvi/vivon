@@ -1,173 +1,87 @@
 <?php $site = 'Проект'; include(ROOT.'/views/layouts/header.phtml'); ?>
-  <main class="flex-fill">
-            <div class="container">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/projects">Проекты</a></li>
-                        <li class="breadcrumb-item"><a href="#">Название направления</a></li>
-                        <li class="breadcrumb-item"><a href="#">Название проекта</a></li>
-                        <li class="breadcrumb-item active">Название команды</li>
-                    </ol>
-                </nav>
+<link rel="stylesheet" href="/template/css/jquery.bootstrap.year.calendar.min.css">
+<style>
+.project-status {
+    flex-flow: column;
+    align-items: center;
+    width: 220px;
+    height: 220px;
+    border-radius: 2px;
+}
+
+.project-status p {
+    margin-top: 2rem;
+    font-size: 1.5em;
+}
+
+.input-group-addon {
+    white-space: nowrap;
+    vertical-align: middle;
+    padding: 6px 12px;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1;
+    color: #555555;
+    text-align: center;
+    background-color: #eeeeee;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+}
+</style>
+<main class="flex-fill">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-9 col-md-9">
                 <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex card-block-1">
-                            <div class="view overlay mr-3 mb-2">
-                                <img class="card-img-top rounded-circle" style="width: 80px; height: 80px;" src="/temp/temp.png" alt="Card image cap">
+                    <div class="row">
+                        <div class="col-md-2 mt-3">
+                            <div class="d-flex align-self-start blue text-white project-status">
+                                <p>в разработке</p>
+                                <i class="fas fa-calendar-alt fa-6x"></i>
                             </div>
-                            <div class="row ">
-                                <div class="row justify-content-between col-12">
-                                    <h4 class="card-title"><strong>Название команды</strong></h4>
-                                    <h4 class="card-title"><strong>Статус: формируется</strong></h4>
-                                </div>
-                                <h4 class="col-12 card-title"><strong>Название направления</strong></h4>
-                                <div class="col-12 row justify-content-between">
-                                    <h4 class="card-title"><strong>Руководитель: ФИО</strong></h4>
-                                </div>
+                            <p class="mt-1">VR energetics</p>
+                            <hr>
+                            <a href="#" class="light-blue-text"><i class="far fa-file text-black-50"></i> Документ</a>
+                            <hr>
+                            <div class="row">
+                                <button type="button" class="btn btn-success btn-sm">Для чего та</button>
                             </div>
                         </div>
-                        <p class="card-text">Description</p>
-
-                        <!-- Только для куратора -->
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-deep-purple btn-rounded" disabled>Формируется</button>
-                            <a type="button" href="#" class="btn btn-blue btn-rounded">Выполняется</a>
-                            <a type="button" href="#" class="btn btn-blue btn-rounded">Завершен</a>
-                        </div>
-
-                        <div class="mt-5 mb-3 d-flex justify-content-center align-items-center">
-                            <h3><strong>Участники</strong></h3>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row justify-content-start">
-                                    <div class="view overlay mr-3">
-                                        <img class="card-img-top rounded-circle" style="width: 80px; height: 80px;" src="/temp/temp.png" alt="Card image cap">
-                                    </div>
-                                    <div class="my-auto">
-                                        <h5>Фамилия имя студента</h5>
-                                        <span>1 Курс, Информационные Технологии</span>
-                                    </div>
-                                </div>
+                        <div class="col-md-9 mt-3">
+                            <h2>Команда</h2>
+                            <p>Сформирована <strong>10 месяцев</strong> назад</p>
+                            <hr>
+                            <div class="pt-2 align-middle font-weight-light">
+                                <p class="grey-text"><i class="fas fa-1x fa-users"></i> В команде 5 студентов</p>
+                                <img src="/temp/temp.png" alt="" class="rounded-circle img-fluid pr-1"
+                                    style="width: 50px">
+                                <img src="/temp/temp.png" alt="" class="rounded-circle img-fluid pr-1"
+                                    style="width: 50px">
+                                <img src="/temp/temp.png" alt="" class="rounded-circle img-fluid pr-1"
+                                    style="width: 50px">
+                            </div>
+                            <hr>
+                            <div class="calendar"></div>
+                            <hr>
+                            <p class="grey-text"><i class="fas fa-1x fa-code-branch"></i> Git репозиторий</p>
+                            <div class="input-group">
+                                <input type="text" class="form-control" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" readonly value="vogsphere@vogsphere.21-school.ru:intra/2019/activities/ft_printf/srolland">
+                                <span class="input-group-addon">
+                                    <i class="far fa-clone"></i>
+                                </span>
                             </div>
                         </div>
-
-                        <div class="mt-5 mb-3 d-flex justify-content-center align-items-center">
-                            <h3><strong>Репозитории</strong></h3>
-                        </div>
-
-                        <div class="row justify-content-start my-3">
-                            <h5 class="my-auto mx-3 mb-2"><strong>Требования</strong></h5>
-                            <a href="#">Добавить файл</a>
-                            <div class="w-100"></div>
-                            <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Доки.txt</a>
-                            <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Требования.txt</a>
-                            <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Файл 4</a>
-                            <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Файл.pdf</a>
-                        </div>
-
-                        <div class="row justify-content-start my-3">
-                            <h5 class="my-auto mx-3 mb-2"><strong>Команды</strong></h5>
-                            <a href="#">Добавить файл</a>
-                            <div class="w-100"></div>
-                            <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Доки.txt</a>
-                            <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Требования.txt</a>
-                            <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Файл 4</a>
-                            <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Файл.pdf</a>
-                        </div>
-
-                        <div class="row justify-content-start my-3">
-                            <h5 class="my-auto mx-3"><strong>Итог</strong></h5>
-                            <a href="#">Добавить файл</a>
-                            <div class="w-100"></div>
-                            <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Доки.txt</a>
-                            <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Требования.txt</a>
-                            <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Файл 4</a>
-                            <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Файл.pdf</a>
-                        </div>
-
-                        <!-- Для студента -->
-                        <div class="row justify-content-center d-flex align-items-center text-center">
-                            <a type="button" class="m-3 btn btn-primary btn-rounded" href="#">Покинуть команду</a>
-                        </div>
-
-                        <div class="d-flex justify-content-center align-items-center">
-                            <h3><strong>Критерии проекта</strong></h3>
-                        </div>
-
-                        <!-- Для куратора -->
-                        <div class="row justify-content-center d-flex align-items-center text-center">
-                            <a type="button" class="m-3 btn btn-primary btn-rounded" href="createCriteria">Создать критерий</a>
-                        </div>
-
-                        <!-- Для куратора -->
-                        <h5 class="m-3 row"><strong>Выставленные критерии</strong></h5>
-                        <div class="table-responsive">
-                            <table id="tablePreview" class="table table-striped table-sm text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th><strong>Код</strong></th>
-                                        <th><strong>Название</strong></th>
-                                        <th><strong>Срок</strong></th>
-                                        <th><strong>Процедура</strong></th>
-                                        <th><strong>Балл</strong></th>
-                                        <th><strong>Эксперт</strong></th>
-                                        <th><strong>Тип</strong></th>
-                                    </tr>
-                                </thead>
-                                
-                                <tbody>
-                                <tr>
-                                    <td class="align-middle">1488</td>
-                                    <td class="align-middle">Дизайн</td>
-                                    <td class="align-middle">15.05.2019</td>
-                                    <td class="align-middle">Субъективная</td>
-                                    <td class="align-middle">8</td>
-                                    <td class="align-middle"> Эксперт3</td>
-                                    <td class="align-middle">15 дней, 50%</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Для эксперта -->
-                        <h5 class="m-3 row"><strong>Критерии для оценки</strong></h5>
-                        <div class="table-responsive">
-                            <table id="tablePreview" class="table table-striped table-sm text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th><strong>Код</strong></th>
-                                        <th><strong>Название критерия</strong></th>
-                                        <th><strong>Срок</strong></th>
-                                        <th><strong>Процедура</strong></th>
-                                        <th><strong>Тип</strong></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                <tr>
-                                    <td class="align-middle">1488</td>
-                                    <td class="align-middle">Дизайн</td>
-                                    <td class="align-middle">15.05.2019</td>
-                                    <td class="align-middle">Субъективная</td>
-                                    <td class="align-middle">15 дней, 50%</td>
-                                    <td class="align-middle">
-                                        <form action="" method="post">
-                                            <input type="submit" class="m-2 btn btn-primary btn-rounded btn-sm" name="cancel_apr" value="Оценить критерий">
-                                        </form>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-            <div class="container">
-                    
+                    </div>
+                </div>
             </div>
-  </main>
+        </div>
+</main>
 
 <?php include(ROOT.'/views/layouts/footer.phtml'); ?>
+<script src="/template/js/jquery.bootstrap.year.calendar.min.js"></script>
+<script>
+    $('.calendar').calendar();
+</script>
 </body>
+
 </html>

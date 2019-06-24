@@ -14,7 +14,7 @@ class Project
         
         $projectList = array();
 
-        $sql = 'SELECT projects.id, projects.title, projects.image, projects.curator, projects.type, projects.description, projects.`team/students` FROM projects WHERE status='.$status;
+        $sql = 'SELECT `projects`.`id`, `projects`.`title`, `projects`.`image`, `projects`.`curator`, `projects`.`type`, `projects`.`description`, `projects`.`team/students`, `projects`.`mes` FROM `projects` WHERE `status`='.$status;
         if ($category)
             $sql .= " AND type = '".$category."'";
         else if ($search)
@@ -56,7 +56,7 @@ class Project
         $db = Db::getConnection();
 
         $projectList = array();
-        $sql = 'SELECT id, title, curator, type, status, criteria_sum, `team/students`, mes, timeCreated FROM projects WHERE curator_id = :id';
+        $sql = 'SELECT `id`, `title`, `curator`, `type`, `status`, `criteria_sum`, `team/students`, `mes`, `timeCreated` FROM `projects` WHERE `curator_id` = :id';
         if ($type != NULL)
             $sql .= ' OR type = :type';
         $result = $db->prepare($sql);
@@ -168,6 +168,32 @@ class Project
         $project = $result->fetch();
             
         return $project;
+    }
+
+    public static function addCriteria($id, $code, $name, $evalDay, $deadline, $procedure, $points, $expert, $penalty)
+    {
+        $db = Db::getConnection();
+
+        $sql = 'INSERT INTO `criterias` (`code`, `name`, `produ`, `points`, `expert_id`, `penalty`, `project_id`';
+        if ($evalDay && $deadline)
+            $sql .= ', `evalday`, `deadline`';
+        $sql .= ') VALUES (:code, :name, :produ, :points, :expert_id, :penalty, :project_id';
+        if ($evalDay && $deadline)
+            $sql .= ', :evalday, :deadline';
+        $sql .= ')';
+        $result = $db->prepare($sql);
+        $result->bindParam(':code', $code, PDO::PARAM_INT);
+        $result->bindParam(':name', $name, PDO::PARAM_STR);
+        $result->bindParam(':produ', $procedure, PDO::PARAM_STR);
+        $result->bindParam(':points', $points, PDO::PARAM_INT);
+        $result->bindParam(':expert_id', $expert, PDO::PARAM_INT);
+        $result->bindParam(':penalty', $penalty, PDO::PARAM_INT);
+        $result->bindParam(':project_id', $id, PDO::PARAM_INT);
+        if ($evalDay && $deadline) {
+            $result->bindParam(':evalday', $evalDay, PDO::PARAM_STR);
+            $result->bindParam(':deadline', $deadline, PDO::PARAM_STR);
+        }
+        $result->execute();
     }
 
     public static function getApprovedTeams($projectId)

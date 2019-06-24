@@ -1,0 +1,101 @@
+<?php $site = 'Команды'; include(ROOT.'/views/layouts/header.phtml'); ?>
+
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="list-group">
+                        <a href="#!" class="list-group-item list-group-item-action active">
+                            Заявки и команды
+                        </a>
+                        <a href="#!" class="list-group-item list-group-item-action">Критерии</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="card container-fluid">
+                    <h3 class="text-center"><strong>Участники без команд</strong></h3>
+                    <div class="w-100"></div>
+                    <div class="table-wrapper-scroll-y table-wrapper-scroll-x request-table-wrapper ">
+                        <table id="request-table" class="table">
+                            <thead>
+                                <tr>
+                                    <th class="th-sm">Аватар
+                                    </th>
+                                    <th class="th-sm">Ф.И.О
+                                    </th>
+                                    <th class="th-sm">Кто и откуда
+                                    </th>
+                                    <?php if ($_SESSION['user']['id'] == $project['curator_id'] || $_SESSION['user']['project_type'] == $project['type']) echo '<th></th><th></th>'; ?>
+                            </thead>
+                            <tbody>
+                                <tr class="align-items-center">
+                                    <td><img class="card-img-top rounded-circle" style="width: 50px; height: 50px;"
+                                            src="/temp/temp.png" alt="Card image cap"></td>
+                                    <td>Имя Студента</td>
+                                    <td>1 Курс, Информационные Технологии</td>
+                                    <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-rounded btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            Small button
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"></a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                    </td>
+                                    <td>
+                                        <a type="button" class="m-2 btn btn-primary btn-rounded btn-sm" href="#">Отклонить заявку</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <?php for ($i = 0; $i < 3; $i++): ?>
+                    <div class="card border-dark border-round p-0 m-3 col-sm">
+                        <div class="card-header">Команда A << Вид куратора>></div>
+                        <div class="card-body px-5">
+                            <div class="row justify-content-start">
+                                <div class="view overlay mr-3">
+                                    <img class="card-img-top rounded-circle" style="width: 40px; height: 40px;"
+                                        src="/temp/temp.png" alt="Card image cap">
+                                </div>
+                                <div class="my-auto">
+                                    <h5>Имя студента</h5>
+                                    <span>1 Курс, Информационные Технологии</span>
+                                </div>
+                                <a type="button" class="m-3 btn btn-primary btn-rounded btn-sm" href="#">Отклонить
+                                    заявку</a>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endfor; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+
+<?php include(ROOT.'/views/layouts/footer.phtml'); ?>
+<script src="/template/js/addons/datatables.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#request-table').DataTable({
+        "scrollY": "50vh",
+        "scrollX": true,
+        "scrollCollapse": true,
+    });
+    $('.dataTables_length').addClass('bs-select');
+});
+</script>
+</body>
+
+</html>

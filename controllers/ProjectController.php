@@ -70,6 +70,25 @@ class ProjectController
         return true;
     }
 
+    public function actionTeamMaking($id)
+    {
+        if (isset($_SESSION['user']))
+        {
+            if ($_SESSION['user']['type'] != 'leader' && $_SESSION['user']['type'] != 'curator')
+                header('Location: /');
+            $project = Project::getCriteriasPoints($id);
+            if ($_SESSION['user']['project_type'] != $project['type'] && $_SESSION['user']['id'] != $project['curator_id'])
+                header('Location: /myprojectlist');
+        }
+        else
+            header('Location: /');
+        $types = Project::getProjectTypes();
+        //$requests::getRequests($id);
+
+        require(ROOT.'/views/trash/project_edit.phtml');
+        return true;
+    }
+
     public function actionCreateCriteria($id)
     {
         if (isset($_SESSION['user']))
@@ -85,11 +104,23 @@ class ProjectController
         $types = Project::getProjectTypes();
         $experts = User::getTypeUsers('expert');
         if (isset($date)) echo $date;
-        // if (isset($_POST['create']) && $_POST['points'] < 10 && $_POST['points'] + $project['criteria_sum'] <= 100)
-        // {
-            
-        // }
-        require(ROOT.'/views/profile/criteria.phtml');
+        if (isset($_POST['points']) && $_POST['points'] > 0 && $_POST['points'] <= 10 && $_POST['points'] + $project['criteria_sum'] <= 100) {
+            $evalDay;
+            $deadline;
+            if (isset($_POST['anyDay'])) {
+                $evalDay = null;
+                $deadline = null;
+            } else {
+                $evalDay = $_POST['evalday']. ' 09:00:00';
+                $deadline = $_POST['deadline']. ' 21:00:00';
+            }
+            Project::addCriteria($id, $_POST['code'], $_POST['name'], $evalDay, $deadline, $_POST['procedure'], $_POST['points'], $_POST['expert'], $_POST['penalty']);
+            if (isset($_POST['next-criteria']))
+                header('Location: /addCriteria-id'.$id);
+            else
+                header('Location: /myprojectlist');
+        }
+        require(ROOT.'/views/trash/criteria.phtml');
         return true;
     }
 }

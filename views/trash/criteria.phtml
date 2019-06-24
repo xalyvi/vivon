@@ -1,19 +1,29 @@
 <?php $site = 'Добавить критерий'; include(ROOT.'/views/layouts/header.phtml'); ?>
 
 <main class="flex-fill">
-    <div class="container">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="list-group">
+                <a href="#!" class="list-group-item list-group-item-action ">
+                    Заявки и команды
+                </a>
+                <a href="#!" class="list-group-item list-group-item-action active">Критерии</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
     <div class="card">
         <div class="card-body">
             <h4 class="card-title text-center mt-3"><strong>Создание критерия оценки</strong></h4>
                 <form enctype="multipart/form-data" class="md-form mt-1 mb-1" action="" id="form_criteria" method="post">
                     <p class="text-left mt-3 mb-1"><strong>1. Код</strong></p>
                     <div class="md-form mt-3">
-                        <input type="text" name="title" id="code" name="code" class="form-control" pattern="[0-9]+" required>
+                        <input type="text" id="code" name="code" class="form-control" pattern="[0-9]+" required>
                         <label for="code">Код</label>
                     </div>
                     <p class="text-left mt-3 mb-1"><strong>2. Наименование</strong></p>
                     <div class="md-form mt-3">
-                        <input type="text" name="title" id="name" name="name" class="form-control" required>
+                        <input type="text" id="name" name="name" class="form-control" required>
                         <label for="name">Наименование</label>
                     </div>
                     <p class="text-left mt-3 mb-1"><strong>3. Начало проверки</strong></p>
@@ -32,15 +42,15 @@
                     </div>
                     <p class="text-left mt-3 mb-0"><strong>4. Процедура</strong></p>
                     <div class="custom-control custom-radio ml-4">
-                        <input type="radio" class="form-check-input" id="defaultInline1" name="Procedure" checked>
+                        <input type="radio" class="form-check-input" id="defaultInline1" name="procedure" checked>
                         <label class="custom-control-label" for="defaultInline1" style="cursor: pointer;">Субъективный</label>
                     </div>
                     <div class="custom-control custom-radio ml-4">
-                        <input type="radio" class="form-check-input" id="defaultInline2" name="Procedure">
+                        <input type="radio" class="form-check-input" id="defaultInline2" name="procedure">
                         <label class="custom-control-label" for="defaultInline2" style="cursor: pointer;">Объективный</label>
                     </div>
                     <p class="text-left mt-3 mb-1"><strong>5. Балл</strong></p>
-                    <select class="mdb-select md-form" onChange="" name="points" id="points" required>
+                    <select class="mdb-select md-form" name="points" id="points" required>
                         <option value="" disabled selected>Выберите балл</option>
                         <?php
 							for ($i = 1; ($i <= 10 && $i + $project['criteria_sum'] <= 100); $i++)
@@ -48,7 +58,7 @@
 							?>
                     </select>
                     <p class="text-left mt-3 mb-1"><strong>6. Эксперты</strong></p>
-                    <select class="mdb-select md-form" searchable="Введите имя..." required>
+                    <select class="mdb-select md-form" name="expert" searchable="Введите имя..." required>
                         <option value="" disabled selected>Выберите эксперта</option>
                         <?php foreach($experts as $expert) {
                             echo '<option value="'.$expert['id'].'" data-icon="/temp/'.$expert['pic'].'" class="rounded-circle">'.$expert['surname'].' '.$expert['name'].' '.$expert['patronymic'].'</option>';
@@ -60,13 +70,23 @@
                             <input placeholder="Выберите дату дедлайна" name="deadline" type="text" id="deadline" class="form-control datepicker" required disabled>
                         </div>
                         <div class="col-md-4 col-12">
-                            <input type="text" name="title" id="penalty" name="penalty" class="form-control" required >
-                            <label class="ml-3" for="penalty">Штраф в процентах</label>
+                            <select class="mdb-select md-form" id="penalty" name="penalty" required>
+                                <option value="" disabled selected>Штраф в процентах</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
                         </div>
                     </div>
                     <button class="btn btn-info btn-block my-4" type="button" data-toggle="modal" data-target="#basicExampleModal">Добавить критерий</button>
-                    <div class="modal fad" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+                    <div class="modal fad" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                             <div class="modal-header">

@@ -1,107 +1,108 @@
 <?php $site = 'Проекты'; include(ROOT.'/views/layouts/header.phtml'); ?>
 
-  <main class="flex-fill">
-        <div class="container">
-            <?php if (isset($category)): ?>
-            <div class="card border-info">
-                <div class="card-header">
-                    Лидер: <?php echo $leader['surname'].' '.$leader['name'].' '.$leader['patronymic']; ?>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title"><?php echo $leader['project_type']; ?></h4>
-                    <p class="card-text"><?php echo $leader['p_type_des'] ?></p>
-                    <?php if (isset($_SESSION['user']) && $_SESSION['user']['project_type'] == $leader['project_type']) echo '<a href="newtype">Редактировать</a>'; ?>
-                </div>
+<main class="flex-fill">
+    <div class="container">
+        <?php if (isset($category)): ?>
+        <div class="card border-info">
+            <div class="card-header">
+                Лидер: <?php echo $leader['surname'].' '.$leader['name'].' '.$leader['patronymic']; ?>
             </div>
-            <?php endif; ?>
-
-            <!-- Пример сформированной команды -->
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex card-block-1">
-                        <div class="view overlay mr-3 mb-2">
-                            <img class="card-img-top rounded-circle" style="width: 80px; height: 80px;" src="/temp/temp.png" alt="Card image cap">
-                            <a href="#">
-                            <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <div class="row">
-                            <h4 class="col-12 card-title"><strong>Название команды</strong></h4>
-                            <h4 class="col-12 card-title"><strong>Название проекта</strong></h4>
-                            <div class="col-12 row justify-content-between">
-                                <h4 class="card-title"><strong>Руководитель: </strong></h4>
-                                <h4 class="pr-5 pl-3" style="width: 200px;"><i class="fas fa-users" aria-hidden="true" style="padding-right: 8px;"></i>6</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="card-text">Описание</p>
-                    <hr>
-                    <div class="d-flex flex-column justify-content-center align-items-center">
-                        <a href="#" class="text-primary">
-                            <!-- Для экспертов с возможностью оценить -->
-                            <h4 class="waves-effect waves-light"><strong>Поставить оценку</strong></h4>
-                        </a>
-                        <a href="#" class="text-primary">
-                            <!-- Для остальных -->
-                            <h4 class="waves-effect waves-light"><strong>Просмотреть</strong></h4>
-                        </a>
-                    </div>
-                </div>
+            <div class="card-body">
+                <h4 class="card-title"><?php echo $leader['project_type']; ?></h4>
+                <p class="card-text"><?php echo $leader['p_type_des'] ?></p>
+                <?php if (isset($_SESSION['user']) && $_SESSION['user']['project_type'] == $leader['project_type']) echo '<a href="newtype">Редактировать</a>'; ?>
             </div>
-
-            <?php if ($total): ?>
-                <?php foreach ($projects as $project): ?>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex card-block-1">
-                            <div class="view overlay mr-3 mb-2">
-                                <?php if ($project['image'] != 'none'): ?>
-                                <img class="card-img-top rounded-circle" style="width: 80px; height: 80px;" src="/temp/<?php echo $project['image'] ?>" alt="Card image cap">
-                                <?php else: ?>
-                                <p>Нет Картинки</p>
-                                <?php endif; ?>
-                                <a href="/project/id-<?php echo $project['id'] ?>">
-                                <div class="mask rgba-white-slight"></div>
-                                </a>
-                            </div>
-                            <div>
-                                <h4 class="card-title"><strong><?php echo $project['title'] ?></strong></h4>
-                                <div class="row justify-content-between">
-                                    <h4 class="card-title col-lg-7 col-md-9"><strong>Руководитель: <?php echo $project['curator'] ?></strong></h4>
-                                    <h4 class="pr-5 pl-3" style="width: 200px;"><i class="fas fa-users" aria-hidden="true" style="padding-right: 8px;"></i><?php echo (explode('/', $project['team/students']))[0]; ?></h4>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="card-text"><?php echo $project['description'] ?></p>
-                        <hr>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <a href="/project/id-<?php echo $project['id'] ?>" class="text-primary">
-
-                                <!-- (Для лидера) Сделать так чтобы только на проектах с тем же направлением что и у лидера высвечивалась кнопка редактировать. -->
-                                <?php if(isset($_SESSION['user']) && $_SESSION['user']['project_type'] == $project['type']): ?>
-                                    <h4 class="waves-effect waves-light"><strong>Редактировать</strong></h4>
-                                <?php elseif(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'student'): ?>
-                                    <h4 class="waves-effect waves-light"><strong>Записаться</strong></h4>
-                                <?php else: ?>
-                                    <h4 class="waves-effect waves-light"><strong>Просмотреть</strong></h4>
-                                <?php endif; ?>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <?php endforeach; ?>
-                
-                <?php if ($total > 3) echo $pagination->get(); ?>
-            <?php else: ?>
-                <h1 class="d-flex justify-content-center">Не найдены проекты</h1>
-            <?php endif; ?>
         </div>
-  </main>
-    <footer class="py-3">
-    © 2019 Московский политехнический университет
-  </footer>
+        <?php endif; ?>
+
+        <!-- Пример сформированной команды -->
+        <!-- <div class="card">
+            <div class="card-body">
+                <div class="d-flex card-block-1">
+                    <div class="view overlay mr-3 mb-2">
+                        <img class="card-img-top rounded-circle" style="width: 80px; height: 80px;" src="/temp/temp.png"
+                            alt="Card image cap">
+                        <a href="#">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <h4 class="col-12 card-title"><strong>Название команды</strong></h4>
+                        <h4 class="col-12 card-title"><strong>Название проекта</strong></h4>
+                        <div class="col-12 row justify-content-between">
+                            <h4 class="card-title"><strong>Руководитель: </strong></h4>
+                            <h4 class="pr-5 pl-3" style="width: 200px;"><i class="fas fa-users" aria-hidden="true"
+                                    style="padding-right: 8px;"></i>6</h4>
+                        </div>
+                    </div>
+                </div>
+                <p class="card-text">Описание</p>
+                <hr>
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <a href="#" class="text-primary">
+                        <!-- Для экспертов с возможностью оценить 
+                        <h4 class="waves-effect waves-light"><strong>Поставить оценку</strong></h4>
+                    </a>
+                    <a href="#" class="text-primary">
+                        <!-- Для остальных 
+                        <h4 class="waves-effect waves-light"><strong>Просмотреть</strong></h4>
+                    </a>
+                </div>
+            </div>
+        </div> -->
+
+        <?php if ($total): ?>
+        <?php foreach ($projects as $project): ?>
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex card-block-1">
+                    <div class="view overlay mr-3 mb-2">
+                        <?php if ($project['image'] != 'none'): ?>
+                        <img class="card-img-top rounded-circle" style="width: 80px; height: 80px;"
+                            src="/temp/<?php echo $project['image'] ?>" alt="Card image cap">
+                        <?php else: ?>
+                        <p>Нет Картинки</p>
+                        <?php endif; ?>
+                        <a href="/project/id-<?php echo $project['id'] ?>">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <div>
+                        <h4 class="card-title"><strong><?php echo $project['title'] ?></strong></h4>
+                        <div class="row justify-content-between">
+                            <h4 class="card-title col-lg-7 col-md-9"><strong>Руководитель:
+                                    <?php echo $project['curator'] ?></strong></h4>
+                            <h4 class="pr-5 pl-3" style="width: 200px;"><i class="fas fa-users" aria-hidden="true"
+                                    style="padding-right: 8px;"></i><?php $all = explode('/', $project['team/students']); echo $project['mes'].'/'.$all[0]*$all[1]; ?>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <p class="card-text"><?php echo $project['description'] ?></p>
+                <hr>
+                <div class="d-flex justify-content-center align-items-center">
+                    <a href="/project/id-<?php echo $project['id'] ?>" class="text-primary">
+
+                        <?php if(isset($_SESSION['user']) && $_SESSION['user']['type'] == 'student'): ?>
+                        <h4 class="waves-effect waves-light"><strong>Записаться</strong></h4>
+                        <?php else: ?>
+                        <h4 class="waves-effect waves-light"><strong>Просмотреть</strong></h4>
+                        <?php endif; ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <?php endforeach; ?>
+
+        <?php if ($total > 3) echo $pagination->get(); ?>
+        <?php else: ?>
+        <h1 class="d-flex justify-content-center">Не найдены проекты</h1>
+        <?php endif; ?>
+    </div>
+</main>
 
 <?php include(ROOT.'/views/layouts/footer.phtml'); ?>
 </body>
+
 </html>

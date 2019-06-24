@@ -2,37 +2,64 @@
 
 <div class="flex-fill">
     <div class="container">
-        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <div class="card">
+            <div class="card-body">
 
-        <table id="dtVerticalScroll" class="table table-striped table-bordered table-sm" cellspacing="0"
-            width="100%">
-            <thead>
-                <tr>
-                <th class="th-sm">Проект
-                </th>
-                <th class="th-sm">Куратор
-                </th>
-                <th class="th-sm">Тип
-                </th>
-                <th class="th-sm">Критерии
-                </th>
-                <th class="th-sm">Места
-                </th>
-                <th class="th-sm">Дата создания
-                </th>
-                <th class="th-sm">Статус
-                </th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php foreach($projects as $project)
+                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                    <table id="dtVerticalScroll" class="table table-striped table-bordered table-sm" cellspacing="0"
+                        width="100%">
+                        <thead>
+                            <tr>
+                                <th class="th-sm">Проект
+                                </th>
+                                <th class="th-sm">Куратор
+                                </th>
+                                <th class="th-sm">Тип
+                                </th>
+                                <th class="th-sm">Критерии
+                                </th>
+                                <th class="th-sm">Места
+                                </th>
+                                <th class="th-sm">Дата создания
+                                </th>
+                                <th class="th-sm">Статус
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($projects as $project)
                 {
+                    $cap = explode('/', $project['team/students']);
+                    $cap = $cap[0]*$cap[1];
+                    echo '<tr';
                     switch($project['status']) {
                         case 0:
-                            $project['status'] = 'нехватает критериев';
+                            echo ' class="red lighten-5"';
                             break;
                         case 1:
-                            $project['status'] = 'набор студентов';
+                            echo ' class="light-blue lighten-5"';
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                    }
+                    if ($project['status'] == 0) echo ' class="red lighten-5"';
+                    echo '><td>'.$project['title'].'</td><td>'.$project['curator'].'</td><td>'.$project['type'].'</td><td>'.$project['criteria_sum'];
+                    if ($project['criteria_sum'] % 10 == 1)
+                        echo ' балл';
+                    else
+                        echo ' баллов';
+                    echo '</td><td>'.$project['mes'].'/'.$cap.'</td><td>'.$project['timeCreated'].'</td><td class="text-center">';
+                    switch($project['status']) {
+                        case 0:
+                            echo '<i class="red-text fas fa-exclamation-triangle"></i> нехватает критериев<br><a type="button" href="/addCriteria-id'.$project['id'].'" class="btn btn-deep-orange btn-sm m-0">Добавить критерий</a>';
+                            break;
+                        case 1:
+                            echo '<i class="light-blue fas fa-users"></i> набор студентов<br><a type="button" href="/teammaking-id'.$project['id'].'" class="btn btn-light-blue btn-sm m-0">Список студентов</a>';
                             break;
                         case 2:
                             $project['status'] = 'в разработке';
@@ -44,40 +71,31 @@
                             $project['status'] = 'завершен';
                             break;
                     }
-                    $cap = explode('/', $project['team/students']);
-                    $cap = $cap[0]*$cap[1];
-                    echo '<tr';
-                    if ($project['status'] == 0) echo ' class="red lighten-5"';
-                    echo '><td>'.$project['title'].'</td><td>'.$project['curator'].'</td><td>'.$project['type'].'</td><td>'.$project['criteria_sum'];
-                    if ($project['criteria_sum'] % 10 == 1)
-                        echo ' балл';
-                    else
-                        echo ' баллов';
-                    echo '</td><td>'.$project['mes'].'/'.$cap.'</td><td>'.$project['timeCreated'].'</td><td class="text-center">';
-                    if ($project['status'] == 0) echo '<i class="red-text fas fa-exclamation-triangle"></i> нехватает критериев<br><a type="button" href="/addCriteria-id'.$project['id'].'" class="btn btn-deep-orange btn-sm m-0">Добавить критерий</a>';
+                    if ($project['status'] == 0) echo '';
                     echo '</td></tr>';
                 } ?>
-            </tbody>
-            <tfoot>
-                <tr>
-                <th>Проект
-                </th>
-                <th>Куратор
-                </th>
-                <th>Тип
-                </th>
-                <th>Критерии
-                </th>
-                <th>Места
-                </th>
-                <th>Дата создания
-                </th>
-                <th>Статус
-                </th>
-                </tr>
-            </tfoot>
-            </table>
-
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Проект
+                                </th>
+                                <th>Куратор
+                                </th>
+                                <th>Тип
+                                </th>
+                                <th>Критерии
+                                </th>
+                                <th>Места
+                                </th>
+                                <th>Дата создания
+                                </th>
+                                <th>Статус
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -85,13 +103,14 @@
 <?php include(ROOT.'/views/layouts/footer.phtml'); ?>
 <script src="/template/js/addons/datatables.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#dtVerticalScroll').DataTable({
-            "scrollY": "50vh",
-            "scrollCollapse": true,
-        });
-        $('.dataTables_length').addClass('bs-select');
+$(document).ready(function() {
+    $('#dtVerticalScroll').DataTable({
+        "scrollY": "50vh",
+        "scrollCollapse": true,
     });
+    $('.dataTables_length').addClass('bs-select');
+});
 </script>
 </body>
+
 </html>
