@@ -6,10 +6,12 @@
             <div class="col-md-2">
                 <div class="card">
                     <div class="list-group">
-                        <a href="#!" class="list-group-item list-group-item-action active">
+                        <a href="/teammaking-id<?php echo $id; ?>"
+                            class="list-group-item list-group-item-action active">
                             Заявки и команды
                         </a>
-                        <a href="#!" class="list-group-item list-group-item-action">Критерии</a>
+                        <a href="/addCriteria-id<?php echo $id; ?>"
+                            class="list-group-item list-group-item-action">Критерии</a>
                     </div>
                 </div>
             </div>
@@ -27,7 +29,8 @@
                                     </th>
                                     <th class="th-sm">Кто и откуда
                                     </th>
-                                    <?php if ($_SESSION['user']['id'] == $project['curator_id'] || $_SESSION['user']['project_type'] == $project['type']) echo '<th></th><th></th>'; ?>
+                                    <th></th>
+                                    <th></th>
                             </thead>
                             <tbody>
                                 <tr class="align-items-center">
@@ -36,20 +39,22 @@
                                     <td>Имя Студента</td>
                                     <td>1 Курс, Информационные Технологии</td>
                                     <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-primary btn-rounded btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                            Small button
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#"></a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        <div class="btn-group">
+                                            <button class="btn btn-primary btn-rounded btn-sm dropdown-toggle"
+                                                type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                Small button
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#"></a>
+                                                <a class="dropdown-item" href="#">Another action</a>
+                                                <a class="dropdown-item" href="#">Something else here</a>
+                                            </div>
                                         </div>
-                                    </div>
                                     </td>
                                     <td>
-                                        <a type="button" class="m-2 btn btn-primary btn-rounded btn-sm" href="#">Отклонить заявку</a>
+                                        <a type="button" class="m-2 btn btn-primary btn-rounded btn-sm"
+                                            href="#">Отклонить заявку</a>
                                     </td>
                                 </tr>
                             </tbody>

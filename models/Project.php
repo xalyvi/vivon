@@ -109,26 +109,6 @@ class Project
         }
         return $types;
     }
-
-    public static function getRequests($projectId)
-    {
-        $projectId = intval($projectId);
-   
-        $db = Db::getConnection();
-        
-        $requests = array();
-            
-        $result = $db->query("SELECT team, app, user_id FROM requests WHERE project_id = ".$projectId);
-        $i = 0;
-        while($row = $result->fetch()) {
-            $requests[$i]['user_id'] = $row['user_id'];
-            $requests[$i]['team'] = $row['team'];
-            $requests[$i]['app'] = $row['app'];
-            $i++;
-        }
-        
-        return $requests;
-    }
     
     public static function getTotalProjects($category = false, $search = false)
     {
@@ -158,6 +138,37 @@ class Project
         return $project;
     }
 
+    public static function getCriteriasById($id)
+    {
+        $db = Db::getConnection();
+        echo $id;
+
+        $users = array();
+        $sql = 'SELECT * FROM `criterias`, `users` WHERE `project_id` = :id INNER JOIN `users` ON (`criterias`.`expert_id` = `users`.`id`)';
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->execute();
+        $i = 0;
+        while ($row = $result->fetch())
+        {
+            $users[$i]['code'] = $row['code'];
+            $users[$i]['name'] = $row['name'];
+            $users[$i]['evalday'] = $row['evalday'];
+            $users[$i]['produ'] = $row['produ'];
+            $users[$i]['points'] = $row['points'];
+            $users[$i]['deadline'] = $row['deadline'];
+            $users[$i]['penalty'] = $row['penalty'];
+            $users[$i]['surname'] = $row['surname'];
+            $users[$i]['name'] = $row['name'];
+            $users[$i]['patronymic'] = $row['patronymic'];
+            $users[$i]['pic'] = $row['pic'];
+            $users[$i]['team'] = $row['team'];
+            $users[$i]['app'] = $row['app'];
+            $i++;
+        }
+        return $users;
+    }
+    
     public static function getCriteriasPoints($id)
     {
         $id = intval($id);
@@ -196,114 +207,27 @@ class Project
         $result->execute();
     }
 
-    public static function getApprovedTeams($projectId)
-    {
-        // $db = Db::getConnection();
-        
-        // $result = $db->query('SELECT COUNT(*) as count FROM approved WHERE project_id=' . $projectId);
-
-        // $result->setFetchMode(PDO::FETCH_ASSOC);
-        // $result = $result->fetch();
-
-        // return $result['count'];
-    }
-
-    public static function makeRequest($userId, $userName, $userSurname, $userCourse, $role, $projectId)
-    {
-        
-        // $db = Db::getConnection();
-        
-        // $sql = 'INSERT INTO requests (user_id, name, surname, course, role, project_id)' . 'VALUES (:user_id, :name, :surname, :course, :role, :project_id)';
-        
-        // $result = $db->prepare($sql);
-        // $result->bindParam(':user_id', $userId, PDO::PARAM_STR);
-        // $result->bindParam(':name', $userName, PDO::PARAM_INT);
-        // $result->bindParam(':surname', $userSurname, PDO::PARAM_INT);
-        // $result->bindParam(':course', $userCourse, PDO::PARAM_INT);
-        // $result->bindParam(':role', $role, PDO::PARAM_STR);
-        // $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
-        // if ($result->execute()) {
-        //     return $db->lastInsertId();
-        // }
-        
-        // return 0;
-    }
-
-    public static function getRequestByUserAndId($userId, $projectId)
-    {
-        // $db = Db::getConnection();
-
-        // $sql = 'SELECT * FROM requests WHERE user_id = :user_id AND project_id = :projectId';
-
-        // $result = $db->prepare($sql);
-        // $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        // $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
-        
-        // $result->setFetchMode(PDO::FETCH_ASSOC);
-            
-        // $requestItem = $result->fetch();
-
-        // return $requestItem;
-    }
-
-    public static function cancelRequest($userId, $projectId)
-    {
-        // $db = Db::getConnection();
-        
-        // $sql = 'DELETE FROM requests WHERE user_id = :id AND project_id = :project_id';
-        
-        // $result = $db->prepare($sql);
-        // $result->bindParam(':id', $userId, PDO::PARAM_INT);
-        // $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
-        // return $result->execute();
-    }
-
-    public static function cancelApproved($userId, $projectId)
-    {
-        // $db = Db::getConnection();
-
-        // $sql = 'SELECT * FROM approved WHERE user_id = :user_id AND project_id = :project_id';
-        // $result = $db->prepare($sql);
-        // $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        // $result->bindParam(':project_id', $projectId, PDO::PARAM_INT);
-        // $result->setFetchMode(PDO::FETCH_ASSOC);
-        // $result->execute();
-        // $student = $result->fetch();
-
-        // $sql = 'INSERT INTO requests (user_id, name, surname, course, role, project_id)' . ' VALUES (:user_id, :name, :surname, :course, :role, :project_id)';
-        // $result = $db->prepare($sql);
-        // $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        // $result->bindParam(':name', $student['name'], PDO::PARAM_STR);
-        // $result->bindParam(':surname', $student['surname'], PDO::PARAM_STR);
-        // $result->bindParam(':course', $student['course'], PDO::PARAM_INT);
-        // $result->bindParam(':role', $student['role'], PDO::PARAM_STR);
-        // $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
-        // $result->execute();
-
-        // $sql = 'DELETE FROM approved WHERE user_id = :id AND project_id = :project_id';
-        
-        // $result = $db->prepare($sql);
-        // $result->bindParam(':id', $userId, PDO::PARAM_INT);
-        // $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
-        // return $result->execute();
-    }
-
-    public static function makeApproved($userId, $projectId)
+    public static function getRequests($id)
     {
         $db = Db::getConnection();
 
-        $sql = 'INSERT INTO approved (user_id, full_name, course, project_id)' . ' SELECT user_id, full_name, course, project_id FROM requests WHERE user_id = :user_id AND project_id = :project_id';
+        $users = array();
+        $sql = 'SELECT `id`, `surname`, `name`, `patronymic`, `team`, `app` FROM `requests`, `users` WHERE `project_id` = :id AND `id` = `user_id`';
         $result = $db->prepare($sql);
-        $result->bindParam(':user_id', $userId, PDO::PARAM_INT);
-        $result->bindParam(':project_id', $projectId, PDO::PARAM_INT);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->execute();
-
-        $sql = 'DELETE FROM requests WHERE user_id = :id AND project_id = :project_id';
-        
-        $result = $db->prepare($sql);
-        $result->bindParam(':id', $userId, PDO::PARAM_INT);
-        $result->bindParam(':project_id', $projectId, PDO::PARAM_STR);
-        return $result->execute();
+        $i = 0;
+        while ($row = $result->fetch())
+        {
+            $users[$i]['id'] = $row['id'];
+            $users[$i]['surname'] = $row['surname'];
+            $users[$i]['name'] = $row['name'];
+            $users[$i]['patronymic'] = $row['patronymic'];
+            $users[$i]['team'] = $row['team'];
+            $users[$i]['app'] = $row['app'];
+            $i++;
+        }
+        return $users;
     }
 
     public static function getOrderById($project_id)
@@ -322,23 +246,5 @@ class Project
         $result->execute();
         
         return $result->fetch();
-    }
-
-    public static function getApproved($project_id)
-    {
-        $db = Db::getConnection();
-        
-        $requests = array();
-            
-        $result = $db->query("SELECT user_id, pic, full_name FROM approved WHERE project_id = ".$project_id);
-        $i = 0;
-        while($row = $result->fetch()) {
-            $requests[$i]['user_id'] = $row['user_id'];
-            $requests[$i]['pic'] = $row['pic'];
-            $requests[$i]['full_name'] = $row['full_name'];
-            $i++;
-        }
-        
-        return $requests;
     }
 }

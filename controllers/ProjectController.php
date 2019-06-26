@@ -82,8 +82,9 @@ class ProjectController
         }
         else
             header('Location: /');
+        $projectData = Project::getProjectById($id);
         $types = Project::getProjectTypes();
-        //$requests::getRequests($id);
+        $users = Project::getRequests($id);
 
         require(ROOT.'/views/trash/project_edit.phtml');
         return true;
@@ -95,12 +96,14 @@ class ProjectController
         {
             if ($_SESSION['user']['type'] != 'leader' && $_SESSION['user']['type'] != 'curator')
                 header('Location: /');
-            $project = Project::getCriteriasPoints($id);
+            $project = Project::getProjectById($id);
             if ($_SESSION['user']['project_type'] != $project['type'] && $_SESSION['user']['id'] != $project['curator_id'])
                 header('Location: /myprojectlist');
         }
         else
             header('Location: /');
+        $criterias = Project::getCriteriasById($id);
+        print_r($criterias);
         $types = Project::getProjectTypes();
         $experts = User::getTypeUsers('expert');
         if (isset($date)) echo $date;
@@ -115,10 +118,7 @@ class ProjectController
                 $deadline = $_POST['deadline']. ' 21:00:00';
             }
             Project::addCriteria($id, $_POST['code'], $_POST['name'], $evalDay, $deadline, $_POST['procedure'], $_POST['points'], $_POST['expert'], $_POST['penalty']);
-            if (isset($_POST['next-criteria']))
-                header('Location: /addCriteria-id'.$id);
-            else
-                header('Location: /myprojectlist');
+            xheader('Location: /addCriteria-id'.$id);
         }
         require(ROOT.'/views/trash/criteria.phtml');
         return true;
