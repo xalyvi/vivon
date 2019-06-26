@@ -17,7 +17,7 @@ class Project
         $sql = 'SELECT `projects`.`id`, `projects`.`title`, `projects`.`image`, `projects`.`curator`, `projects`.`type`, `projects`.`description`, `projects`.`team/students`, `projects`.`mes` FROM `projects` WHERE `status`='.$status;
         if ($category)
             $sql .= " AND type = '".$category."'";
-        else if ($search)
+        else if ($search || $search != '')
             $sql .= ' AND title REGEXP "' . $search . '" OR head REGEXP "' . $search . '"';
             
         if ($sort != false)
