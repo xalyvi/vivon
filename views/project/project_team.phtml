@@ -1,11 +1,12 @@
 <?php $site = 'Проект'; include(ROOT.'/views/layouts/header.phtml'); ?>
-<link rel="stylesheet" href="/template/css/jquery.bootstrap.year.calendar.min.css">
+<link rel="stylesheet" href="/template/fullcalendar-4.2.0/packages/core/main.min.css">
+<link rel="stylesheet" href="/template/fullcalendar-4.2.0/packages/daygrid/main.min.css">
 <style>
 .project-status {
     flex-flow: column;
     align-items: center;
-    width: 220px;
-    height: 220px;
+    width: 100%;
+    height: auto;
     border-radius: 2px;
 }
 
@@ -27,6 +28,9 @@
     border: 1px solid #ccc;
     border-radius: 1px;
 }
+#calendar {
+    max-width: 35rem;
+}
 </style>
 <main class="flex-fill">
     <div class="container-fluid">
@@ -35,23 +39,23 @@
                 <div class="card">
                     <div class="row">
                         <div class="col-md-2 mt-3">
-                            <div class="d-flex align-self-start blue text-white project-status">
+                            <div class="d-flex align-self-center blue text-white project-status">
                                 <p>в разработке</p>
                                 <i class="fas fa-calendar-alt fa-6x"></i>
                             </div>
-                            <p class="mt-1">VR energetics</p>
+                            <p class="mt-1 pl-2">VR energetics</p>
                             <hr>
-                            <a href="#" class="light-blue-text"><i class="far fa-file text-black-50"></i> Документ</a>
+                            <a href="#" class="light-blue-text"><i class="pl-2 far fa-file text-black-50"></i> Документ</a>
                             <hr>
-                            <div class="row">
+                            <div class="pl-2 row">
                                 <button type="button" class="btn btn-success btn-sm">Для чего та</button>
                             </div>
                         </div>
                         <div class="col-md-9 mt-3">
-                            <h2>Команда</h2>
-                            <p>Сформирована <strong>10 месяцев</strong> назад</p>
+                            <h2 class="pl-2">Команда</h2>
+                            <p class="pl-2">Сформирована <strong>10 месяцев</strong> назад</p>
                             <hr>
-                            <div class="pt-2 align-middle font-weight-light">
+                            <div class="pt-2 pl-2 align-middle font-weight-light">
                                 <p class="grey-text"><i class="fas fa-1x fa-users"></i> В команде 5 студентов</p>
                                 <img src="/temp/temp.png" alt="" class="rounded-circle img-fluid pr-1"
                                     style="width: 50px">
@@ -61,7 +65,7 @@
                                     style="width: 50px">
                             </div>
                             <hr>
-                            <div class="calendar"></div>
+                            <div class="mx-auto " id="calendar"></div>
                             <hr>
                             <p class="grey-text"><i class="fas fa-1x fa-code-branch"></i> Git репозиторий</p>
                             <div class="input-group">
@@ -78,9 +82,18 @@
 </main>
 
 <?php include(ROOT.'/views/layouts/footer.phtml'); ?>
-<script src="/template/js/jquery.bootstrap.year.calendar.min.js"></script>
+<script src="/template/fullcalendar-4.2.0/packages/core/main.min.js"></script>
+<script src="/template/fullcalendar-4.2.0/packages/daygrid/main.min.js"></script>
 <script>
-    $('.calendar').calendar();
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'dayGrid' ]
+        });
+
+        calendar.render();
+      });
 </script>
 </body>
 
