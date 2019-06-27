@@ -39,21 +39,17 @@
                         <tbody>
                         <?php foreach($criterias as $cr)
                         {
-                            echo '<tr class="align-items-center">
-                            <td>'.$cr['code'].'</td>
-                            <td>'.$cr['name'].'</td>
-                            <td>'.$cr['evalday'].' - '.$cr['deadline'].'</td>';
+                            echo '<tr class="align-items-center"><td>'.$cr['code'].'</td><td>'.$cr['name'].'</td><td>'.$cr['evalday'].' - '.$cr['deadline'].'</td><td>';
                             if ($cr['produ'] == 'on')
                                 echo 'Субъективная';
                             else
                                 echo 'Объективная';
-                            echo '<td> '.$cr['points'];
+                            echo '</td><td> '.$cr['points'];
                             if ($cr['points'] % 10 == 1)
                                 echo ' балл';
                             else
                                 echo ' баллов';
-                            echo '</td>'.$cr['surname'].' '.$cr['name'].' '.$cr['patronymic'].' '.$cr['pic']. '
-                            <td><td>'.$cr['penalty'].'%</td>';
+                            echo '</td><td>'.$cr['exsurname'].' '.$cr['exname'].' '.$cr['expatronymic'].' <img class="card-img-top rounded-circle" style="width: 40px; height: 40px;" src="/temp/'.$cr['pic'].'" alt="Card image cap"></td><td>'.$cr['penalty'].'%</td>';
                         } ?>
                         </tbody>
                     </table>

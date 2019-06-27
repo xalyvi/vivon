@@ -1,6 +1,10 @@
+html, body {
+    min-height: 100vh;
+    position: relative;
+}
+
 body {
     background-color: #edebf2;
-    min-height: 100vh;
 }
 
 
@@ -122,7 +126,6 @@ table.dataTable thead .sorting_desc_disabled:before {
 
 footer {
     background-color: #303030;
-    text-align: center;
     color: white;
 }
 

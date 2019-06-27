@@ -141,10 +141,9 @@ class Project
     public static function getCriteriasById($id)
     {
         $db = Db::getConnection();
-        echo $id;
 
         $users = array();
-        $sql = 'SELECT * FROM `criterias`, `users` WHERE `project_id` = :id INNER JOIN `users` ON (`criterias`.`expert_id` = `users`.`id`)';
+        $sql = 'SELECT `criterias`.`code`, `criterias`.`name`, `criterias`.`evalday`, `criterias`.`produ`, `criterias`.`points`, `criterias`.`deadline`, `criterias`.`penalty`, `users`.`surname` AS exsurname, `users`.`name` AS exname, `users`.`patronymic` AS expatronymic, `users`.`pic` FROM `criterias`, `users` WHERE `criterias`.`project_id`=:id AND `criterias`.`expert_id`=`users`.`id`';
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->execute();
@@ -158,12 +157,10 @@ class Project
             $users[$i]['points'] = $row['points'];
             $users[$i]['deadline'] = $row['deadline'];
             $users[$i]['penalty'] = $row['penalty'];
-            $users[$i]['surname'] = $row['surname'];
-            $users[$i]['name'] = $row['name'];
-            $users[$i]['patronymic'] = $row['patronymic'];
+            $users[$i]['exsurname'] = $row['exsurname'];
+            $users[$i]['exname'] = $row['exname'];
+            $users[$i]['expatronymic'] = $row['expatronymic'];
             $users[$i]['pic'] = $row['pic'];
-            $users[$i]['team'] = $row['team'];
-            $users[$i]['app'] = $row['app'];
             $i++;
         }
         return $users;
