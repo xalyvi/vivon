@@ -19,7 +19,7 @@ class LoginController
                 $errors = true;
             } else {
                 User::auth($user);
-                if ($user['type'] == 'student' && !$user['team'])
+                if ($user['type'] == 'student')
                     User::getReqs($user['id']);
                 header("Location: /projects");
             }

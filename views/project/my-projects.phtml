@@ -41,6 +41,7 @@
                             echo ' class="light-blue lighten-5"';
                             break;
                         case 2:
+                            echo ' class="light-green lighten-5"';
                             break;
                         case 3:
                             break;
@@ -62,7 +63,7 @@
                             echo '<i class="light-blue fas fa-users"></i> набор студентов<br><a type="button" href="/teammaking-id'.$project['id'].'" class="btn btn-light-blue btn-sm m-0">Список студентов</a>';
                             break;
                         case 2:
-                            $project['status'] = 'в разработке';
+                            echo '<i class="text-success fas fa-wrench"></i> В разработке';
                             break;
                         case 3:
                             $project['status'] = 'в оценивании';

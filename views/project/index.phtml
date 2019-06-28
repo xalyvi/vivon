@@ -27,22 +27,49 @@
                 </div>
                 <p class="card-text"><?php echo $project['description']; ?></p>
                 <hr>
-                <!-- <div class="row justify-content-center">
-                    Только для куратора -->
-                <!--
-                    <a class="mb-3 mt-2" href="#">Добавить файл</a>
-                    <div class="w-100"></div>
-                    <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Доки.txt</a>
-                    <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Требования.txt</a>
-                    <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Файл 4</a>
-                    <div class="w-100"></div>
-                    <a type="button" href="#" class="col-md-auto btn btn-deep-purple">Файл.pdf</a>
-                </div> -->
+                <?php echo '<div class="text-center">';
+                if ($project['status'] == 1 && isset($_SESSION['user']) && $_SESSION['user']['type'] == 'student' && $have == 0) echo '<form method="post"><button type="submit" name="req" class="col-md-auto btn btn-primary btn-rounded">Вступить</button></form>';
+                else if ($project['status'] == 1 && $have == 1)
+                    echo '<p class="text-success">Вы записаны!</p>';
+                echo '</div>'; ?>
+                <?php if ($project['status'] > 1): ?>
+                <?php for($i = 0; $i < $teams[0]; $i++):?>
+                <?php foreach ($reqs as $req): ?>
+                <?php if ($shit[$i] > 0): ?>
+                <section class="team-section text-center my-5">
 
-                    <?php if (isset($_SESSION['user']) && $_SESSION['user']['type'] == 'student') echo '<div class="text-center"><a type="button" href="#" class="col-md-auto btn btn-primary btn-rounded" style="margin: 0 auto;">Вступить</a></div>' ?>
-                </div>
+                    <!-- Section heading -->
+                    <h2 class="h1-responsive font-weight-bold my-5">Команды разработки</h2>
+                    <!-- Section description -->
+
+                    <h3 class="h3-responsive font-weight-bold my-3">Команда 1</h3>
+                    <!-- Grid row -->
+                    <div class="row">
+
+                        <?php if ($req['team'] == $i + 1): ?>
+                        <!-- Grid column -->
+                        <div class="col-lg-3 col-md-6 mb-lg-0 mb-5">
+                            <div class="avatar mx-auto">
+                                <img src="/temp/<?php echo $req['pic']; ?>"
+                                    class="rounded-circle z-depth-1" alt="Sample avatar">
+                            </div>
+                            <h5 class="font-weight-bold mt-4 mb-3"><?php echo $req['surname'].' '.$req['name'].' '.$req['patronymic']; ?></h5>
+                            <p class="text-uppercase blue-text"><strong><?php echo $req['position']; ?></strong></p>
+                        </div>
+                        <?php endif; ?>
+                        <!-- Grid column -->
+
+                    </div>
+                    <!-- Grid row -->
+
+                </section>
+                <?php endif; ?>
+                <?php endforeach; ?>
+                <?php endfor; ?>
+                <?php endif; ?>
             </div>
         </div>
+    </div>
 </main>
 <?php include(ROOT.'/views/layouts/footer.phtml'); ?>
 <script src="/template/js/addons/datatables.min.js"></script>

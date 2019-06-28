@@ -21,7 +21,7 @@
    ?>
 </head>
     <body class="d-flex flex-column h-100">
-
+<?php if ($site != 'Login'): ?>
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark elegant-color-dark">
       <div class="container">
@@ -35,12 +35,11 @@
                     aria-haspopup="true" aria-expanded="false"><?php echo $_SESSION['user']['name'].' '.$_SESSION['user']['surname']; ?></button>
         
                     <div class="dropdown-menu dropdown-primary dropdown-user">
-                        <a class="dropdown-item" href="/profile"><i class="fal fa-user-circle fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Личный кабинет</a>
-                        <!-- <a class="dropdown-item" href="#"><i class="far fa-calendar fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>График</a> -->
+                        <?php if ($_SESSION['user']['type'] != 'student') echo '<a class="dropdown-item" href="/profile"><i class="fal fa-user-circle fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Личный кабинет</a>'; ?>
                         <?php if ($_SESSION['user']['type'] == 'leader' || $_SESSION['user']['type'] == 'curator' || $_SESSION['user']['type'] == 'expert')
-                        	echo '<a class="dropdown-item" href="myprojectlist"><i class="fas fa-file-alt fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Мои проекты</a>';
-                        else if ($_SESSION['user']['type'] == 'student')
-							echo '<a class="dropdown-item" href="myproject"><i class="fas fa-file-alt fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Мой проект</a>'; ?>
+                        	echo '<a class="dropdown-item" href="/myprojectlist"><i class="fas fa-file-alt fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Мои проекты</a>';
+                        else if ($_SESSION['user']['type'] == 'student' && isset($_SESSION['user']['team']))
+							echo '<a class="dropdown-item" href="/projectTeam'.$_SESSION['user']['team'].'"><i class="fas fa-file-alt fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Мой проект</a>'; ?>
                         <a class="dropdown-item" href="/logout"><i class="fas fa-power-off fa-lg" aria-hidden="true" style="padding-right: 8px;"></i>Выйти</a>
                     </div>
                 </div>
@@ -99,3 +98,4 @@
     <?php endif; ?>
 
   </header>
+    <?php endif; ?>

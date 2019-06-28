@@ -37,7 +37,7 @@ class User
     {
         $db = Db::getConnection();
         
-        $sql = 'SELECT id, pic, type, project_type, name, surname, patronymic, team FROM users WHERE login = :login AND pswd = :password';
+        $sql = 'SELECT id, pic, type, project_type, name, surname, patronymic FROM users WHERE login = :login AND pswd = :password';
         
         $result = $db->prepare($sql);
         $result->bindParam(':login', $login, PDO::PARAM_STR);
@@ -57,7 +57,7 @@ class User
         $db = Db::getConnection();
 
         $reqs = array();
-        $sql = 'SELECT `project_id` FROM `requests` WHER `requests`.`user_id`=:id';
+        $sql = 'SELECT `project_id`, `app` FROM `requests` WHERE `requests`.`user_id`=:id';
 
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
@@ -65,10 +65,27 @@ class User
         $i = 0;
         while ($row = $result->fetch())
         {
+            if ($row['app'] == 2)
+                $_SESSION['user']['team'] = $row['project_id'];
             $reqs[$i]['id'] = $row['project_id'];
+            $reqs[$i]['app'] = $row['app'];
             $i++;
         }
         $_SESSION['user']['reqs'] = $reqs;
+    }
+
+    public static function addReq($id, $project_id)
+    {
+        $db = Db::getConnection();
+
+        $sql = 'INSERT INTO `requests` (`user_id`, `project_id`) SELECT * FROM (SELECT :id, :project) AS tmp WHERE NOT EXISTS (SELECT `user_id`, `project_id` FROM `requests` WHERE `user_id`=:user_id AND `project_id`=:project_id) LIMIT 1';
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':project', $project_id, PDO::PARAM_INT);
+        $result->bindParam(':user_id', $id, PDO::PARAM_INT);
+        $result->bindParam(':project_id', $project_id, PDO::PARAM_INT);
+        echo $sql;
+        $result->execute();
     }
 
     public static function getAllAccs($type = false)

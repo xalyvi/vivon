@@ -105,12 +105,34 @@ class ProfileController
         if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'leader')
             header("Location: /");
 
+        $edit = 0;
         $types = Project::getProjectTypes();
         $curators = User::getTypeUsers("curator");
 
         if (isset($_POST['title']))
         {
             Project::addProject($_POST['title'], $_POST['curator'], $_SESSION['user']['project_type'], $_POST['description'], $_POST['teams'].'/'.$_POST['size']);
+            header("Location: /profile");
+        }
+        require(ROOT.'/views/project/add.phtml');
+        return true;
+    }
+
+    public function actionEdit($id)
+    {
+
+        if(!isset($_SESSION['user']) || $_SESSION['user']['type'] != 'leader')
+            header("Location: /");
+
+        $types = Project::getProjectTypes();
+        $curators = User::getTypeUsers("curator");
+        $project = Project::getProjectById($id);
+        if ($project['type'] != $_SESSION['user']['project_type'])
+            header('Location: /');
+        $edit = 1;
+        if (isset($_POST['title']))
+        {
+            Project::updateProject($_POST['title'], $_POST['curator'], $_SESSION['user']['project_type'], $_POST['description'], $_POST['teams'].'/'.$_POST['size']);
             header("Location: /profile");
         }
         require(ROOT.'/views/project/add.phtml');

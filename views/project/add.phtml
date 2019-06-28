@@ -15,122 +15,46 @@
                     <form enctype="multipart/form-data" class="md-form mt-1 mb-1" action="" method="post">
                         <p class="text-left mt-3 mb-1"><strong>1. Название проекта</strong><span class="red-text"> *</span></p>
                         <div class="md-form mt-3">
-                            <input type="text" name="title" id="materialSubscriptionFormPasswords" class="form-control" required>
+                            <input type="text" name="title" id="materialSubscriptionFormPasswords" value="<?php if ($edit == 1) echo $project['title']; ?>" class="form-control" required>
                             <label for="materialSubscriptionFormPasswords">Название</label>
                         </div>
                         <p class="text-left mt-3 mb-1"><strong>2. Куратор</strong><span class="red-text"> *</span></p>
                         <select class="browser-default custom-select" name="curator" id="curator" required>
-                            <option value="" disabled selected>Выберите куратора</option>
-                            <?php foreach($curators as $curator)
-                                echo '<option value="'.$curator['id'].'">'.$curator['surname'].' '.$curator['name'].' '.$curator['patronymic'].'</option>';
+                            <option value="" disabled <?php if ($edit == 0) echo 'selected'; ?>>Выберите куратора</option>
+                            <?php foreach($curators as $curator) {
+                                echo '<option ';
+                                if ($edit && $curator['id'] == $project['curator_id'])
+                                    echo 'selected';
+                                echo ' value="'.$curator['id'].'/'.$curator['surname'].' '.$curator['name'].' '.$curator['patronymic'].'">'.$curator['surname'].' '.$curator['name'].' '.$curator['patronymic'].'</option>';
+                            }
                             ?>
                         </select>
-                        <!--
-                        <p class="text-left mt-3 mb-1"><strong>3. Эксперты</strong><span class="red-text"> *</span></p>
-                        <div class="table-responsive">
-                            <table id="tablePreview" class="table table-striped table-sm text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th><strong>Эксперт</strong></th>
-                                        <th><strong>Добавить эксперта для проекта</strong></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="align-middle">Имя эксперта 1</td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox ml-4 mb-3">
-                                            <input type="checkbox" class="custom-control-input" id="expert1">
-                                            <label class="custom-control-label" for="expert1" style="cursor: pointer;"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle">Имя эксперта 2</td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox ml-4 mb-3">
-                                            <input type="checkbox" class="custom-control-input" id="expert2">
-                                            <label class="custom-control-label" for="expert2" style="cursor: pointer;"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle">Имя эксперта 3</td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox ml-4 mb-3">
-                                            <input type="checkbox" class="custom-control-input" id="expert3">
-                                            <label class="custom-control-label" for="expert3" style="cursor: pointer;"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        -->
                         <p class="text-left mt-3 mb-1"><strong>3. Описание проекта</strong></p>
                         <div class="md-form mt-3">
-                            <textarea type="text" name="description" id="materialContactFormMessage" class="form-control md-textarea" rows="3"></textarea>
+                            <textarea type="text" name="description" id="materialContactFormMessage" class="form-control md-textarea" value="<?php if ($edit == 1) echo $project['description']; ?>" rows="3"></textarea>
                             <label for="materialContactFormMessage">Описание</label>
                         </div>
-                        <!--
-                        <p class="text-left mt-3 mb-1"><strong>5. Критерии оценки</strong></p>
-                        <div class="table-responsive">
-                            <table id="tablePreview" class="table table-striped table-sm text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th><strong>Наименование критерия</strong></th>
-                                        <th><strong>Добавить критерий для проекта</strong></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="align-middle">Критерий 1</td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox ml-4 mb-3">
-                                            <input type="checkbox" class="custom-control-input" id="crit1">
-                                            <label class="custom-control-label" for="crit1" style="cursor: pointer;"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle">Критерий 2</td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox ml-4 mb-3">
-                                            <input type="checkbox" class="custom-control-input" id="crit2">
-                                            <label class="custom-control-label" for="crit2" style="cursor: pointer;"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="align-middle">Критерий 3</td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox ml-4 mb-3">
-                                            <input type="checkbox" class="custom-control-input" id="crit3">
-                                            <label class="custom-control-label" for="crit3" style="cursor: pointer;"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        -->
                         <p class="text-left mb-1"><strong>4. Количество команд на проекте</strong><span class="red-text"> *</span></p>
                         <select class="browser-default custom-select mb-2" name="teams" required>
-                            <option value="" selected>Не выбрано</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
+                            <option value="" <?php if ($edit == 0) echo 'selected'; ?>>Не выбрано</option>
+                            <option value="1" <?php if ($edit == 1 && (explode('/', $project['team/students']))[0] == 1) echo 'selected'; ?>>1</option>
+                            <option value="2" <?php if ($edit == 1 && (explode('/', $project['team/students']))[0] == 2) echo 'selected'; ?>>2</option>
+                            <option value="3" <?php if ($edit == 1 && (explode('/', $project['team/students']))[0] == 3) echo 'selected'; ?>>3</option>
                         </select>
                         <p class="text-left mb-1"><strong>5. Количество членов команды</strong><span class="red-text"> *</span></p>
                         <select class="browser-default custom-select" name="size" required>
-                            <option value="" selected>Не выбрано</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
+                            <option value="" <?php if ($edit == 0) echo 'selected'; ?>>>Не выбрано</option>
+                            <option value="1" <?php if ($edit == 1 && (explode('/', $project['team/students']))[1] == 1) echo 'selected'; ?>>1</option>
+                            <option value="2" <?php if ($edit == 1 && (explode('/', $project['team/students']))[1] == 2) echo 'selected'; ?>>2</option>
+                            <option value="3" <?php if ($edit == 1 && (explode('/', $project['team/students']))[1] == 3) echo 'selected'; ?>>3</option>
+                            <option value="4" <?php if ($edit == 1 && (explode('/', $project['team/students']))[1] == 4) echo 'selected'; ?>>4</option>
+                            <option value="5" <?php if ($edit == 1 && (explode('/', $project['team/students']))[1] == 5) echo 'selected'; ?>>5</option>
                         </select>
+                        <?php if ($edit == 0): ?>
                         <button class="btn btn-info btn-block my-4" name="create" type="submit">Создать проект</button>
+                        <?php else: ?>
+                        <button class="btn btn-info btn-block my-4" name="save" type="submit">Сохранить</button>
+                        <?php endif; ?>
                     </form>
                 </div>
             </div>

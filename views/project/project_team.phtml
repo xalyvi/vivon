@@ -5,6 +5,7 @@
 .project-status {
     flex-flow: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
     height: auto;
     border-radius: 2px;
@@ -28,6 +29,7 @@
     border: 1px solid #ccc;
     border-radius: 1px;
 }
+
 #calendar {
     max-width: 35rem;
 }
@@ -43,9 +45,10 @@
                                 <p>в разработке</p>
                                 <i class="fas fa-calendar-alt fa-6x"></i>
                             </div>
-                            <p class="mt-1 pl-2">VR energetics</p>
+                            <p class="mt-1 pl-2"><?php echo $project['title']; ?></p>
                             <hr>
-                            <a href="#" class="light-blue-text"><i class="pl-2 far fa-file text-black-50"></i> Документ</a>
+                            <a href="#" class="light-blue-text"><i class="pl-2 far fa-file text-black-50"></i>
+                                Документ</a>
                             <hr>
                             <div class="pl-2 row">
                                 <button type="button" class="btn btn-success btn-sm">Для чего та</button>
@@ -56,20 +59,21 @@
                             <p class="pl-2">Сформирована <strong>10 месяцев</strong> назад</p>
                             <hr>
                             <div class="pt-2 pl-2 align-middle font-weight-light">
-                                <p class="grey-text"><i class="fas fa-1x fa-users"></i> В команде 5 студентов</p>
-                                <img src="/temp/temp.png" alt="" class="rounded-circle img-fluid pr-1"
-                                    style="width: 50px">
-                                <img src="/temp/temp.png" alt="" class="rounded-circle img-fluid pr-1"
-                                    style="width: 50px">
-                                <img src="/temp/temp.png" alt="" class="rounded-circle img-fluid pr-1"
-                                    style="width: 50px">
+                                <p class="grey-text"><i class="fas fa-1x fa-users"></i> Команда</p>
+                                <?php foreach($reqs as $req) {
+                                    if ($req['team'] == $team)
+                                    echo '<img src="/temp/'.$req['pic'].'" alt="" class="rounded-circle img-fluid pr-1"
+                                    style="width: 50px">';
+                                } ?>
                             </div>
                             <hr>
                             <div class="mx-auto " id="calendar"></div>
                             <hr>
                             <p class="grey-text"><i class="fas fa-1x fa-code-branch"></i> Git репозиторий</p>
-                            <div class="input-group">
-                                <input type="text" class="form-control" style="border-bottom-right-radius: 0; border-top-right-radius: 0;" readonly value="vogsphere@vogsphere.21-school.ru:intra/2019/activities/ft_printf/srolland">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control"
+                                    style="border-bottom-right-radius: 0; border-top-right-radius: 0;" readonly
+                                    value="vogsphere@vogsphere.21-school.ru:intra/2019/activities/ft_printf/srolland">
                                 <span class="input-group-addon">
                                     <i class="far fa-clone"></i>
                                 </span>
@@ -85,15 +89,22 @@
 <script src="/template/fullcalendar-4.2.0/packages/core/main.min.js"></script>
 <script src="/template/fullcalendar-4.2.0/packages/daygrid/main.min.js"></script>
 <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
+$(document).ready(function() {
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          plugins: [ 'dayGrid' ]
-        });
+    $(window).on('resize', function() {
+        $('.project-status').height($('.project-status').width());
+    }).trigger('resize');
 
-        calendar.render();
-      });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: ['dayGrid']
+    });
+
+    calendar.render();
+});
 </script>
 </body>
 

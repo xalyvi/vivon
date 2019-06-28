@@ -13,6 +13,39 @@
                         <a href="/addCriteria-id<?php echo $id; ?>"
                             class="list-group-item list-group-item-action">Критерии</a>
                     </div>
+                    <?php if ($setup == 1): ?>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-success" data-toggle="modal"
+                            data-target="#basicExampleModal">
+                            Разработка
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Вы уверены?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        После этого действия проект передет в стадию разработки!
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Назад</button>
+                                        <form action="" method="post">
+                                            <button name="welcome" type="submit" class="btn btn-primary">Подтвердить</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="col-md-10">
@@ -33,52 +66,63 @@
                                     <th></th>
                             </thead>
                             <tbody>
+                                <?php foreach($reqs as $req): ?>
+                                <?php if ($req['app'] == 0): ?>
                                 <tr class="align-items-center">
                                     <td><img class="card-img-top rounded-circle" style="width: 50px; height: 50px;"
-                                            src="/temp/temp.png" alt="Card image cap"></td>
-                                    <td>Имя Студента</td>
-                                    <td>1 Курс, Информационные Технологии</td>
+                                            src="/temp/<?php echo $req['pic']; ?>" alt="Card image cap"></td>
+                                    <td><?php echo $req['surname'].' '.$req['name'].' '.$req['patronymic']; ?></td>
+                                    <td><?php echo $req['position']; ?></td>
+                                    <?php if ($no == 0): ?>
                                     <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary btn-rounded btn-sm dropdown-toggle"
-                                                type="button" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                Small button
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#"></a>
-                                                <a class="dropdown-item" href="#">Another action</a>
-                                                <a class="dropdown-item" href="#">Something else here</a>
-                                            </div>
-                                        </div>
+                                        <form id="user<?php echo $req['id']; ?>" method="post">
+                                            <select name="team" class="mdb-select md-form" required>
+                                                <option value="" disabled selected>Выбрать команду</option>
+                                                <?php for ($i = 1; $i <= $teams; $i++) {
+                                                    if ($shit[$i - 1] < $cap)
+                                                        echo '<option value="'.$i.'">Команда '.$i.'</option>';
+                                                }
+                                            ?>
+                                            </select>
+                                        </form>
                                     </td>
                                     <td>
-                                        <a type="button" class="m-2 btn btn-primary btn-rounded btn-sm"
-                                            href="#">Отклонить заявку</a>
+                                        <button form="user<?php echo $req['id']; ?>" type="submit" name="addToTeam"
+                                            class="m-2 btn btn-primary btn-rounded btn-sm"
+                                            value="<?php echo $req['id']; ?>">Добавить в команду</button>
                                     </td>
+                                    <?php endif; ?>
                                 </tr>
+                                <?php endif; ?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <hr>
                 <div class="row">
-                    <?php for ($i = 0; $i < 3; $i++): ?>
+                    <?php for ($i = 1; $i <= $teams; $i++): ?>
                     <div class="card border-dark border-round p-0 m-3 col-sm">
-                        <div class="card-header">Команда A << Вид куратора>></div>
+                        <div class="card-header">Команда <?php echo $i; ?></div>
                         <div class="card-body px-5">
+                            <?php foreach($reqs as $req): ?>
+                            <?php if ($req['app'] == 1 && $req['team'] == $i): ?>
                             <div class="row justify-content-start">
                                 <div class="view overlay mr-3">
                                     <img class="card-img-top rounded-circle" style="width: 40px; height: 40px;"
-                                        src="/temp/temp.png" alt="Card image cap">
+                                        src="/temp/<?php echo $req['pic']; ?>" alt="Card image cap">
                                 </div>
                                 <div class="my-auto">
-                                    <h5>Имя студента</h5>
-                                    <span>1 Курс, Информационные Технологии</span>
+                                    <h5><?php echo $req['surname'].' '.$req['name'].' '.$req['patronymic']; ?></h5>
+                                    <span><?php echo $req['position'] ?></span>
                                 </div>
-                                <a type="button" class="m-3 btn btn-primary btn-rounded btn-sm" href="#">Отклонить
-                                    заявку</a>
+                                <form method="post">
+                                    <button type="submit" class="m-3 btn btn-primary btn-rounded btn-sm" name="delDom"
+                                        value="<?php echo $req['id']; ?>">Выгнать из Дома 2</button>
+                                </form>
                             </div>
+                            <?php endif; ?>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                     <?php endfor; ?>
@@ -98,6 +142,7 @@ $(document).ready(function() {
         "scrollX": true,
         "scrollCollapse": true,
     });
+    $('.mdb-select').materialSelect();
     $('.dataTables_length').addClass('bs-select');
 });
 </script>
